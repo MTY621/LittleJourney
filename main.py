@@ -12,6 +12,7 @@ def print_hi(name):
     # tata mic si mare si tare
 
     #bunicul gras
+    #bunicul slab
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
