@@ -74,18 +74,21 @@ def menu():
         events = pygame.event.get()
         for event in events:
             if event.type == update_loading:
-                print(i, 'ok1')
-                i+=1
                 progress = loading.get_widget("1")
                 progress.set_value(progress.get_value() + 1)
                 if progress.get_value() == 100:
-                    print(i, 'ok2')
                     pygame.time.set_timer(update_loading, 0)  # Stop the timer
-                    progress.set_value(0)  # Reset progress bar
+                    progress.set_value(0)  # Reset the progress bar
+
+                    # Ensure the loading menu is properly closed and mainmenu is active
                     loading.disable()  # Disable the loading menu
+                    loading.reset(1)  # Reset loading menu widgets for safety
                     mainmenu.enable()  # Enable the main menu
-                    surface.fill((0, 0, 0))  # Fill the surface with black
-                    sleep(5)
+                    mainmenu._open(mainmenu)  # Open the main menu explicitly
+
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
             if event.type == pygame.QUIT:
                 exit()
 
@@ -98,6 +101,7 @@ def menu():
             if (mainmenu.get_current().get_selected_widget()):
                 left_arrow.draw(surface, mainmenu.get_current().get_selected_widget())
                 right_arrow.draw(surface, mainmenu.get_current().get_selected_widget())
+
 
         pygame.display.update()
 
