@@ -8,11 +8,19 @@ from menus.starting_menu import set_save_attr, starting_menu
 from menus.sure_menu import sure
 
 pygame.init()
+pygame.mixer.init()
 surface = pygame.display.set_mode((globals.SCREEN_WIDTH, globals.SCREEN_HEIGHT))
 
 # Load and scale the background image
 background = pygame.image.load('../background/normal/3_mountain.png').convert()
 background = pygame.transform.scale(background, (globals.SCREEN_WIDTH, globals.SCREEN_HEIGHT))
+
+# Load background music
+pygame.mixer.music.load('../music/little_town_reinstrumented.ogg')  # Replace with your file path
+pygame.mixer.music.set_volume(0.5)  # Set volume (0.0 to 1.0)
+
+# Play the music on a loop (-1 for infinite loop)
+pygame.mixer.music.play(-1)
 
 
 def drop_new_game_menu(value, index, widget=None):
@@ -121,6 +129,7 @@ def menu():
                     main_menu.enable()  # Enable the main menu
 
             if event.type == pygame.QUIT:
+                pygame.mixer.music.stop()
                 pygame.quit()
                 exit()
 
