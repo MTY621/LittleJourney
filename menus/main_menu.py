@@ -54,6 +54,10 @@ def settings_menu_call():
     settings(main_menu)
 
 
+def credits_menu_call():
+    main_menu._open(credits_menu)
+
+
 # Create menus
 main_menu = pygame_menu.Menu(
     'Main menu', globals.SCREEN_WIDTH, globals.SCREEN_HEIGHT, theme=globals.custom_theme)
@@ -61,6 +65,7 @@ main_menu.add.button('New game', new_game)
 main_menu.add.button('Continue', old_game)
 main_menu.add.button('Load', load_save)
 main_menu.add.button('Settings', settings_menu_call)
+main_menu.add.button('Credits', credits_menu_call)
 main_menu.add.button('Exit', pygame_menu.events.EXIT)
 
 
@@ -81,6 +86,14 @@ load_save_menu = pygame_menu.Menu('Load game', globals.SCREEN_WIDTH, globals.SCR
 load_save_menu.add.dropselect("Select a save slot", [(get_key_at_index(0), 0), (get_key_at_index(1), 1),
                         (get_key_at_index(2), 2), (get_key_at_index(3), 3), (get_key_at_index(4), 4)],
                          onchange=drop_loading_menu)
+
+
+credits_menu = pygame_menu.Menu('Credits', globals.SCREEN_WIDTH, globals.SCREEN_HEIGHT,
+    theme=globals.custom_theme)
+# Add text to the credits menu
+credits_menu.add.label('Game developed by\nBelciug Matei\nBigan Radu Cristin\n')
+credits_menu.add.label('Graphics by\n')
+credits_menu.add.label('Music by\n')
 
 
 left_arrow = pygame_menu.widgets.LeftArrowSelection(arrow_size=(10, 15))
