@@ -2,7 +2,7 @@
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
-from menu.main_menu import menu
+from menus.main_menu import menu
 import globals
 
 def new_game():
