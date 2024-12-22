@@ -3,7 +3,7 @@ import pygame_menu
 
 import globals
 from globals import used_save_slots, get_key_at_index
-from menus.settings_menu import settings, settings_menu
+from menus.settings_menu import settings
 from menus.starting_menu import set_save_attr, starting_menu
 from menus.sure_menu import sure
 
@@ -11,7 +11,7 @@ pygame.init()
 surface = pygame.display.set_mode((globals.SCREEN_WIDTH, globals.SCREEN_HEIGHT))
 
 # Load and scale the background image
-background = pygame.image.load('../background/normal/PRE_ORIG_SIZE3.png').convert()
+background = pygame.image.load('../background/normal/3_mountain.png').convert()
 background = pygame.transform.scale(background, (globals.SCREEN_WIDTH, globals.SCREEN_HEIGHT))
 
 
