@@ -9,14 +9,14 @@ from menus.sure_menu import sure
 
 pygame.init()
 pygame.mixer.init()
-surface = pygame.display.set_mode((globals.SCREEN_WIDTH, globals.SCREEN_HEIGHT))
+screen = pygame.display.set_mode((globals.SCREEN_WIDTH, globals.SCREEN_HEIGHT))
 
 # Load and scale the background image
-background = pygame.image.load('../background/normal/3_mountain.png').convert()
+background = pygame.image.load('background/normal/3_mountain.png').convert()
 background = pygame.transform.scale(background, (globals.SCREEN_WIDTH, globals.SCREEN_HEIGHT))
 
 # Load background music
-pygame.mixer.music.load('../music/little_town_reinstrumented.ogg')  # Replace with your file path
+pygame.mixer.music.load('music/little_town_reinstrumented.ogg')
 pygame.mixer.music.set_volume(0.5)  # Set volume (0.0 to 1.0)
 
 # Play the music on a loop (-1 for infinite loop)
@@ -42,7 +42,7 @@ def new_game():
 
 
 def old_game():
-    print("old game")
+    pygame.event.post(pygame.event.Event(exit_menu))
 
 
 def loading_menu():
@@ -59,7 +59,11 @@ def load_save():
 
 
 def settings_menu_call():
-    settings(main_menu)
+    settings(main_menu, pygame.mixer)
+    if globals.music_is_on:
+        pygame.mixer.music.unpause()
+    else:
+        pygame.mixer.music.pause()
 
 
 def credits_menu_call():
@@ -100,18 +104,23 @@ credits_menu = pygame_menu.Menu('Credits', globals.SCREEN_WIDTH, globals.SCREEN_
     theme=globals.custom_theme)
 # Add text to the credits menu
 credits_menu.add.label('Game developed by\nBelciug Matei\nBigan Radu Cristin\n')
-credits_menu.add.label('Graphics by\n')
-credits_menu.add.label('Music by\n')
+credits_menu.add.label('Background images from\ncraftpix.net\n')
+credits_menu.add.label('Character graphics from\nopengameart.org\ncraftpix.net\n')
+credits_menu.add.label('Item images from\ncraftpix.net\n')
+credits_menu.add.label('Background music from\nopengameart.org\n')
+credits_menu.add.label('Sound effects from\nopengameart.org\n')
 
 
 left_arrow = pygame_menu.widgets.LeftArrowSelection(arrow_size=(10, 15))
 right_arrow = pygame_menu.widgets.RightArrowSelection(arrow_size=(10, 15))
 
 update_loading = pygame.USEREVENT + 0
+exit_menu = pygame.USEREVENT + 1
 
 
 # Main menu loop
 def menu():
+    main_menu.enable()
     while True:
         events = pygame.event.get()
         for event in events:
@@ -128,6 +137,11 @@ def menu():
                     loading.reset(1)  # Reset loading menu widgets for safety
                     main_menu.enable()  # Enable the main menu
 
+            if event.type == exit_menu:
+                main_menu.disable()
+                pygame.mixer.music.stop()
+                return
+
             if event.type == pygame.QUIT:
                 pygame.mixer.music.stop()
                 pygame.quit()
@@ -135,14 +149,14 @@ def menu():
 
         # Handle the active menu
         if main_menu.is_enabled():  # Otherwise, handle the main menu
-            surface.blit(background, (0, 0))  # Ensure the background is drawn before the menu
+            screen.blit(background, (0, 0))  # Ensure the background is drawn before the menu
             main_menu.update(events)  # Update menu widgets
-            main_menu.draw(surface)  # Draw menu widgets on top
+            main_menu.draw(screen)  # Draw menu widgets on top
             if main_menu.get_current().get_selected_widget():
-                left_arrow.draw(surface, main_menu.get_current().get_selected_widget())
-                right_arrow.draw(surface, main_menu.get_current().get_selected_widget())
+                left_arrow.draw(screen, main_menu.get_current().get_selected_widget())
+                right_arrow.draw(screen, main_menu.get_current().get_selected_widget())
 
         pygame.display.update()
 
 # Run the menu function
-menu()
+# menu()

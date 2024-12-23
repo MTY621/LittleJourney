@@ -4,16 +4,24 @@ from pygame import Color
 SCREEN_HEIGHT = 800
 SCREEN_WIDTH = 1200
 
+MAIN_MENU = 1
+CONTINUE = 2
+DEATH = 3
+
+CHARACTER_WIDTH = 32
+CHARACTER_HEIGHT = 32
+
 used_save_slots = {"Slot 1" : 0, "Slot 2" : 0, "Slot 3" : 0, "Slot 4" : 0, "Slot 5" : 0}
 def_names = ["Slot 1", "Slot 2", "Slot 3", "Slot 4", "Slot 5"]
 player_name = ""
 player_race = ""
+music_is_on = True
 
 custom_theme = pygame_menu.themes.Theme(
     background_color = (0, 0, 0, 0),  # Fully transparent background
     title_font = pygame_menu.font.FONT_8BIT,
     widget_font = pygame_menu.font.FONT_8BIT,
-    widget_font_color = Color('#69696E'),
+    widget_font_color = Color('#404040'),
     title_font_size = 50,
 )
 
