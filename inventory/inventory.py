@@ -1,6 +1,7 @@
 import pygame
 import random
 from item import Item
+import json
 
 
 # Constants
@@ -17,12 +18,13 @@ GRAY = (200, 200, 200)
 BLACK = (0, 0, 0)
 ACTIVE_COLOR = (100, 150, 200)
 INACTIVE_COLOR = GRAY
+BUTTON_COLOR = (0, 200, 0)
+BUTTON_TEXT_COLOR = WHITE
 
 # Initialize Pygame
 pygame.init()
 
 # Load the sprite sheet
-sprite_sheet = pygame.image.load("./../items/sword.png")
 button_image = pygame.image.load("background.png")
 
 # Define the dimensions of each sprite in the sheet
@@ -47,7 +49,7 @@ def random_description():
 class Inventory:
     def __init__(self, screen_width, screen_height):
         self.available_items = {}
-        self.player_items = []
+        self.player_items = [None] * MAX_ITEMS
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.selected_item = None
@@ -60,27 +62,58 @@ class Inventory:
         self.initialize_available_items()
 
     def initialize_available_items(self):
-        index = 0
-        for row in range(sprite_sheet.get_height() // SPRITE_HEIGHT):
-            for col in range(sprite_sheet.get_width() // SPRITE_WIDTH):
-                if index >= len(ITEM_NAMES):
-                    break
-                rect = pygame.Rect(
-                    0, 0, SPRITE_WIDTH, SPRITE_HEIGHT
-                )
-                sprite = sprite_sheet.subsurface(rect)
-                name = ITEM_NAMES[index]
-                description = random_description()
+        try:
+            # Open and parse the JSON file
+            with open("./../items/available_items.json", "r") as file:
+                items_data = json.load(file)
+
+            for item_data in items_data:
+                # Extract item properties from JSON
+                file_name = item_data.get("file_name")
+                name = item_data.get("name")
+                print(name)
+
+                if not file_name or not name:
+                    continue  # Skip invalid entries
+
+                # Load the sprite from the file
+                sprite_path = f"./../items/{file_name}"
+                print(sprite_path)
+                try:
+                    rect = pygame.Rect(0, 0, SPRITE_WIDTH, SPRITE_HEIGHT)
+                    sprite = pygame.image.load(sprite_path).subsurface(rect)
+                except pygame.error as e:
+                    print(f"Error loading sprite '{sprite_path}': {e}")
+                    continue
+
+                # Create the Item object with a default description
+                description = "No description"
                 item = Item(name, description, sprite)
+
+                # Add the item to the available items dictionary
                 self.available_items[name] = item
-                index += 1
+
+        except FileNotFoundError:
+            print("Error: 'available_items.json' file not found.")
+        except json.JSONDecodeError:
+            print("Error: Failed to parse 'available_items.json'.")
 
     def add_player_item(self, name):
         if name in self.available_items:
-            self.player_items.append(self.available_items[name].__copy__())
-            print(f"Added {name} to player's inventory.")
+            for i in range(len(self.player_items)):
+                if self.player_items[i] is None:
+                    self.player_items[i] = self.available_items[name].__copy__()
+                    print(f"Added {name} to player's inventory.")
+                    return
         else:
             print(f"Item {name} does not exist in available items.")
+
+    def remove_player_item(self, index):
+        if 0 <= index < len(self.player_items):
+            self.player_items[index].is_selected = False
+            self.player_items[index] = None
+        else:
+            print(f"Invalid index {index} for item removal.")
 
     def handle_event(self, event):
         # Handle button click
@@ -88,6 +121,10 @@ class Inventory:
             mouse_pos = event.pos
 
             if self.button_rect.collidepoint(mouse_pos):
+                if self.show_inventory:
+                    if self.selected_item:
+                        self.selected_item.is_selected = False
+                        self.selected_item = None
                 self.show_inventory = not self.show_inventory
                 return
 
@@ -106,20 +143,8 @@ class Inventory:
 
             if i < len(self.player_items):
                 item = self.player_items[i]
-                if item.handle_click(mouse_pos, x, y, FRAME_SIZE):
-                    # If clicked item is already selected, deselect it
-                    if self.selected_item == item:
-                        self.selected_item.is_selected = False
-                        self.selected_item = None
-                    else:
-                        # Deselect previously selected item
-                        if self.selected_item:
-                            self.selected_item.is_selected = False
-
-                        # Select the new item
-                        self.selected_item = item
-                        item.is_selected = True
-                    break
+                if item:
+                    item.handle_click(mouse_pos, x, y, FRAME_SIZE, self)
 
     def draw_button(self, screen):
         # Change button color based on inventory state
@@ -135,6 +160,13 @@ class Inventory:
         icon_y = self.button_rect.y + (BUTTON_HEIGHT - scaled_icon.get_height()) // 2
         screen.blit(scaled_icon, (icon_x, icon_y))
 
+    def draw_button_text(self, screen, text, rect):
+        """Draw text centered inside a button."""
+        font = pygame.font.SysFont(None, 20)
+        text_surface = font.render(text, True, BUTTON_TEXT_COLOR)
+        text_rect = text_surface.get_rect(center=rect.center)
+        screen.blit(text_surface, text_rect)
+
     def display_inventory(self, screen):
         if not self.show_inventory:
             return
@@ -149,7 +181,7 @@ class Inventory:
             y = start_y
 
             # Draw either an item or an empty box
-            if i < len(self.player_items):
+            if self.player_items[i]:
                 item = self.player_items[i]
                 item.draw(screen, x, y, FRAME_SIZE)
             else:

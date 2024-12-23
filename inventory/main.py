@@ -17,9 +17,10 @@ BLACK = (0, 0, 0)
 
 # Initialize the inventory
 inventory = Inventory(SCREEN_WIDTH, SCREEN_HEIGHT)
-inventory.add_player_item("Gold Sword")
-inventory.add_player_item("Silver Ingot")
-inventory.add_player_item("Iron Pickaxe")
+inventory.add_player_item("Sword")
+inventory.add_player_item("Pickaxe")
+inventory.add_player_item("Beer")
+inventory.add_player_item("Pretzel")
 inventory.add_player_item("Bronze Axe")
 
 # Pygame screen setup
