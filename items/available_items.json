@@ -1,0 +1,30 @@
+[
+  {
+    "name" : "Sword",
+    "file_name": "sword.png"
+  },
+  {
+    "name" : "Pickaxe",
+    "file_name" : "pickaxe.png"
+  },
+  {
+    "name" : "Watermelon",
+    "file_name" : "watermelon.png"
+  },
+  {
+    "name" : "Pretzel",
+    "file_name" : "pretzel.png"
+  },
+  {
+    "name" : "Chicken",
+    "file_name" : "chicken.png"
+  },
+  {
+    "name" : "Cheese",
+    "file_name" : "cheese.png"
+  },
+  {
+    "name" : "Beer",
+    "file_name" : "beer.png"
+  }
+]
