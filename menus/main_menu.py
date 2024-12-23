@@ -72,7 +72,7 @@ def credits_menu_call():
 
 # Create menus
 main_menu = pygame_menu.Menu(
-    'Main menu', globals.SCREEN_WIDTH, globals.SCREEN_HEIGHT, theme=globals.custom_theme)
+    'Main menu', globals.SCREEN_WIDTH, globals.SCREEN_HEIGHT, theme=globals.custom_play_theme)
 main_menu.add.button('New game', new_game)
 main_menu.add.button('Continue', old_game)
 main_menu.add.button('Load', load_save)

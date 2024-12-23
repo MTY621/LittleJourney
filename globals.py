@@ -25,6 +25,14 @@ custom_theme = pygame_menu.themes.Theme(
     title_font_size = 50,
 )
 
+custom_play_theme = pygame_menu.themes.Theme(
+    background_color = (0, 0, 0, 0),  # Fully transparent background
+    title = False,  # Disable the title
+    title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_NONE,  # No title bar
+    title_font = pygame_menu.font.FONT_8BIT,
+    widget_font = pygame_menu.font.FONT_8BIT,
+    widget_font_color = Color('#404040'),
+)
 
 # Function to get the key at a given index
 def get_key_at_index(index):

@@ -56,7 +56,7 @@ class Player:
         if sound:
             pygame.mixer.music.load(sound)
             pygame.mixer.music.set_volume(0.5)
-            pygame.mixer.music.play(10)
+            pygame.mixer.music.play(50)
 
 
     def draw(self, screen, display, sprite, sound):
@@ -66,7 +66,8 @@ class Player:
         display.update()
 
         if sound != self.death_sound:
-            sleep(0.1)
+            sleep(0.5)
+            pygame.mixer.music.stop()
             screen.blit(self.sprite, (SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
             display.update()
 

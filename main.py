@@ -1,6 +1,3 @@
-# This is a sample Python script.
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 from time import sleep
 
 import pygame
@@ -27,9 +24,9 @@ if __name__ == '__main__':
         player.attack(screen, pygame.display)
         sleep(1)
         player.take_damage(screen, 10, pygame.display)
+        sleep(1)
 
         clock.tick(60)
 
     pygame.quit()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
