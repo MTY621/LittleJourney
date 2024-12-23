@@ -1,12 +1,12 @@
 import pygame
 import pygame_menu
 
-import globals
+import glob
 
 pygame.init()
-surface = pygame.display.set_mode((globals.SCREEN_WIDTH, globals.SCREEN_HEIGHT))
+surface = pygame.display.set_mode((glob.SCREEN_WIDTH, glob.SCREEN_HEIGHT))
 
-global sound_option_widget, mixer
+global music_option_widget, sound_effects_option_widget, mixer
 
 
 def settings(menu, given_mixer):
@@ -16,15 +16,25 @@ def settings(menu, given_mixer):
 
 
 def sound_selector(value, index, widget=None):
-    global sound_option_widget, mixer
-    if sound_option_widget.get_index() == 0:
+    global music_option_widget, mixer
+    if music_option_widget.get_index() == 0:
         mixer.music.unpause()
-        globals.music_is_on = True
+        glob.music_is_on = True
     else:
         mixer.music.pause()
-        globals.music_is_on = False
+        glob.music_is_on = False
 
 
-settings_menu = pygame_menu.Menu('Settings', globals.SCREEN_WIDTH, globals.SCREEN_HEIGHT,
-    theme=globals.custom_theme)
-sound_option_widget = settings_menu.add.selector('Sound :', [('ON', 1), ('OFF', 2)], onchange=sound_selector)
+def effect_selector(value, index, widget=None):
+    global sound_effects_option_widget, mixer
+    if sound_effects_option_widget.get_index() == 0:
+        glob.sound_effects_are_on = True
+    else:
+        glob.sound_effects_are_on = False
+
+
+settings_menu = pygame_menu.Menu('Settings', glob.SCREEN_WIDTH, glob.SCREEN_HEIGHT,
+    theme=glob.custom_theme)
+music_option_widget = settings_menu.add.selector('Sound :', [('ON', 1), ('OFF', 2)], onchange=sound_selector)
+sound_effects_option_widget = settings_menu.add.selector('Sound effects:', [('ON', 1), ('OFF', 2)],
+                                                         onchange=effect_selector)

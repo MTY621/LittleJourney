@@ -3,7 +3,7 @@ from time import sleep
 import pygame
 import random
 
-from globals import SCREEN_WIDTH, SCREEN_HEIGHT, DEATH
+from glob import SCREEN_WIDTH, SCREEN_HEIGHT, DEATH
 
 # Initialize Pygame
 pygame.init()
@@ -36,6 +36,7 @@ class ChillNpc:
         self.name = name
         self.items = items
         self.drop_chance = drop_chance
+        self.type = 'chill'
 
 
     def __copy__(self):

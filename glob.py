@@ -16,6 +16,7 @@ def_names = ["Slot 1", "Slot 2", "Slot 3", "Slot 4", "Slot 5"]
 player_name = ""
 player_race = ""
 music_is_on = True
+sound_effects_are_on = True
 
 custom_theme = pygame_menu.themes.Theme(
     background_color = (0, 0, 0, 0),  # Fully transparent background

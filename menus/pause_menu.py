@@ -1,12 +1,12 @@
 import pygame
 import pygame_menu
 
-import globals
+import glob
 from settings_menu import settings_menu
 
 pygame.init()
 pygame.mixer.init()
-surface = pygame.display.set_mode((globals.SCREEN_WIDTH, globals.SCREEN_HEIGHT))
+surface = pygame.display.set_mode((glob.SCREEN_WIDTH, glob.SCREEN_HEIGHT))
 
 pygame.mixer.music.load('music/safe_room_theme.flac')
 pygame.mixer.music.set_volume(0.5)  # Set volume (0.0 to 1.0)
@@ -22,7 +22,7 @@ def settings_menu_call():
 
 # Create menus
 pause_menu = pygame_menu.Menu(
-    'Pause', globals.SCREEN_WIDTH, globals.SCREEN_HEIGHT, theme=globals.custom_theme)
+    'Pause', glob.SCREEN_WIDTH, glob.SCREEN_HEIGHT, theme=glob.custom_theme)
 pause_menu.add.button('Continue', resume_game)
 pause_menu.add.button('Settings', settings_menu_call)
 pause_menu.add.button('Main menu', pygame_menu.events.EXIT)
@@ -43,12 +43,12 @@ def pause_menu():
             if event.type == resume:
                 pause_menu.disable()
                 pygame.mixer.music.stop()
-                return globals.CONTINUE
+                return glob.CONTINUE
 
             if event.type == pygame.QUIT:
                 pause_menu.disable()
                 pygame.mixer.music.stop()
-                return globals.MAIN_MENU
+                return glob.MAIN_MENU
 
         # Handle the main menu
         if pause_menu.is_enabled():

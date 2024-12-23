@@ -1,15 +1,15 @@
 import pygame
 import pygame_menu
 
-import globals
+import glob
 
 pygame.init()
-surface = pygame.display.set_mode((globals.SCREEN_WIDTH, globals.SCREEN_HEIGHT))
+surface = pygame.display.set_mode((glob.SCREEN_WIDTH, glob.SCREEN_HEIGHT))
 
 
 def sure(menu, label, next_menu):
-    sure_menu = pygame_menu.Menu(label, globals.SCREEN_WIDTH, globals.SCREEN_HEIGHT,
-                                 theme=globals.custom_theme)
+    sure_menu = pygame_menu.Menu(label, glob.SCREEN_WIDTH, glob.SCREEN_HEIGHT,
+                                 theme=glob.custom_theme)
     sure_menu.add.button('Yes', lambda: sure_menu._open(next_menu))
     sure_menu.add.button('No', lambda: sure_menu.reset(1))
 
