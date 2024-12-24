@@ -1,12 +1,8 @@
 from time import sleep
-
 import pygame
 
 import glob
-from characters.player import Player
 from menus.main_menu import menu
-from glob import SCREEN_WIDTH, SCREEN_HEIGHT
-import menus.story_menus.story_menu
 from menus.story_menus.gameplay_menus import menus
 from characters.npcs.chill_npcs import chill_npcs
 from characters.npcs.fighting_npcs import fighting_npcs
@@ -15,12 +11,11 @@ from game.game import Game
 # pygame.init()
 # pygame.mixer.init()
 # extra_info.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-# extra_info.\
-#     display = pygame.display
+# extra_info.display = pygame.display
 
 if __name__ == '__main__':
     menu()
-    game = Game(glob.player_race, glob.player_name, menus[1])
+    game = Game(glob.player_race, glob.player_name, menus[1], glob.MAIN_MENU_SONG)
     for chill_npc in chill_npcs:
         chill_npc.game = game
     for fighting_npc in fighting_npcs:
@@ -51,6 +46,3 @@ if __name__ == '__main__':
     # sleep(2)
     # pygame.mixer.quit()
     # pygame.quit()
-
-# npc update suport spriteuri si sunete
-# tranzitie fundal

@@ -18,8 +18,8 @@ class ChillNpc:
         self.sprite = self.scale(self.sprite)
         self.attack_sprite = pygame.image.load(path + "attack.png").convert_alpha()
         self.attack_sprite = self.scale(self.attack_sprite)
-        self.damaged_sprite = pygame.image.load(path + "damaged.png").convert_alpha()
-        self.damaged_sprite = self.scale(self.damaged_sprite)
+        self.hurt_sprite = pygame.image.load(path + "hurt.png").convert_alpha()
+        self.hurt_sprite = self.scale(self.hurt_sprite)
         self.death_sprite = pygame.image.load(path + "death.png").convert_alpha()
         self.death_sprite = self.scale(self.death_sprite)
 
@@ -101,5 +101,5 @@ class ChillNpc:
             return DEATH
 
         # damage taken effects
-        self.draw(self.damaged_sprite)
+        self.draw(self.hurt_sprite)
         return 0

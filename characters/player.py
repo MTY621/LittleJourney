@@ -19,15 +19,15 @@ class Player:
         self.sprite = self.scale(self.sprite)
         self.attack_sprite = pygame.image.load(path + "attack.png").convert_alpha()
         self.attack_sprite = self.scale(self.attack_sprite)
-        self.damaged_sprite = pygame.image.load(path + "damaged.png").convert_alpha()
-        self.damaged_sprite = self.scale(self.damaged_sprite)
+        self.hurt_sprite = pygame.image.load(path + "hurt.png").convert_alpha()
+        self.hurt_sprite = self.scale(self.hurt_sprite)
         self.death_sprite = pygame.image.load(path + "death.png").convert_alpha()
         self.death_sprite = self.scale(self.death_sprite)
 
         path = "sound_effects/main_character/"
         self.sound = path + "step_dirt_1.wav"
         self.attack_sound = path + "whoosh.wav"
-        self.damaged_sound = path + "pain.wav"
+        self.hurt_sound = path + "pain.wav"
         self.death_sound = path + "death.wav"
 
         self.atk = 1
@@ -71,13 +71,14 @@ class Player:
 
     def draw(self, sprite, sound):
         # draw inventory
-        # healthbar
         self.health_bar.draw(self.game.screen, self.hp ,SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT - 40)
         self.action_effects(sprite, sound)
         self.game.display.update()
         sleep(0.5)
         #play music if on
-        pygame.mixer.music.stop()
+        if glob.music_is_on:
+            pygame.mixer.music.load(self.game.song)
+            pygame.mixer.music.play(-1)
 
         if sound != self.death_sound:
             self.game.screen.blit(self.sprite, (SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
@@ -101,7 +102,7 @@ class Player:
             return DEATH
 
         #damage taken effects
-        self.draw(self.damaged_sprite, self.damaged_sound)
+        self.draw(self.hurt_sprite, self.hurt_sound)
         return 0
 
 

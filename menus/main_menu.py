@@ -16,7 +16,7 @@ background = pygame.image.load('background/normal/3_mountain.png').convert()
 background = pygame.transform.scale(background, (glob.SCREEN_WIDTH, glob.SCREEN_HEIGHT))
 
 # Load background music
-pygame.mixer.music.load('music/little_town_reinstrumented.ogg')
+pygame.mixer.music.load(glob.MAIN_MENU_SONG)
 pygame.mixer.music.set_volume(0.5)  # Set volume (0.0 to 1.0)
 
 # Play the music on a loop (-1 for infinite loop)

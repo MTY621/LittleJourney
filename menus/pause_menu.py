@@ -2,6 +2,7 @@ import pygame
 import pygame_menu
 
 import glob
+import game.game
 from settings_menu import settings_menu
 
 pygame.init()
@@ -35,19 +36,21 @@ resume = pygame.USEREVENT + 1
 
 
 # Pause menu loop
-def pause_menu():
+def pause_menu(game):
     pause_menu.enable()
     while True:
         events = pygame.event.get()
         for event in events:
             if event.type == resume:
                 pause_menu.disable()
-                pygame.mixer.music.stop()
+                pygame.mixer.music.load(game.song)
+                pygame.mixer.music.play(-1)
                 return glob.CONTINUE
 
             if event.type == pygame.QUIT:
                 pause_menu.disable()
-                pygame.mixer.music.stop()
+                pygame.mixer.music.load(glob.MAIN_MENU_SONG)
+                pygame.mixer.music.play(-1)
                 return glob.MAIN_MENU
 
         # Handle the main menu
