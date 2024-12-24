@@ -4,7 +4,6 @@ import pygame
 import random
 
 from glob import CHARACTER_WIDTH, CHARACTER_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT, DEATH
-import extra_info
 
 
 # Initialize Pygame
@@ -46,6 +45,7 @@ class FightingNpc:
         self.items = items
         self.drop_chance = drop_chance
         self.type = 'fighting'
+        self.game = None
 
 
     def __copy__(self):
@@ -68,24 +68,24 @@ class FightingNpc:
     def action_effects(self, sprite):
         if sprite:
             if sprite == self.death_sprite:
-                extra_info.screen.blit(extra_info.background, (0, 0))
-                extra_info.display.update()
+                self.game.screen.blit(self.game.background, (0, 0))
+                self.game.display.update()
                 # draw health bar
-                extra_info.screen.blit(sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT + 70))
+                self.game.screen.blit(sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT + 70))
             else:
                 # draw health bar
-                extra_info.screen.blit(sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
+                self.game.screen.blit(sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
 
 
     def draw(self, sprite):
         # healthbar
         self.action_effects(sprite)
-        extra_info.display.update()
+        self.game.display.update()
         sleep(0.5)
 
         if sprite != self.death_sprite:
-            extra_info.screen.blit(self.sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
-            extra_info.display.update()
+            self.game.screen.blit(self.sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
+            self.game.display.update()
             sleep(0.5)
 
 

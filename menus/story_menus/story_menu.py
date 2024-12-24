@@ -2,7 +2,6 @@ import pygame
 import pygame_menu
 
 import glob
-import extra_info
 
 
 # Initialize Pygame
@@ -15,17 +14,18 @@ class StoryMenu:
         self.menu = pygame_menu.Menu("", glob.SCREEN_WIDTH, glob.SCREEN_HEIGHT, theme=glob.custom_play_theme)
         self.menus = next_menus
         self.next_menu = None
+        self.game = None
 
 
     def player_attack(self):
         print(11)
-        extra_info.player.attack()
-        self.npc.take_damage(extra_info.player.atk)
+        self.game.player.attack()
+        self.npc.take_damage(self.game.player.atk)
 
 
     def npc_attack(self):
         self.npc.attack()
-        extra_info.player.take_damage(extra_info.player.atk)
+        self.game.player.take_damage(self.game.player.atk)
 
 
     def get_items(self, items):
@@ -44,3 +44,31 @@ class StoryMenu:
         self.menu.add.button(text, function)
         self.next_menu = self.menus[index]
 
+    # Main menu loop
+    def gameplay_menu(self):
+        menu = self.menu
+        menu.enable()
+        while True:
+            events = pygame.event.get()
+
+            # Handle the active menu
+            self.game.screen.blit(self.game.background, (0, 0))  # Ensure the background is drawn before the menu
+            menu.update(events)  # Update menu widgets
+            menu.draw(self.game.screen)  # Draw menu widgets on top
+
+            pygame.display.update()
+
+            for event in events:
+                # check if enter key was pressed
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RETURN or event.key == pygame.K_KP_ENTER:
+                        menu.disable()
+                        return self.next_menu
+
+                # check if mouse was clicked
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    # check if a menu item was clicked
+                    if event.button == 1 and menu.get_selected_widget().get_rect().collidepoint(event.pos):
+                        menu.get_selected_widget().apply()
+                        menu.disable()
+                        return self.next_menu

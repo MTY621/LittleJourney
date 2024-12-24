@@ -5,14 +5,13 @@ import pygame
 import random
 
 from glob import CHARACTER_WIDTH, CHARACTER_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT, DEATH
-import extra_info
 
 # Initialize Pygame
 pygame.init()
 pygame.mixer.init()
 
 class Player:
-    def __init__(self, sprite_name, hp, name, inventory):
+    def __init__(self, sprite_name, hp, name, inventory, game):
 
         path = "characters/character_images/main_character/" + sprite_name + "/"
         self.sprite = pygame.image.load(path + "default.png").convert_alpha()
@@ -37,6 +36,7 @@ class Player:
         self.money = 0
         self.name = name
         self.inventory = inventory
+        self.game = game
 
 
     def scale(self, image):
@@ -54,13 +54,13 @@ class Player:
     def action_effects(self, sprite, sound):
         if sprite:
             if sound == self.death_sound:
-                extra_info.screen.blit(extra_info.background, (0, 0))
-                display.update()
+                self.game.screen.blit(self.game.background, (0, 0))
+                self.game.display.update()
                 # draw health bar
-                extra_info.screen.blit(sprite, (SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT + 70))
+                self.game.screen.blit(sprite, (SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT + 70))
             else:
                 #draw health bar
-                extra_info.screen.blit(sprite, (SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
+                self.game.screen.blit(sprite, (SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
         if sound and glob.sound_effects_are_on == True:
             pygame.mixer.music.load(sound)
             pygame.mixer.music.set_volume(0.5)
@@ -71,14 +71,14 @@ class Player:
         # draw inventory
         # healthbar
         self.action_effects(sprite, sound)
-        extra_info.display.update()
+        self.game.display.update()
         sleep(0.5)
         #play music if on
         pygame.mixer.music.stop()
 
         if sound != self.death_sound:
-            extra_info.screen.blit(self.sprite, (SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
-            extra_info.display.update()
+            self.game.screen.blit(self.sprite, (SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
+            self.game.display.update()
 
 
     def take_damage(self, damage):

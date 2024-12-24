@@ -13,8 +13,8 @@ DEATH = 3
 
 used_save_slots = {"Slot 1" : 0, "Slot 2" : 0, "Slot 3" : 0, "Slot 4" : 0, "Slot 5" : 0}
 def_names = ["Slot 1", "Slot 2", "Slot 3", "Slot 4", "Slot 5"]
-player_name = ""
-player_race = ""
+player_name = "Alex"
+player_race = "Human"
 music_is_on = True
 sound_effects_are_on = True
 
