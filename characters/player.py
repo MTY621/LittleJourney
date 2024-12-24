@@ -4,6 +4,7 @@ from time import sleep
 import pygame
 import random
 
+from characters.health import HealthBar
 from glob import CHARACTER_WIDTH, CHARACTER_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT, DEATH
 
 # Initialize Pygame
@@ -37,6 +38,7 @@ class Player:
         self.name = name
         self.inventory = inventory
         self.game = game
+        self.health_bar = HealthBar(100, 170, 20)
 
 
     def scale(self, image):
@@ -70,6 +72,7 @@ class Player:
     def draw(self, sprite, sound):
         # draw inventory
         # healthbar
+        self.health_bar.draw(self.game.screen, self.hp ,SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT - 40)
         self.action_effects(sprite, sound)
         self.game.display.update()
         sleep(0.5)

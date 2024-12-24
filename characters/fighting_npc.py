@@ -3,6 +3,7 @@ from time import sleep
 import pygame
 import random
 
+from characters.health import HealthBar
 from glob import CHARACTER_WIDTH, CHARACTER_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT, DEATH
 
 
@@ -32,6 +33,7 @@ class FightingNpc:
         self.max_hp = max_hp
         self.hp = random.randint(min_hp, max_hp)
         self.total_hp = self.hp
+        self.health_bar = HealthBar(self.hp, 170, 20)
 
         self.min_def = min_def
         self.max_def = max_def
@@ -79,6 +81,7 @@ class FightingNpc:
 
     def draw(self, sprite):
         # healthbar
+        self.health_bar.draw(self.game.screen, self.hp, SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT - 40)
         self.action_effects(sprite)
         self.game.display.update()
         sleep(0.5)
