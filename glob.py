@@ -3,13 +3,13 @@ from pygame import Color
 
 SCREEN_HEIGHT = 800
 SCREEN_WIDTH = 1200
+CHARACTER_WIDTH = 32
+CHARACTER_HEIGHT = 32
 
+#return codes
 MAIN_MENU = 1
 CONTINUE = 2
 DEATH = 3
-
-CHARACTER_WIDTH = 32
-CHARACTER_HEIGHT = 32
 
 used_save_slots = {"Slot 1" : 0, "Slot 2" : 0, "Slot 3" : 0, "Slot 4" : 0, "Slot 5" : 0}
 def_names = ["Slot 1", "Slot 2", "Slot 3", "Slot 4", "Slot 5"]

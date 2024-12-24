@@ -5,6 +5,7 @@ import pygame
 import random
 
 from glob import CHARACTER_WIDTH, CHARACTER_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT, DEATH
+import extra_info
 
 # Initialize Pygame
 pygame.init()
@@ -50,37 +51,37 @@ class Player:
         return image
 
 
-    def action_effects(self, screen, display, background, sprite, sound):
+    def action_effects(self, sprite, sound):
         if sprite:
             if sound == self.death_sound:
-                screen.blit(background, (0, 0))
+                extra_info.screen.blit(extra_info.background, (0, 0))
                 display.update()
                 # draw health bar
-                screen.blit(sprite, (SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT + 70))
+                extra_info.screen.blit(sprite, (SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT + 70))
             else:
                 #draw health bar
-                screen.blit(sprite, (SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
+                extra_info.screen.blit(sprite, (SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
         if sound and glob.sound_effects_are_on == True:
             pygame.mixer.music.load(sound)
             pygame.mixer.music.set_volume(0.5)
             pygame.mixer.music.play(50)
 
 
-    def draw(self, screen, display, background, sprite, sound):
+    def draw(self, sprite, sound):
         # draw inventory
         # healthbar
-        self.action_effects(screen, display, background, sprite, sound)
-        display.update()
+        self.action_effects(sprite, sound)
+        extra_info.display.update()
         sleep(0.5)
         #play music if on
         pygame.mixer.music.stop()
 
         if sound != self.death_sound:
-            screen.blit(self.sprite, (SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
-            display.update()
+            extra_info.screen.blit(self.sprite, (SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
+            extra_info.display.update()
 
 
-    def take_damage(self, screen, damage, display, background):
+    def take_damage(self, damage):
         # Calculate the damage taken
         damage_taken = damage - self.defense
         if damage_taken < 0:
@@ -93,13 +94,13 @@ class Player:
 
         if self.hp == 0:
             #death effects
-            self.draw(screen, display, background, self.death_sprite, self.death_sound)
+            self.draw(self.death_sprite, self.death_sound)
             return DEATH
 
         #damage taken effects
-        self.draw(screen, display, background, self.damaged_sprite, self.damaged_sound)
+        self.draw(self.damaged_sprite, self.damaged_sound)
         return 0
 
 
-    def attack(self, screen, display, background):
-        self.draw(screen, display, background, self.attack_sprite, self.attack_sound)
+    def attack(self):
+        self.draw(self.attack_sprite, self.attack_sound)

@@ -3,22 +3,26 @@ from time import sleep
 import pygame
 import random
 
-from glob import SCREEN_WIDTH, SCREEN_HEIGHT, DEATH
+from glob import CHARACTER_WIDTH, CHARACTER_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT, DEATH
+import extra_info
+
 
 # Initialize Pygame
 pygame.init()
 
 class ChillNpc:
-    def __init__(self, sprite, damaged_sprite, death_sprite, sound, damaged_sound, death_sound, min_hp, max_hp,
-                 min_def, max_def, min_money, max_money, name, items, drop_chance):
+    def __init__(self, sprite_name, min_hp, max_hp, min_def, max_def, min_money, max_money, name, items, drop_chance):
 
-        self.sprite = sprite
-        self.damaged_sprite = damaged_sprite
-        self.death_sprite = death_sprite
-
-        self.sound = sound
-        self.damaged_sound = damaged_sound
-        self.death_sound = death_sound
+        self.sprite_name = sprite_name
+        path = "characters/character_images/" + sprite_name + "/"
+        self.sprite = pygame.image.load(path + "default.png").convert_alpha()
+        self.sprite = self.scale(self.sprite)
+        self.attack_sprite = pygame.image.load(path + "attack.png").convert_alpha()
+        self.attack_sprite = self.scale(self.attack_sprite)
+        self.damaged_sprite = pygame.image.load(path + "damaged.png").convert_alpha()
+        self.damaged_sprite = self.scale(self.damaged_sprite)
+        self.death_sprite = pygame.image.load(path + "death.png").convert_alpha()
+        self.death_sprite = self.scale(self.death_sprite)
 
         self.min_hp = min_hp
         self.max_hp = max_hp
@@ -40,16 +44,44 @@ class ChillNpc:
 
 
     def __copy__(self):
-        return ChillNpc(self.sprite, self.damaged_sprite, self.death_sprite, self.sound, self.damaged_sound,
-                        self.death_sound, self.min_hp, self.max_hp, self.min_def, self.max_def, self.min_money,
+        return ChillNpc(self.sprite_name, self.min_hp, self.max_hp, self.min_def, self.max_def, self.min_money,
                         self.max_money, self.name, self.items, self.drop_chance)
 
 
-    def action_effects(self, sprite, sound):
+    def scale(self, image):
+        # Extract a specific frame (e.g., top-left frame)
+        frame = image.subsurface(pygame.Rect(0, 0, CHARACTER_WIDTH, CHARACTER_HEIGHT))
+
+        # Scale the frame to make it larger (e.g., 8x size)
+        scale_factor = 10
+        scaled_width = CHARACTER_WIDTH * scale_factor
+        scaled_height = CHARACTER_HEIGHT * scale_factor
+        image = pygame.transform.scale(frame, (scaled_width, scaled_height))
+        return image
+
+
+    def action_effects(self, sprite):
         if sprite:
-            pass
-        if sound:
-            pass
+            if sprite == self.death_sprite:
+                extra_info.screen.blit(extra_info.background, (0, 0))
+                extra_info.display.update()
+                # draw health bar
+                extra_info.screen.blit(sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT + 70))
+            else:
+                # draw health bar
+                extra_info.screen.blit(sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
+
+
+    def draw(self, sprite):
+        # healthbar
+        self.action_effects(sprite)
+        extra_info.display.update()
+        sleep(0.5)
+
+        if sprite != self.death_sprite:
+            extra_info.screen.blit(self.sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
+            extra_info.display.update()
+            sleep(0.5)
 
 
     def take_damage(self, damage):
@@ -62,21 +94,12 @@ class ChillNpc:
 
         # Update the health
         self.hp -= damage_taken
-        #draw health bar
 
         if self.hp == 0:
-            #death effects
-            self.action_effects(self.death_sprite, self.death_sound)
-
-            #add player money
-            got_loot = random.randint(1, 100)
-            if got_loot <= self.drop_chance:
-                item = random.choice(self.items)
-                #add item to player inventory
+            # death effects
+            self.draw(self.death_sprite)
             return DEATH
 
-        #damage taken effects
-        self.action_effects(self.damaged_sprite, self.damaged_sound)
-        sleep(0.1)
-        # draw sprite
+        # damage taken effects
+        self.draw(self.damaged_sprite)
         return 0
