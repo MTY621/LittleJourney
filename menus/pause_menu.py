@@ -2,7 +2,7 @@ import pygame
 import pygame_menu
 
 import glob
-from settings_menu import settings_menu
+from menus.settings_menu import settings_menu
 
 pygame.init()
 pygame.mixer.init()
@@ -35,7 +35,7 @@ resume = pygame.USEREVENT + 1
 
 
 # Pause menu loop
-def pause_menu():
+def pause():
     pause_menu.enable()
     while True:
         events = pygame.event.get()
