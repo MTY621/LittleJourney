@@ -45,30 +45,29 @@ class StoryMenu:
         self.next_menu = self.menus[index]
 
     # Main menu loop
-    def gameplay_menu(self):
+    def gameplay_menu(self, events):
         menu = self.menu
-        menu.enable()
-        while True:
-            events = pygame.event.get()
+        if not menu.is_enabled():
+            menu.enable()
 
-            # Handle the active menu
-            self.game.screen.blit(self.game.background, (0, 0))  # Ensure the background is drawn before the menu
-            menu.update(events)  # Update menu widgets
-            menu.draw(self.game.screen)  # Draw menu widgets on top
+        # Handle the active menu
+        menu.update(events)  # Update menu widgets
+        menu.draw(self.game.screen)  # Draw menu widgets on top
 
-            pygame.display.update()
+        pygame.display.update()
 
-            for event in events:
-                # check if enter key was pressed
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_RETURN or event.key == pygame.K_KP_ENTER:
-                        menu.disable()
-                        return self.next_menu
+        for event in events:
+            # check if enter key was pressed
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN or event.key == pygame.K_KP_ENTER:
+                    menu.disable()
+                    return self.next_menu
 
-                # check if mouse was clicked
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    # check if a menu item was clicked
-                    if event.button == 1 and menu.get_selected_widget().get_rect().collidepoint(event.pos):
-                        menu.get_selected_widget().apply()
-                        menu.disable()
-                        return self.next_menu
+            # check if mouse was clicked
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                # check if a menu item was clicked
+                if event.button == 1 and menu.get_selected_widget().get_rect().collidepoint(event.pos):
+                    menu.get_selected_widget().apply()
+                    menu.disable()
+                    return self.next_menu
+        return glob.CONTINUE

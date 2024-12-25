@@ -2,13 +2,19 @@ from time import sleep
 
 import pygame
 
+import glob
 from characters.player import Player
 import glob
 from glob import SCREEN_WIDTH, SCREEN_HEIGHT
+from menus.pause_menu import pause
 
 pygame.init()
 pygame.mixer.init()
 clock = pygame.time.Clock()
+
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+BUTTON_COLOR = (200, 0, 0)
 
 class Game:
     def __init__(self, sprite_name, player_name, curr_menu, song):
@@ -24,13 +30,32 @@ class Game:
         self.background = pygame.transform.scale(self.background, (SCREEN_WIDTH, SCREEN_HEIGHT))
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.display = pygame.display
+        self.pause_button_rect = pygame.Rect(SCREEN_WIDTH - 100, 20, 80, 40)
+
+    def draw_pause_button(self):
+        """Draw the pause button on the screen."""
+        pygame.draw.rect(self.screen, BUTTON_COLOR, self.pause_button_rect)
+        font = pygame.font.Font(None, 24)
+        text = font.render("Pause", True, WHITE)
+        text_rect = text.get_rect(center=self.pause_button_rect.center)
+        self.screen.blit(text, text_rect)
 
     def start(self):
         while True:
             self.screen.blit(self.background, (0, 0))
-            self.current_menu = self.current_menu.gameplay_menu()
-            if self.current_menu is None:
+            self.draw_pause_button()
+            events = pygame.event.get()
+            for event in events:
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if self.pause_button_rect.collidepoint(event.pos):
+                        self.screen.blit(self.background, (0, 0))
+                        pause()
+            new_menu = self.current_menu.gameplay_menu(events)
+            if new_menu is None:
                 break
+            elif new_menu != glob.CONTINUE:
+                self.current_menu = new_menu
+            pygame.display.flip()
             clock.tick(60)
 
         sleep(2)
