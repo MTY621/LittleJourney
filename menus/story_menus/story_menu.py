@@ -2,6 +2,7 @@ import pygame
 import pygame_menu
 
 import glob
+from game.battle import fight
 
 
 # Initialize Pygame
@@ -19,15 +20,18 @@ class StoryMenu:
         self.in_action = 0
 
 
-    def player_attack(self):
-        print(11)
-        self.game.player.attack(60)
-        self.npc.take_damage(self.game.player.atk)
+    # def player_attack(self):
+    #     print(11)
+    #     self.game.player.attack()
+    #     self.npc.take_damage(self.game.player.atk)
+    #
+    #
+    # def npc_attack(self):
+    #     self.npc.attack()
+    #     self.game.player.take_damage(self.npc.atk)
 
-
-    def npc_attack(self):
-        self.npc.attack()
-        self.game.player.take_damage(self.game.player.atk)
+    def fight(self):
+        return fight(self.game.player, self.npc)
 
 
     def get_items(self, items):
@@ -46,7 +50,7 @@ class StoryMenu:
         self.menu.add.button(text, function)
         self.next_menu = self.menus[index]
 
-    # Main menu loop
+    # story menu loop
     def gameplay_menu(self, events):
         menu = self.menu
         if not menu.is_enabled():
@@ -55,7 +59,7 @@ class StoryMenu:
         # Handle the active menu
         menu.update(events)  # Update menu widgets
         menu.draw(self.game.screen)  # Draw menu widgets on top
-        self.npc.draw(None)
+        self.npc.draw()
 
         if self.in_action:
             if self.action_duration != 0:
@@ -69,7 +73,7 @@ class StoryMenu:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN or event.key == pygame.K_KP_ENTER:
                     menu.disable()
-                    self.action_duration = 60
+                    self.action_duration = glob.ACTION_FRAMES
                     self.in_action = 1
                     #return self.next_menu
 
@@ -79,7 +83,7 @@ class StoryMenu:
                 if event.button == 1 and menu.get_selected_widget().get_rect().collidepoint(event.pos):
                     menu.get_selected_widget().apply()
                     menu.disable()
-                    self.action_duration = 60
+                    self.action_duration = glob.ACTION_FRAMES
                     self.in_action = 1
                     #return self.next_menu
         return glob.CONTINUE

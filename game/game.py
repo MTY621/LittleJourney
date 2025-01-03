@@ -1,6 +1,7 @@
 from time import sleep
 
 import pygame
+import time
 
 from utils import get_audio_length
 from characters.player import Player
@@ -14,6 +15,7 @@ clock = pygame.time.Clock()
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 BUTTON_COLOR = (200, 0, 0)
+
 
 class Game:
     def __init__(self, sprite_name, player_name, curr_menu, song):
@@ -70,8 +72,8 @@ class Game:
 
                         if glob.music_is_on:
                             pygame.mixer.music.load(self.song)
-                            if self.music_duration - music_pos > 2:  # Ensure at least 2 seconds remain
-                                pygame.mixer.music.play(-1, music_pos + 2)
+                            if self.music_duration - music_pos > 5:  # Ensure at least 5 seconds remain
+                                pygame.mixer.music.play(-1, start = music_pos + 5)
                             else:
                                 pygame.mixer.music.play(-1)
 
@@ -82,7 +84,7 @@ class Game:
                 elif new_menu != glob.CONTINUE:
                     self.current_menu = new_menu
                     self.moving = 1
-                    self.player.walk(SCREEN_WIDTH // 5)
+                    self.player.walk()
                     self.show_menu = 0
 
             if self.moving == 1:
@@ -92,9 +94,9 @@ class Game:
                 pygame.display.flip()
                 if self.scroll_x <= -SCREEN_WIDTH:
                     self.moving = 0
-                    self.moving = 0;
+                    self.moving = 0
                     self.show_menu = 1
             self.draw_pause_button()
-            self.player.draw(self.player.sprite, None)
+            self.player.draw()
             pygame.display.flip()
             clock.tick(60)

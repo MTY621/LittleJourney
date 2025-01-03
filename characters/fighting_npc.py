@@ -4,7 +4,7 @@ import pygame
 import random
 
 from characters.health import HealthBar
-from glob import CHARACTER_WIDTH, CHARACTER_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT, DEATH
+from glob import CHARACTER_WIDTH, CHARACTER_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT, DEATH, ACTION_FRAMES
 
 
 # Initialize Pygame
@@ -80,19 +80,23 @@ class FightingNpc:
                 self.game.screen.blit(sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20 - 200, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT - 200))
 
 
-    def draw(self, sprite):
-        # healthbar
-        self.health_bar.draw(self.game.screen, self.hp, SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT - 40)
+    def draw(self):
         #self.action_effects(sprite)
         #sleep(0.5)
 
         if len(self.status) > 0:
+            # healthbar
+            self.health_bar.draw(self.game.screen, self.status[0][1], SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20,
+                                 SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT - 40)
             curr_sprite = self.status[0][0]
             self.game.screen.blit(curr_sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20  - 100, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
-            self.status[0][1] -= 1
-            if self.status[0][1] == 0:
+            self.status[0][2] -= 1
+            if self.status[0][2] == 0:
                 self.status.popleft()
         else:
+            # healthbar
+            self.health_bar.draw(self.game.screen, self.hp, SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20,
+                                 SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT - 40)
             self.game.screen.blit(self.sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20  - 100, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
 
         #if sprite != self.death_sprite:
@@ -114,14 +118,15 @@ class FightingNpc:
 
         if self.hp == 0:
             # death effects
-            self.draw(self.death_sprite)
+            # self.draw(self.death_sprite)
+            self.status.append([self.death_sprite, 0, ACTION_FRAMES])
             return DEATH
 
         # damage taken effects
         #self.draw(self.hurt_sprite)
-        self.status.append([self.hurt_sprite, 60])
+        self.status.append([self.hurt_sprite, self.hp, ACTION_FRAMES])
         return 0
 
     def attack(self):
         #self.draw(self.attack_sprite)
-        self.status.append([self.attack_sprite, 60])
+        self.status.append([self.attack_sprite, self.hp, ACTION_FRAMES])

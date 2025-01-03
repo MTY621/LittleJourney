@@ -12,6 +12,7 @@ class HealthBar:
         self.bar_width = bar_width
         self.bar_height = bar_height
         self.font = pygame.font.SysFont(None, 30)
+
     def draw(self, screen, current_health, x, y):
         # Calculate the filled portion of the bar
         fill_width = int((current_health / self.max_health) * self.bar_width)

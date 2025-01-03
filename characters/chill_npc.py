@@ -3,7 +3,8 @@ from collections import deque
 import pygame
 import random
 
-from glob import CHARACTER_WIDTH, CHARACTER_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT, DEATH
+from characters.health import HealthBar
+from glob import CHARACTER_WIDTH, CHARACTER_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT, DEATH, ACTION_FRAMES
 
 
 # Initialize Pygame
@@ -26,6 +27,7 @@ class ChillNpc:
         self.max_hp = max_hp
         self.hp = random.randint(min_hp, max_hp)
         self.total_hp = self.hp
+        self.health_bar = HealthBar(self.hp, 170, 20)
 
         self.min_def = min_def
         self.max_def = max_def
@@ -70,27 +72,31 @@ class ChillNpc:
                 # draw health bar
                 self.game.screen.blit(sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20 - 100, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
 
+    def draw(self):
+        # self.action_effects(sprite)
+        # sleep(0.5)
 
-    def draw(self, sprite):
-        # healthbar
-        #self.action_effects(sprite)
-        #self.game.display.update()
-        #sleep(0.5)
         if len(self.status) > 0:
+            # healthbar
+            self.health_bar.draw(self.game.screen, self.status[0][1], SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20,
+                                 SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT - 40)
             curr_sprite = self.status[0][0]
-            self.game.screen.blit(curr_sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20  - 100, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
-            self.status[0][1] -= 1
-            if self.status[0][1] == 0:
+            self.game.screen.blit(curr_sprite, (
+            SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20 - 100, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
+            self.status[0][2] -= 1
+            if self.status[0][2] == 0:
                 self.status.popleft()
         else:
-            self.game.screen.blit(self.sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20  - 100, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
-            self.game.display.update()
+            # healthbar
+            self.health_bar.draw(self.game.screen, self.hp, SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20,
+                                 SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT - 40)
+            self.game.screen.blit(self.sprite, (
+            SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20 - 100, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
 
-        #if sprite != self.death_sprite:
-            #self.game.screen.blit(self.sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 //  - 100, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
-            #self.game.display.update()
-            #sleep(0.5)
-
+        # if sprite != self.death_sprite:
+        # self.game.screen.blit(self.sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20 - 200, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT - 200))
+        # self.game.display.update()
+        # sleep(0.5)
 
     def take_damage(self, damage):
         # Calculate the damage taken
@@ -105,10 +111,11 @@ class ChillNpc:
 
         if self.hp == 0:
             # death effects
-            self.draw(self.death_sprite)
+            # self.draw(self.death_sprite)
+            self.status.append([self.death_sprite, 0, ACTION_FRAMES])
             return DEATH
 
         # damage taken effects
-        #self.draw(self.hurt_sprite)
-        self.status.append([self.hurt_sprite, 60])
+        # self.draw(self.hurt_sprite)
+        self.status.append([self.hurt_sprite, self.hp, ACTION_FRAMES])
         return 0
