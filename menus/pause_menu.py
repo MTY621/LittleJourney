@@ -2,14 +2,11 @@ import pygame
 import pygame_menu
 
 import glob
-from menus.settings_menu import settings_menu
+from menus.settings_menu import settings
 
 pygame.init()
 pygame.mixer.init()
-surface = pygame.display.set_mode((glob.SCREEN_WIDTH, glob.SCREEN_HEIGHT))
-
-pygame.mixer.music.load('music/safe_room_theme.flac')
-pygame.mixer.music.set_volume(0.5)  # Set volume (0.0 to 1.0)
+screen = pygame.display.set_mode((glob.SCREEN_WIDTH, glob.SCREEN_HEIGHT))
 
 
 def resume_game():
@@ -17,7 +14,11 @@ def resume_game():
 
 
 def settings_menu_call():
-    settings_menu(pause_menu, pygame.mixer)
+    settings(pause_menu, pygame.mixer)
+
+
+def return_to_main_menu():
+    pygame.event.post(pygame.event.Event(main_menu_ret))
 
 
 # Create menus
@@ -25,17 +26,24 @@ pause_menu = pygame_menu.Menu(
     'Pause', glob.SCREEN_WIDTH, glob.SCREEN_HEIGHT, theme=glob.custom_theme)
 pause_menu.add.button('Continue', resume_game)
 pause_menu.add.button('Settings', settings_menu_call)
-pause_menu.add.button('Main menu', pygame_menu.events.EXIT)
+pause_menu.add.button('Main menu', return_to_main_menu)
 
 
 left_arrow = pygame_menu.widgets.LeftArrowSelection(arrow_size=(10, 15))
 right_arrow = pygame_menu.widgets.RightArrowSelection(arrow_size=(10, 15))
 
-resume = pygame.USEREVENT + 1
+resume = pygame.USEREVENT + 0
+main_menu_ret = pygame.USEREVENT + 1
 
 
 # Pause menu loop
-def pause():
+def pause(background):
+    pygame.mixer.music.load('music/safe_room_theme.flac')
+    pygame.mixer.music.set_volume(0.5)  # Set volume (0.0 to 1.0)
+
+    if glob.music_is_on:
+        pygame.mixer.music.play(-1)
+
     pause_menu.enable()
     while True:
         events = pygame.event.get()
@@ -45,17 +53,18 @@ def pause():
                 pygame.mixer.music.stop()
                 return glob.CONTINUE
 
-            if event.type == pygame.QUIT:
+            if event.type == main_menu_ret:
                 pause_menu.disable()
                 pygame.mixer.music.stop()
                 return glob.MAIN_MENU
 
         # Handle the main menu
         if pause_menu.is_enabled():
+            screen.blit(background, (0, 0))  # Ensure the background is drawn before the menu
             pause_menu.update(events)  # Update menu widgets
-            pause_menu.draw(surface)  # Draw menu widgets on top
+            pause_menu.draw(screen)  # Draw menu widgets on top
             if pause_menu.get_current().get_selected_widget():
-                left_arrow.draw(surface, pause_menu.get_current().get_selected_widget())
-                right_arrow.draw(surface, pause_menu.get_current().get_selected_widget())
+                left_arrow.draw(screen, pause_menu.get_current().get_selected_widget())
+                right_arrow.draw(screen, pause_menu.get_current().get_selected_widget())
 
         pygame.display.update()

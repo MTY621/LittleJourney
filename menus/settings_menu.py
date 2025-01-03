@@ -18,7 +18,11 @@ def settings(menu, given_mixer):
 def sound_selector(value, index, widget=None):
     global music_option_widget, mixer
     if music_option_widget.get_index() == 0:
-        mixer.music.unpause()
+        if pygame.mixer.music.get_pos() == -1:
+            pygame.mixer.music.set_volume(0.5)  # Set volume (0.0 to 1.0)
+            mixer.music.play(-1)
+        else:
+            mixer.music.unpause()
         glob.music_is_on = True
     else:
         mixer.music.pause()
