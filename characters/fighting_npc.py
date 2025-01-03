@@ -52,8 +52,8 @@ class FightingNpc:
 
 
     def __copy__(self):
-        return FightingNpc(self.sprite_name, self.min_hp, self.max_hp, self.min_def, self.max_def, self.min_money,
-                        self.max_money, self.name, self.items, self.drop_chance)
+        return FightingNpc(self.sprite_name, self.min_atk, self.max_atk, self.min_hp, self.max_hp, self.min_def,
+                           self.max_def, self.min_money, self.max_money, self.name, self.items, self.drop_chance)
 
 
     def scale(self, image):

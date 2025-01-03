@@ -16,8 +16,6 @@ class ChillNpc:
         path = "characters/character_images/" + sprite_name + "/"
         self.sprite = pygame.image.load(path + "default.png").convert_alpha()
         self.sprite = self.scale(self.sprite)
-        self.attack_sprite = pygame.image.load(path + "attack.png").convert_alpha()
-        self.attack_sprite = self.scale(self.attack_sprite)
         self.hurt_sprite = pygame.image.load(path + "hurt.png").convert_alpha()
         self.hurt_sprite = self.scale(self.hurt_sprite)
         self.death_sprite = pygame.image.load(path + "death.png").convert_alpha()

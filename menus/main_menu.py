@@ -8,19 +8,11 @@ from menus.starting_menu import set_save_attr, starting_menu
 from menus.sure_menu import sure
 
 pygame.init()
-pygame.mixer.init()
 screen = pygame.display.set_mode((glob.SCREEN_WIDTH, glob.SCREEN_HEIGHT))
 
 # Load and scale the background image
 background = pygame.image.load('background/normal/3_mountain.png').convert()
 background = pygame.transform.scale(background, (glob.SCREEN_WIDTH, glob.SCREEN_HEIGHT))
-
-# Load background music
-pygame.mixer.music.load(glob.MAIN_MENU_SONG)
-pygame.mixer.music.set_volume(0.5)  # Set volume (0.0 to 1.0)
-
-# Play the music on a loop (-1 for infinite loop)
-pygame.mixer.music.play(-1)
 
 
 def drop_new_game_menu(value, index, widget=None):
@@ -61,10 +53,6 @@ def load_save():
 
 def settings_menu_call():
     settings(main_menu, pygame.mixer)
-    if glob.music_is_on:
-        pygame.mixer.music.unpause()
-    else:
-        pygame.mixer.music.pause()
 
 
 def credits_menu_call():
@@ -89,7 +77,7 @@ new_game_menu.add.dropselect("Select a save slot", [(get_key_at_index(0), 0), (g
                          onchange=drop_new_game_menu)
 
 
-loading = pygame_menu.Menu('Loading the Game...', glob.SCREEN_WIDTH, glob.SCREEN_HEIGHT,
+loading = pygame_menu.Menu('Loading the Game', glob.SCREEN_WIDTH, glob.SCREEN_HEIGHT,
     theme=glob.custom_theme)
 loading.add.progress_bar("Progress", progressbar_id="1", default=0, width=200)
 
@@ -120,7 +108,15 @@ exit_menu = pygame.USEREVENT + 1
 
 
 # Main menu loop
-def menu():
+def main_menu_start():
+    # Load background music
+    pygame.mixer.init()
+    pygame.mixer.music.load(glob.MAIN_MENU_SONG)
+    pygame.mixer.music.set_volume(0.5)  # Set volume (0.0 to 1.0)
+
+    if glob.music_is_on:
+        pygame.mixer.music.play(-1)
+
     main_menu.enable()
     while True:
         events = pygame.event.get()
@@ -145,6 +141,7 @@ def menu():
 
             if event.type == pygame.QUIT:
                 pygame.mixer.music.stop()
+                pygame.mixer.quit()
                 pygame.quit()
                 exit()
 

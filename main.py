@@ -2,7 +2,7 @@ from time import sleep
 import pygame
 
 import glob
-from menus.main_menu import menu
+from menus.main_menu import main_menu_start
 from menus.story_menus.gameplay_menus import menus
 from characters.npcs.chill_npcs import chill_npcs
 from characters.npcs.fighting_npcs import fighting_npcs
@@ -14,8 +14,9 @@ from game.game import Game
 # extra_info.display = pygame.display
 
 if __name__ == '__main__':
-    menu()
-    game = Game(glob.player_race, glob.player_name, menus[1], glob.MAIN_MENU_SONG)
+    glob.music_is_on = True
+    main_menu_start()
+    game = Game(glob.player_race, glob.player_name, menus[len(menus) - 1], glob.CURRENT_GAME_SONG)
     for chill_npc in chill_npcs:
         chill_npc.game = game
     for fighting_npc in fighting_npcs:
@@ -24,7 +25,9 @@ if __name__ == '__main__':
         menu.game = game
     # extra_info.background = pygame.image.load('background/castle/1_garden.png').convert()
     # extra_info.background = pygame.transform.scale(extra_info.background, (SCREEN_WIDTH, SCREEN_HEIGHT))
-    game.start()
+    while True:
+        game.start()
+        main_menu_start()
     # i = 4
     # clock = pygame.time.Clock()
     # extra_info.player = Player("Human", 100, "Player", [])
