@@ -29,8 +29,8 @@ fighting_npcs.append(FightingNpc("mummy", 20, 30, 25, 35, 4,
 fighting_npcs.append(FightingNpc("vulture", 25, 30, 30, 35, 4,
                          9, 30, 30, "Hungry Vulture", [], 0))
 # 7
-fighting_npcs.append(FightingNpc("samurai", 32, 40, 35, 45, 6,
-                         10, 35, 35, "Samurai Shan", [], 0))
+#fighting_npcs.append(FightingNpc("samurai", 32, 40, 35, 45, 6,
+#                         10, 35, 35, "Samurai Shan", [], 0))
 # 8
 fighting_npcs.append(FightingNpc("snake", 30, 40, 30, 35, 8,
                          12, 40, 45, "Snake", [], 0))

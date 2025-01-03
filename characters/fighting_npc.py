@@ -1,5 +1,5 @@
 from time import sleep
-
+from collections import deque
 import pygame
 import random
 
@@ -24,6 +24,7 @@ class FightingNpc:
         self.hurt_sprite = self.scale(self.hurt_sprite)
         self.death_sprite = pygame.image.load(path + "death.png").convert_alpha()
         self.death_sprite = self.scale(self.death_sprite)
+        self.status = deque()
 
         self.min_atk = min_atk
         self.max_atk = max_atk
@@ -73,23 +74,31 @@ class FightingNpc:
                 self.game.screen.blit(self.game.background, (0, 0))
                 self.game.display.update()
                 # draw health bar
-                self.game.screen.blit(sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT + 70))
+                self.game.screen.blit(sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20 - 200, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT + 70))
             else:
                 # draw health bar
-                self.game.screen.blit(sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
+                self.game.screen.blit(sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20 - 200, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT - 200))
 
 
     def draw(self, sprite):
         # healthbar
         self.health_bar.draw(self.game.screen, self.hp, SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT - 40)
-        self.action_effects(sprite)
-        self.game.display.update()
-        sleep(0.5)
+        #self.action_effects(sprite)
+        #sleep(0.5)
 
-        if sprite != self.death_sprite:
-            self.game.screen.blit(self.sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
-            self.game.display.update()
-            sleep(0.5)
+        if len(self.status) > 0:
+            curr_sprite = self.status[0][0]
+            self.game.screen.blit(curr_sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20  - 100, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
+            self.status[0][1] -= 1
+            if self.status[0][1] == 0:
+                self.status.popleft()
+        else:
+            self.game.screen.blit(self.sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20  - 100, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
+
+        #if sprite != self.death_sprite:
+            #self.game.screen.blit(self.sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20 - 200, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT - 200))
+            #self.game.display.update()
+            #sleep(0.5)
 
 
     def take_damage(self, damage):
@@ -109,8 +118,10 @@ class FightingNpc:
             return DEATH
 
         # damage taken effects
-        self.draw(self.hurt_sprite)
+        #self.draw(self.hurt_sprite)
+        self.status.append([self.hurt_sprite, 60])
         return 0
 
     def attack(self):
-        self.draw(self.attack_sprite)
+        #self.draw(self.attack_sprite)
+        self.status.append([self.attack_sprite, 60])
