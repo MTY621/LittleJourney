@@ -126,7 +126,7 @@ class Player:
         self.status.append([self.hurt_sprite, 60])
         if glob.sound_effects_are_on:
             pygame.mixer.music.load(self.hurt_sound)
-            pygame.mixer.music.play(50)
+            pygame.mixer.music.play(fade_ms=60)
             self.last_song = self.hurt_sound
         return 0
 
@@ -136,11 +136,10 @@ class Player:
         self.status.append([self.attack_sprite, frames])
         if glob.sound_effects_are_on:
             pygame.mixer.music.load(self.attack_sound)
-            pygame.mixer.music.play(50)
+            pygame.mixer.music.play(fade_ms=60)
             self.last_song = self.attack_sound
 
     def walk(self, frames):
-        print("CG11")
         self.status.append([self.walking_sprite, frames])
         if glob.music_is_on:
             pygame.mixer.music.load(self.game.song)
