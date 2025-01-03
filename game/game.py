@@ -30,6 +30,9 @@ class Game:
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.display = pygame.display
         self.pause_button_rect = pygame.Rect(SCREEN_WIDTH - 100, 20, 80, 40)
+        self.scroll_x = 0
+        self.moving = 0
+        self.show_menu = 1
 
     def draw_pause_button(self):
         """Draw the pause button on the screen."""
@@ -72,10 +75,26 @@ class Game:
                             else:
                                 pygame.mixer.music.play(-1)
 
-            new_menu = self.current_menu.gameplay_menu(events)
-            if new_menu is None:
-                return
-            elif new_menu != glob.CONTINUE:
-                self.current_menu = new_menu
-            pygame.display.update()
+            if self.show_menu == 1:
+                new_menu = self.current_menu.gameplay_menu(events)
+                if new_menu is None:
+                    break
+                elif new_menu != glob.CONTINUE:
+                    self.current_menu = new_menu
+                    self.moving = 1
+                    self.player.walk(SCREEN_WIDTH // 5)
+                    self.show_menu = 0
+
+            if self.moving == 1:
+                self.scroll_x -= 5
+                self.screen.blit(self.background, (self.scroll_x, 0))
+                self.screen.blit(self.background, (self.scroll_x + SCREEN_WIDTH, 0))
+                pygame.display.flip()
+                if self.scroll_x <= -SCREEN_WIDTH:
+                    self.moving = 0
+                    self.moving = 0;
+                    self.show_menu = 1
+            self.draw_pause_button()
+            self.player.draw(self.player.sprite, None)
+            pygame.display.flip()
             clock.tick(60)
