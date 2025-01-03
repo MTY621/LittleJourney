@@ -76,7 +76,6 @@ class ChillNpc:
         #self.action_effects(sprite)
         #self.game.display.update()
         #sleep(0.5)
-        print("TOP CG")
         if len(self.status) > 0:
             curr_sprite = self.status[0][0]
             self.game.screen.blit(curr_sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20  - 100, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
@@ -86,7 +85,6 @@ class ChillNpc:
         else:
             self.game.screen.blit(self.sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20  - 100, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
             self.game.display.update()
-            print("aici")
 
         #if sprite != self.death_sprite:
             #self.game.screen.blit(self.sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 //  - 100, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
