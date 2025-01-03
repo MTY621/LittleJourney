@@ -15,11 +15,13 @@ class StoryMenu:
         self.menus = next_menus
         self.next_menu = None
         self.game = None
+        self.action_duration = 0
+        self.in_action = 0
 
 
     def player_attack(self):
         print(11)
-        self.game.player.attack()
+        self.game.player.attack(60)
         self.npc.take_damage(self.game.player.atk)
 
 
@@ -53,15 +55,23 @@ class StoryMenu:
         # Handle the active menu
         menu.update(events)  # Update menu widgets
         menu.draw(self.game.screen)  # Draw menu widgets on top
+        self.npc.draw(None)
 
-        pygame.display.update()
+        if self.in_action:
+            if self.action_duration != 0:
+                self.action_duration -= 1
+                return glob.CONTINUE
+            else:
+                return self.next_menu
 
         for event in events:
             # check if enter key was pressed
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN or event.key == pygame.K_KP_ENTER:
                     menu.disable()
-                    return self.next_menu
+                    self.action_duration = 60
+                    self.in_action = 1
+                    #return self.next_menu
 
             # check if mouse was clicked
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -69,5 +79,7 @@ class StoryMenu:
                 if event.button == 1 and menu.get_selected_widget().get_rect().collidepoint(event.pos):
                     menu.get_selected_widget().apply()
                     menu.disable()
-                    return self.next_menu
+                    self.action_duration = 60
+                    self.in_action = 1
+                    #return self.next_menu
         return glob.CONTINUE
