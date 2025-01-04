@@ -26,6 +26,7 @@ class Player:
         self.walking_sprite = pygame.image.load(path + "walking.png").convert_alpha()
         self.walking_sprite = self.scale(self.walking_sprite)
         self.current_sprite = self.sprite
+        self.current_effect = None
         self.status = deque()
         self.last_song = None
         self.no_sound_effect = False
@@ -78,37 +79,62 @@ class Player:
     def draw(self):
         #self.action_effects(sprite, sound)
         #self.game.display.update()
+        self.health_bar.draw(self.game.screen, self.hp, SCREEN_WIDTH * 3 // 20,
+                             SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT - 40)
         #sleep(0.5)
         #play music if on
         if len(self.status) > 0:
             # draw health bar
-            self.health_bar.draw(self.game.screen, self.status[0][2], SCREEN_WIDTH * 3 // 20,
-                                 SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT - 40)
-            curr_song = self.status[0][1]
+            curr_status = self.status[0][0]
+            if curr_status == "walk":
+                if self.current_sprite != self.walking_sprite:
+                    self.current_sprite = self.walking_sprite
+                else:
+                    self.current_sprite = self.sprite
+                if glob.music_is_on and self.last_song != self.game.song:
+                    pygame.mixer.music.load(self.game.song)
+                    pygame.mixer.music.play(-1)
+                    self.last_song = self.game.song
+            elif curr_status == "attack":
+                self.current_sprite = self.attack_sprite
+                self.current_effect = self.attack_sound
+            elif curr_status == "hurt":
+                self.current_sprite = self.hurt_sprite
+                self.current_effect = self.hurt_sound
+                if self.no_sound_effect:
+                    self.hp -= self.status[0][2]
+            elif curr_status == "death":
+                self.current_sprite = self.death_sprite
+                self.current_effect = self.death_sound
+
             if self.no_sound_effect and glob.sound_effects_are_on:
-                pygame.mixer.music.load(curr_song)
+                pygame.mixer.music.load(self.current_effect)
                 pygame.mixer.music.play(fade_ms=glob.ACTION_FRAMES)
-                self.last_song = curr_song
+                self.last_song = self.current_effect
                 self.no_sound_effect = False
 
-            curr_sprite = self.status[0][0]
-            self.game.screen.blit(curr_sprite, (SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
-            self.game.display.update()
-            self.status[0][3] -= 1
-            if self.status[0][3] == 0:
+            #curr_sprite = self.status[0][0]
+            #self.game.screen.blit(curr_sprite, (SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
+            #self.game.display.update()
+            self.status[0][1] -= 1
+            print(self.status[0][1])
+            if self.status[0][1] == 0:
+                print("popping")
                 self.status.popleft()
                 self.no_sound_effect = True
         else:
             # draw health bar
-            self.health_bar.draw(self.game.screen, self.hp, SCREEN_WIDTH * 3 // 20,
-                                 SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT - 40)
-            self.game.screen.blit(self.sprite, (SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
-            self.game.display.update()
+            #self.health_bar.draw(self.game.screen, self.hp, SCREEN_WIDTH * 3 // 20,
+                                 #SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT - 40)
+            #self.game.screen.blit(self.sprite, (SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
+            #self.game.display.update()
+            self.current_sprite = self.sprite
             if glob.music_is_on and self.last_song != self.game.song:
                 pygame.mixer.music.load(self.game.song)
                 pygame.mixer.music.play(-1)
                 self.last_song = self.game.song
-
+        self.game.screen.blit(self.current_sprite, (SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
+        self.game.display.update()
         #if glob.music_is_on:
             #pygame.mixer.music.load(self.game.song)
             #.mixer.music.play(-1)
@@ -132,25 +158,25 @@ class Player:
         if self.hp == 0:
             #death effects
             #self.draw(self.death_sprite, self.death_sound)
-            self.status.append([self.death_sprite, self.death_sound, 0, glob.ACTION_FRAMES])
+            self.status.append(["death", glob.ACTION_FRAMES])
             return DEATH
 
         #damage taken effects
         #self.draw(self.hurt_sprite, self.hurt_sound)
-        self.status.append([self.hurt_sprite, self.hurt_sound, self.hp, glob.ACTION_FRAMES])
+        self.status.append(["hurt", glob.ACTION_FRAMES, damage_taken])
         return 0
 
 
     def attack(self):
         #self.draw(self.attack_sprite, self.attack_sound)
-        self.status.append([self.attack_sprite, self.attack_sound, self.hp, glob.ACTION_FRAMES])
+        self.status.append(["attack", glob.ACTION_FRAMES])
 
     def walk(self):
-        self.status.append([self.walking_sprite, self.game.song, self.hp, SCREEN_WIDTH // 5])
-        if glob.music_is_on:
-            pygame.mixer.music.load(self.game.song)
-            pygame.mixer.music.play(-1, start=glob.ACTION_FRAMES / 1000)
-            self.last_song = self.game.song
+        self.status.append(["walk", SCREEN_WIDTH // 5])
+        #if glob.music_is_on:
+            #pygame.mixer.music.load(self.game.song)
+            #pygame.mixer.music.play(-1, start=glob.ACTION_FRAMES / 1000)
+            #self.last_song = self.game.song
 
     def default(self):
         self.current_sprite = self.sprite

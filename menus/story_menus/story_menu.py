@@ -73,7 +73,7 @@ class StoryMenu:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN or event.key == pygame.K_KP_ENTER:
                     menu.disable()
-                    self.action_duration = glob.ACTION_FRAMES
+                    self.action_duration = glob.ACTION_FRAMES * 10
                     self.in_action = 1
                     #return self.next_menu
 
@@ -83,7 +83,7 @@ class StoryMenu:
                 if event.button == 1 and menu.get_selected_widget().get_rect().collidepoint(event.pos):
                     menu.get_selected_widget().apply()
                     menu.disable()
-                    self.action_duration = glob.ACTION_FRAMES
+                    self.action_duration = glob.ACTION_FRAMES * 10
                     self.in_action = 1
                     #return self.next_menu
         return glob.CONTINUE
