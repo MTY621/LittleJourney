@@ -21,6 +21,7 @@ def npc_attack(player, npc):
 
 
 def fight(player, npc):
+    print("CG11")
     while True:
         if player_attack(player, npc) == glob.DEATH:
             return 0

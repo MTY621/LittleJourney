@@ -5,7 +5,7 @@ SCREEN_HEIGHT = 800
 SCREEN_WIDTH = 1200
 CHARACTER_WIDTH = 32
 CHARACTER_HEIGHT = 32
-ACTION_FRAMES = 100
+ACTION_FRAMES = 60
 
 MAIN_MENU_SONG = 'music/little_town_reinstrumented.ogg'
 CURRENT_GAME_SONG = 'music/battle-march.wav'
