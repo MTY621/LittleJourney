@@ -30,6 +30,12 @@ class StoryMenu:
     #     self.npc.attack()
     #     self.game.player.take_damage(self.npc.atk)
 
+    def show_error_message(self, message):
+        error_menu = pygame_menu.Menu('Error', glob.SCREEN_WIDTH, glob.SCREEN_HEIGHT, theme=glob.custom_play_theme)
+        error_menu.add.label(message)
+        error_menu.add.button('OK', pygame_menu.events.BACK)
+        error_menu.mainloop(self.game.screen)
+
     def fight(self):
         return fight(self.game.player, self.npc)
 
@@ -40,14 +46,24 @@ class StoryMenu:
             pass
 
 
+    def give_coins(self, amount):
+        if self.game.player.money >= amount:
+            self.game.player.money -= amount
+        else:
+            self.show_error_message("Not enough coins!")
+
+
+    def do_nothing(self):
+        self.next_menu = self.next_menu
+
     def add_text_display(self, labels, index):
         for label in labels:
             self.menu.add.label(label)
         self.next_menu =  self.menus[index]
 
 
-    def add_button(self, text, function, index):
-        self.menu.add.button(text, function)
+    def add_button(self, text, index, method, *args):
+        self.menu.add.button(text, method, *args)
         self.next_menu = self.menus[index]
 
     # story menu loop
@@ -81,7 +97,7 @@ class StoryMenu:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # check if a menu item was clicked
                 if event.button == 1 and menu.get_selected_widget().get_rect().collidepoint(event.pos):
-                    menu.get_selected_widget().apply()
+                    # menu.get_selected_widget().apply()
                     menu.disable()
                     self.action_duration = glob.ACTION_FRAMES * 10
                     self.in_action = 1

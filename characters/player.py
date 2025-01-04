@@ -43,7 +43,7 @@ class Player:
         self.defense = 0
         self.hp = hp
         self.total_hp = hp
-        self.money = 0
+        self.money = 10
         self.name = name
         self.inventory = inventory
         self.game = game
