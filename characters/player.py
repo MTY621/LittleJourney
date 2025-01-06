@@ -6,13 +6,14 @@ import random
 
 from characters.health import HealthBar
 from glob import CHARACTER_WIDTH, CHARACTER_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT, DEATH
+from inventory.inventory import Inventory
 
 # Initialize Pygame
 pygame.init()
 pygame.mixer.init()
 
 class Player:
-    def __init__(self, sprite_name, hp, name, inventory, game):
+    def __init__(self, sprite_name, hp, name, game):
 
         path = "characters/character_images/main_character/" + sprite_name + "/"
         self.sprite = pygame.image.load(path + "default.png").convert_alpha()
@@ -39,6 +40,9 @@ class Player:
         self.hurt_sound = path + "pain.wav"
         self.death_sound = path + "death.wav"
 
+        self.coin_sprite = pygame.image.load("items/coin.png").convert_alpha()
+        self.coin_sprite = pygame.transform.scale(self.coin_sprite, (70, 50))
+        self.coins = 0
         self.atk = 1
         self.defense = 0
         self.hp = hp
@@ -46,7 +50,7 @@ class Player:
         self.total_hp = hp
         self.money = 0
         self.name = name
-        self.inventory = inventory
+        self.inventory = Inventory(SCREEN_WIDTH, SCREEN_HEIGHT)
         self.game = game
         self.health_bar = HealthBar(100, 170, 20)
 
@@ -72,7 +76,7 @@ class Player:
                 self.game.screen.blit(sprite, (SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT + 70))
             else:
                 #draw health bar
-                self.game.screen.blit(sprite, (SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
+                self.game.screen.blit(sprite, (SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT * 10))
         if sound and glob.sound_effects_are_on == True:
             pygame.mixer.music.load(sound)
             pygame.mixer.music.set_volume(0.5)
@@ -82,8 +86,10 @@ class Player:
     def draw(self):
         #self.action_effects(sprite, sound)
         #self.game.display.update()
+        self.draw_coins()
+        self.inventory.draw(self.game.screen)
         self.health_bar.draw(self.game.screen, self.health_bar_hp, SCREEN_WIDTH * 3 // 20,
-                             SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT - 40)
+                             SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT * 4.8 - 40)
         #sleep(0.5)
         #play music if on
         if len(self.status) > 0:
@@ -161,7 +167,7 @@ class Player:
                 pygame.mixer.music.load(self.game.song)
                 pygame.mixer.music.play(-1, start = self.music_pos)
                 self.last_song = self.game.song
-        self.game.screen.blit(self.current_sprite, (SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
+        self.game.screen.blit(self.current_sprite, (SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT * 4.8))
         self.game.display.update()
         #if glob.music_is_on:
             #pygame.mixer.music.load(self.game.song)
@@ -170,6 +176,24 @@ class Player:
         #if sound != self.death_sound:
             #self.game.screen.blit(self.current_sprite, (SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
             #self.game.display.update()
+
+    def draw_coins(self):
+        # Define the font and size for the coin counter
+        font = pygame.font.Font(None, 36)  # You can specify a custom font path if needed
+
+        # Render the number of coins as text
+        coin_text = font.render(str(self.coins), True, (255, 255, 255))  # White color text
+
+        # Position of the coin sprite and text
+        coin_x = 10  # Left margin
+        coin_y = 10  # Top margin
+        text_x = coin_x + self.coin_sprite.get_width() + 10  # Slight margin between coin and text
+        text_y = coin_y + (
+                    self.coin_sprite.get_height() - coin_text.get_height()) // 2  # Center-align text vertically with the coin
+
+        # Draw the coin sprite and the text on the screen
+        self.game.screen.blit(self.coin_sprite, (coin_x, coin_y))
+        self.game.screen.blit(coin_text, (text_x, text_y))
 
 
     def take_damage(self, damage):

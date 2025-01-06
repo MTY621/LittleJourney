@@ -1,5 +1,5 @@
 import pygame
-from health import HealthBar
+from characters.health import HealthBar
 
 # Initialize Pygame
 pygame.init()
