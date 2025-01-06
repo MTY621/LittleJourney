@@ -81,7 +81,6 @@ class StoryMenu:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # check if a menu item was clicked
                 if event.button == 1 and menu.get_selected_widget().get_rect().collidepoint(event.pos):
-                    menu.get_selected_widget().apply()
                     menu.disable()
                     self.action_duration = glob.ACTION_FRAMES * 10
                     self.in_action = 1

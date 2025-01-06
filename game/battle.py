@@ -7,6 +7,7 @@ from characters.fighting_npc import FightingNpc
 
 
 def player_attack(player, npc):
+    print("Attack command")
     player.attack()
     ret_code = npc.take_damage(player.atk)
     return ret_code
