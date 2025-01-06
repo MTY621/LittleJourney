@@ -22,8 +22,12 @@ def npc_attack(player, npc):
 
 def fight(player, npc):
     print("CG11")
+    count = 0
     while True:
+        count += 1
         if player_attack(player, npc) == glob.DEATH:
-            return 0
+            return count
+
+        count += 1
         if npc_attack(player, npc) == glob.DEATH:
-            return glob.DEATH
+            return count

@@ -149,7 +149,6 @@ class Player:
                                  #SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT - 40)
             #self.game.screen.blit(self.sprite, (SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
             #self.game.display.update()
-            print("default")
             self.current_sprite = self.sprite
             if glob.music_is_on and self.last_song != self.game.song:
                 pygame.mixer.music.load(self.game.song)

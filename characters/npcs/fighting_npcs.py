@@ -38,4 +38,4 @@ fighting_npcs.append(FightingNpc("snake", 30, 40, 30, 35, 8,
 # extras
 # 9
 fighting_npcs.append(FightingNpc("trader", 100, 100, 100, 100, 10,
-                         10, 100, 100, "Mr. Trader", [], 0))
+                         10, 100, 100, "The Trader", [], 0))

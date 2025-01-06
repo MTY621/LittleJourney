@@ -4,7 +4,7 @@ import pygame_menu
 import glob
 
 pygame.init()
-surface = pygame.display.set_mode((glob.SCREEN_WIDTH, glob.SCREEN_HEIGHT))
+screen = pygame.display.set_mode((glob.SCREEN_WIDTH, glob.SCREEN_HEIGHT))
 
 
 def sure(menu, label, next_menu):
