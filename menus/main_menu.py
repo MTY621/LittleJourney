@@ -77,7 +77,7 @@ new_game_menu.add.dropselect("Select a save slot", [(get_key_at_index(0), 0), (g
                          onchange=drop_new_game_menu)
 
 
-loading = pygame_menu.Menu('Loading the Game', glob.SCREEN_WIDTH, glob.SCREEN_HEIGHT,
+loading = pygame_menu.Menu('Loading the Game...', glob.SCREEN_WIDTH, glob.SCREEN_HEIGHT,
     theme=glob.custom_theme)
 loading.add.progress_bar("Progress", progressbar_id="1", default=0, width=200)
 
@@ -92,12 +92,13 @@ load_save_menu.add.dropselect("Select a save slot", [(get_key_at_index(0), 0), (
 credits_menu = pygame_menu.Menu('Credits', glob.SCREEN_WIDTH, glob.SCREEN_HEIGHT,
     theme=glob.custom_theme)
 # Add text to the credits menu
-credits_menu.add.label('Game developed by\nBelciug Matei\nBigan Radu Cristin\n')
-credits_menu.add.label('Background images from\ncraftpix.net\n')
-credits_menu.add.label('Character graphics from\nopengameart.org\ncraftpix.net\n')
-credits_menu.add.label('Item images from\ncraftpix.net\n')
-credits_menu.add.label('Background music from\nopengameart.org\n')
-credits_menu.add.label('Sound effects from\nopengameart.org\n')
+credits_menu.add.label('Game developed by\nBelciug Matei\nBigan Radu-Cristin\n')
+credits_menu.add.label('Background images from\nwww.craftpix.net\n')
+credits_menu.add.label('Character graphics from\nwww.opengameart.org\nwww.craftpix.net\n')
+credits_menu.add.label('Item images from\nwww.craftpix.net\n')
+credits_menu.add.label('Background music from\nwww.opengameart.org\n')
+credits_menu.add.label('Sound effects from\nwww.opengameart.org\n')
+credits_menu.add.label('Text font from\nwww.1001fonts.com\n')
 
 
 left_arrow = pygame_menu.widgets.LeftArrowSelection(arrow_size=(10, 15))

@@ -8,7 +8,6 @@ from game.battle import fight
 # Initialize Pygame
 pygame.init()
 
-
 class StoryMenu:
     def __init__(self, npc, next_menus):
         self.npc = npc
@@ -17,7 +16,7 @@ class StoryMenu:
         self.next_menu = None
         self.game = None
         self.action_duration = 0
-        self.in_action = 0
+        self.in_action = 1 / glob.ACTION_FRAMES
 
 
     # def player_attack(self):
@@ -30,25 +29,78 @@ class StoryMenu:
     #     self.npc.attack()
     #     self.game.player.take_damage(self.npc.atk)
 
-    def fight(self):
-        return fight(self.game.player, self.npc)
+    # def show_error(self, label):
+    #     global error_menu
+    #     error_menu = StoryMenu(self.npc, [self])
+    #     error_menu.add_text_display([label])
+    #     error_menu.add_button("OK", error_menu.set_menu, 0)
+
+    def show_error(self, label):
+        error_menu = pygame_menu.Menu('Error!', glob.SCREEN_WIDTH, glob.SCREEN_HEIGHT, theme=glob.custom_play_theme)
+        error_menu.add.label(label)
+        error_menu.add.button('OK', lambda: setattr(self, 'showing_error', False))
+
+        self.showing_error = True
+        while self.showing_error:
+            self.game.screen.blit(self.game.background, (0, 0))  # Draw the game background
+            error_menu.update(pygame.event.get())
+            error_menu.draw(self.game.screen)
+            pygame.display.flip()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    exit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if event.button == 1 and error_menu.get_selected_widget().get_rect().collidepoint(event.pos):
+                        error_menu.get_selected_widget().apply()
+        pygame.time.wait(100)
+        pygame.event.clear()
 
 
-    def get_items(self, items):
+    def fight(self, index):
+        self.next_menu = self.menus[index]
+        self.in_action = fight(self.game.player, self.npc)
+
+        if self.game.player.hp <= 0:
+            return glob.DEATH
+        return 0
+
+
+    def get_items(self, index, items):
+        self.next_menu = self.menus[index]
         for item in items:
             #add to inventory
             pass
 
 
-    def add_text_display(self, labels, index):
+    def give_coins(self, index, amount):
+        if self.game.player.money >= amount:
+            self.next_menu = self.menus[index]
+            self.game.player.money -= amount
+            print(self.game.player.money)
+        else:
+            self.show_error("Not enough coins!")
+            self.next_menu = self
+
+
+    def add_text_display(self, labels):
         for label in labels:
             self.menu.add.label(label)
-        self.next_menu =  self.menus[index]
 
 
-    def add_button(self, text, function, index):
-        self.menu.add.button(text, function)
+    def set_menu(self, index):
         self.next_menu = self.menus[index]
+
+
+    def add_button(self, text, method, *args):
+        self.menu.add.button(text, lambda: method(*args))
+
+    # def add_button(self, text, index, method, *args):
+    #     def button_action():
+    #         method(index, *args)  # Call the method with index and additional arguments
+    #
+    #     self.menu.add.button(text, button_action)
 
     # story menu loop
     def gameplay_menu(self, events):
@@ -61,20 +113,24 @@ class StoryMenu:
         menu.draw(self.game.screen)  # Draw menu widgets on top
         self.npc.draw()
 
-        if self.in_action:
-            if self.action_duration != 0:
-                self.action_duration -= 1
-                return glob.CONTINUE
-            else:
-                return self.next_menu
+        if self.action_duration > 1:
+            self.action_duration -= 1
+            return glob.CONTINUE
+        elif self.action_duration == 1:
+            if self.next_menu is not None and self.next_menu.npc.name == self.npc.name:
+                glob.same_npc = True
+            elif self.next_menu is not None and self.next_menu.npc.name != self.npc.name:
+                glob.same_npc = False
+
+            self.in_action = 1 / glob.ACTION_FRAMES
+            return self.next_menu
 
         for event in events:
             # check if enter key was pressed
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN or event.key == pygame.K_KP_ENTER:
                     menu.disable()
-                    self.action_duration = glob.ACTION_FRAMES * 10
-                    self.in_action = 1
+                    self.action_duration = glob.ACTION_FRAMES * self.in_action
                     #return self.next_menu
 
             # check if mouse was clicked
@@ -82,7 +138,6 @@ class StoryMenu:
                 # check if a menu item was clicked
                 if event.button == 1 and menu.get_selected_widget().get_rect().collidepoint(event.pos):
                     menu.disable()
-                    self.action_duration = glob.ACTION_FRAMES * 10
-                    self.in_action = 1
+                    self.action_duration = glob.ACTION_FRAMES * self.in_action
                     #return self.next_menu
         return glob.CONTINUE
