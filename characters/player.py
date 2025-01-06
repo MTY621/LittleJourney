@@ -91,6 +91,7 @@ class Player:
             if curr_status == "walk":
                 #print("walking")
                 if self.current_sprite != self.walking_sprite:
+                    self.current_effect = self.sound
                     print(self.count)
                     if self.count >= 20:
                         print("vreodata")
