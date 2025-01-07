@@ -17,7 +17,9 @@ class Player:
 
         path = "characters/character_images/main_character/" + sprite_name + "/"
         self.sprite = pygame.image.load(path + "default.png").convert_alpha()
+        print(self.sprite.get_size())
         self.sprite = self.scale(self.sprite)
+        print(self.sprite.get_size())
         self.attack_sprite = pygame.image.load(path + "attack.png").convert_alpha()
         self.attack_sprite = self.scale(self.attack_sprite)
         self.hurt_sprite = pygame.image.load(path + "hurt.png").convert_alpha()
@@ -56,14 +58,7 @@ class Player:
 
 
     def scale(self, image):
-        # Extract a specific frame (e.g., top-left frame)
-        frame = image.subsurface(pygame.Rect(0, 0, CHARACTER_WIDTH, CHARACTER_HEIGHT))
-
-        # Scale the frame to make it larger (e.g., 8x size)
-        scale_factor = 10
-        scaled_width = CHARACTER_WIDTH * scale_factor
-        scaled_height = CHARACTER_HEIGHT * scale_factor
-        image = pygame.transform.scale(frame, (scaled_width, scaled_height))
+        image = pygame.transform.scale(image, (CHARACTER_WIDTH, CHARACTER_HEIGHT))
         return image
 
 
@@ -89,7 +84,7 @@ class Player:
         self.draw_coins()
         self.inventory.draw(self.game.screen)
         self.health_bar.draw(self.game.screen, self.health_bar_hp, SCREEN_WIDTH * 3 // 20,
-                             SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT * 4.8 - 40)
+                             SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT - 40)
         #sleep(0.5)
         #play music if on
         if len(self.status) > 0:
@@ -100,7 +95,6 @@ class Player:
                 if self.current_sprite != self.walking_sprite:
                     print(self.count)
                     if self.count >= glob.ACTION_FRAMES / 3:
-                        print("vreodata")
                         self.current_sprite = self.walking_sprite
                         self.count = 0
                 else:
@@ -167,7 +161,7 @@ class Player:
                 pygame.mixer.music.load(self.game.song)
                 pygame.mixer.music.play(-1, start = self.music_pos)
                 self.last_song = self.game.song
-        self.game.screen.blit(self.current_sprite, (SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT * 4.8))
+        self.game.screen.blit(self.current_sprite, (SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
         self.game.display.update()
         #if glob.music_is_on:
             #pygame.mixer.music.load(self.game.song)

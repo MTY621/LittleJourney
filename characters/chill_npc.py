@@ -57,14 +57,7 @@ class ChillNpc:
 
 
     def scale(self, image):
-        # Extract a specific frame (e.g., top-left frame)
-        frame = image.subsurface(pygame.Rect(0, 0, CHARACTER_WIDTH, CHARACTER_HEIGHT))
-
-        # Scale the frame to make it larger (e.g., 8x size)
-        scale_factor = 10
-        scaled_width = CHARACTER_WIDTH * scale_factor
-        scaled_height = CHARACTER_HEIGHT * scale_factor
-        image = pygame.transform.scale(frame, (scaled_width, scaled_height))
+        image = pygame.transform.scale(image, (CHARACTER_WIDTH, CHARACTER_HEIGHT))
         return image
 
 
