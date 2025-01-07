@@ -99,9 +99,10 @@ class Game:
                     break
                 elif new_menu != glob.CONTINUE:
                     self.current_menu = new_menu
-                    self.moving = 1
-                    self.player.walk()
-                    self.show_menu = 0
+                    if not glob.same_npc:
+                        self.moving = 1
+                        self.player.walk()
+                        self.show_menu = 0
 
             if self.moving == 1:
                 self.scroll_x -= 5

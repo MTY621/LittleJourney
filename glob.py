@@ -1,5 +1,6 @@
 import pygame_menu
 from pygame import Color
+from pygame_menu.utils import widget_terminal_title
 
 SCREEN_HEIGHT = 800
 SCREEN_WIDTH = 1200
@@ -21,22 +22,33 @@ player_name = "Alex"
 player_race = "Human"
 music_is_on = True
 sound_effects_are_on = True
+same_npc = False
 
 custom_theme = pygame_menu.themes.Theme(
     background_color = (0, 0, 0, 0),  # Fully transparent background
-    title_font = pygame_menu.font.FONT_8BIT,
-    widget_font = pygame_menu.font.FONT_8BIT,
+    title_font_shadow_color = (0, 0, 0),
+    title_font_shadow_offset = 2,
+    title_font = "fonts/ByteBounce.ttf",
+    title_font_size = 80,
+    widget_font = "fonts/ByteBounce.ttf",
+    widget_font_size = 70,
     widget_font_color = Color('#404040'),
-    title_font_size = 50,
+    widget_box_arrow_color = Color('#404040'),
+    widget_font_shadow = True,
+    widget_font_shadow_color = (0, 0, 0),
+    widget_font_shadow_offset = 2,
 )
 
 custom_play_theme = pygame_menu.themes.Theme(
     background_color = (0, 0, 0, 0),  # Fully transparent background
     title = False,  # Disable the title
     title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_NONE,  # No title bar
-    title_font = pygame_menu.font.FONT_8BIT,
-    widget_font = pygame_menu.font.FONT_8BIT,
+    widget_font = "fonts/ByteBounce.ttf",
+    widget_font_size = 70,
     widget_font_color = Color('#404040'),
+    widget_font_shadow = True,
+    widget_font_shadow_color = (0, 0, 0),
+    widget_font_shadow_offset = 2,
 )
 
 # Function to get the key at a given index
