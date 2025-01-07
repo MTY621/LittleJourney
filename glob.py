@@ -4,8 +4,8 @@ from pygame_menu.utils import widget_terminal_title
 
 SCREEN_HEIGHT = 800
 SCREEN_WIDTH = 1200
-CHARACTER_WIDTH = 32
-CHARACTER_HEIGHT = 32
+CHARACTER_WIDTH = 170
+CHARACTER_HEIGHT = 200
 ACTION_FRAMES = 60
 
 MAIN_MENU_SONG = 'music/little_town_reinstrumented.ogg'

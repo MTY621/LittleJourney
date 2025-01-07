@@ -1,6 +1,6 @@
 import pygame
 import random
-from item import Item
+from inventory.item import Item
 import json
 
 
@@ -25,7 +25,7 @@ BUTTON_TEXT_COLOR = WHITE
 pygame.init()
 
 # Load the sprite sheet
-button_image = pygame.image.load("background.png")
+button_image = pygame.image.load("inventory/backpack.png")
 
 # Define the dimensions of each sprite in the sheet
 SPRITE_WIDTH = 16
@@ -64,7 +64,7 @@ class Inventory:
     def initialize_available_items(self):
         try:
             # Open and parse the JSON file
-            with open("./../items/available_items.json", "r") as file:
+            with open("items/available_items.json", "r") as file:
                 items_data = json.load(file)
 
             for item_data in items_data:
@@ -77,7 +77,7 @@ class Inventory:
                     continue  # Skip invalid entries
 
                 # Load the sprite from the file
-                sprite_path = f"./../items/{file_name}"
+                sprite_path = f"items/{file_name}"
                 print(sprite_path)
                 try:
                     rect = pygame.Rect(0, 0, SPRITE_WIDTH, SPRITE_HEIGHT)
