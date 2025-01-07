@@ -48,6 +48,7 @@ class Player:
         self.atk = 1
         self.defense = 0
         self.hp = hp
+        self.health_bar_hp = hp
         self.total_hp = hp
         self.money = 10
         self.name = name
@@ -82,7 +83,7 @@ class Player:
         #self.game.display.update()
         self.draw_coins()
         self.inventory.draw(self.game.screen)
-        self.health_bar.draw(self.game.screen, self.health_bar_hp, SCREEN_WIDTH * 3 // 20,
+        self.health_bar.draw(self.game.screen, self.health_bar_hp, SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT - 40)
         #sleep(0.5)
         #play music if on
         if len(self.status) > 0:
@@ -122,10 +123,12 @@ class Player:
                 self.current_sprite = self.hurt_sprite
                 self.current_effect = self.hurt_sound
                 if self.no_sound_effect:
-                    self.hp -= self.status[0][2]
+                    self.health_bar_hp -= self.status[0][2]
             elif curr_status == "death":
                 self.current_sprite = self.death_sprite
                 self.current_effect = self.death_sound
+                if self.no_sound_effect:
+                    self.health_bar_hp -= self.status[0][2]
 
             if self.no_sound_effect and glob.sound_effects_are_on:
                 pygame.mixer.music.pause()
@@ -198,7 +201,7 @@ class Player:
         if self.hp == 0:
             #death effects
             #self.draw(self.death_sprite, self.death_sound)
-            self.status.append(["death", glob.ACTION_FRAMES])
+            self.status.append(["death", glob.ACTION_FRAMES, damage_taken])
             return DEATH
 
         #damage taken effects
