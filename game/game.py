@@ -32,6 +32,7 @@ class Game:
         self.background = pygame.image.load('background/castle/1_garden.png').convert()
         self.background_height = int(SCREEN_HEIGHT * 0.88)  # Adjusted to fit 80% of the screen
         self.background = pygame.transform.scale(self.background, (SCREEN_WIDTH, self.background_height))
+        self.bottom_rectangle_color = (255, 255, 0)  # Yellow
 
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.display = pygame.display
@@ -50,10 +51,9 @@ class Game:
 
     def draw_bottom_rectangle(self):
         """Draw a yellow rectangle at the bottom 20% of the screen."""
-        yellow = (255, 255, 0)
         rect_height = int(SCREEN_HEIGHT * 0.12)  # 20% of screen height
         rect_y = SCREEN_HEIGHT - rect_height  # Position it at the bottom
-        pygame.draw.rect(self.screen, yellow, (0, rect_y, SCREEN_WIDTH, rect_height))
+        pygame.draw.rect(self.screen, self.bottom_rectangle_color, (0, rect_y, SCREEN_WIDTH, rect_height))
 
     def start(self):
         # Load background music
@@ -98,8 +98,12 @@ class Game:
                 if new_menu is None:
                     break
                 elif new_menu != glob.CONTINUE:
-                    self.current_menu = new_menu
-                    if not glob.same_npc:
+
+                    self.current_menu = new_menu[0]
+                    transition = new_menu[1]
+                    if transition:
+                        self.transition(new_menu[2], new_menu[3])
+                    if not glob.same_npc and transition != 1:
                         self.moving = 1
                         self.player.walk()
                         self.show_menu = 0
@@ -118,4 +122,43 @@ class Game:
             self.player.draw()
             pygame.display.update()
             clock.tick(60)
+
+    def transition(self, new_background_file, bar_color):
+        new_background = pygame.image.load(new_background_file).convert()
+        new_background = pygame.transform.scale(new_background, (SCREEN_WIDTH, SCREEN_HEIGHT * 0.88))
+        black_surface = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
+        black_surface.fill((0, 0, 0))
+
+        # Dimensions for the blue bar
+        bar_height = SCREEN_HEIGHT * 0.12
+
+        # Transition step size
+        step = 20
+
+        # Black screen enters from the right
+        for x in range(SCREEN_WIDTH, -1, -step):
+            self.screen.blit(black_surface, (x, 0))  # Draw black surface moving in
+            pygame.display.flip()
+            clock.tick(60)  # Uncomment and replace fps if you want to limit frame rate
+
+        sleep(1)
+
+        # Background and blue bar enter from the left
+        for x in range(0, SCREEN_WIDTH + 1, step):
+            self.screen.fill((0, 0, 0))  # Clear screen to black
+
+            # Draw part of the background
+            self.screen.blit(new_background, (0, 0), (0, 0, x, SCREEN_HEIGHT - bar_height))
+
+            # Draw the blue bar rolling in
+            pygame.draw.rect(
+                self.screen,
+                bar_color,
+                pygame.Rect(0, SCREEN_HEIGHT - bar_height, x, bar_height)
+            )
+
+            pygame.display.flip()
+            clock.tick(60)
+        self.background = new_background
+        self.bottom_rectangle_color = bar_color
 

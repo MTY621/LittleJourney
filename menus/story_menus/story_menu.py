@@ -15,6 +15,9 @@ class StoryMenu:
         self.menus = next_menus
         self.next_menu = None
         self.game = None
+        self.transition = False
+        self.next_background = None
+        self.next_bar_color = None
         self.action_duration = 0
         self.in_action = 1 / glob.ACTION_FRAMES
 
@@ -123,7 +126,7 @@ class StoryMenu:
                 glob.same_npc = False
 
             self.in_action = 1 / glob.ACTION_FRAMES
-            return self.next_menu
+            return [self.next_menu, self.transition, self.next_background, self.next_bar_color]
 
         for event in events:
             # check if enter key was pressed
