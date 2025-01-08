@@ -69,6 +69,7 @@ custom_play_theme = pygame_menu.themes.Theme(
     widget_font_shadow = True,
     widget_font_shadow_color = (0, 0, 0),
     widget_font_shadow_offset = 2,
+    widget_offset = (0, 100)
 )
 
 # Function to get the key at a given index
