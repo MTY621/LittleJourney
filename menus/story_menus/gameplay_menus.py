@@ -42,7 +42,7 @@ menu_trader_forest.add_button("[Buy a sword].", menu_trader_forest.set_menu, 0)
 menu_trader_forest.add_button("[Buy a shield].", menu_trader_forest.set_menu, 0)
 menu_trader_forest.add_button("[Buy a potion].", menu_trader_forest.set_menu, 0)
 menu_trader_forest.add_button("[Buy food or drinks].", menu_trader_forest.set_menu, 0)
-menu_trader_forest.add_button("Sleep.", menu_trader_forest.heal, 0, 10)
+menu_trader_forest.add_button("Sleep. [Heal]", menu_trader_forest.heal, 0, 10)
 menus.append(menu_trader_forest)
 
 
