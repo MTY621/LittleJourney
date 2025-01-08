@@ -127,6 +127,11 @@ class StoryMenu:
         pygame.time.wait(100)
 
 
+    def multiple_methods(self, method1, method2, *args):
+        method1(*args[0])
+        method2(*args[1])
+
+
     def set_menu(self, index):
         self.next_menu = self.menus[index]
 

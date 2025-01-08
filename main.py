@@ -16,7 +16,7 @@ from game.game import Game
 if __name__ == '__main__':
     glob.music_is_on = True
     main_menu_start()
-    game = Game(glob.player_race, glob.player_name, menus[1], glob.CURRENT_GAME_SONG)
+    game = Game(glob.player_race, glob.player_name, menus[0], glob.CURRENT_GAME_SONG)
 
     for chill_npc in chill_npcs:
         chill_npc.game = game
