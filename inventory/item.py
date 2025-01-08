@@ -18,13 +18,15 @@ BUTTON_COLOR = (0, 200, 0)
 BUTTON_TEXT_COLOR = WHITE
 
 class Item:
-    def __init__(self, name, description, image):
+    def __init__(self, name, sprite, is_edible, stats):
         self.name = name
-        self.description = description
-        self.image = image
+        self.is_edible = is_edible
+        path = "items/" + sprite + ".png"
+        self.sprite = pygame.image.load(path).convert_alpha()
+        self.stats = stats
         self.is_selected = False
     def __copy__(self):
-        return Item(self.name, self.description, self.image.copy())
+        return Item(self.name, self.sprite.copy(), self.stats.copy())
 
     def draw(self, screen, x, y, frame_size):
         """Draw the item at a given position."""
@@ -36,7 +38,7 @@ class Item:
             pygame.draw.rect(screen, BLACK, (x, y, frame_size, frame_size), 2)
 
         # Draw the item image inside the box
-        scaled_image = pygame.transform.scale(self.image, (frame_size - 10, frame_size - 10))
+        scaled_image = pygame.transform.scale(self.sprite, (frame_size - 10, frame_size - 10))
         screen.blit(scaled_image, (x + 5, y + 5))
 
     def draw_item_buttons(self, screen, x, y):

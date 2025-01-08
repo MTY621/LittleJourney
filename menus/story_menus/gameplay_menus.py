@@ -1,6 +1,7 @@
 from menus.story_menus.story_menu import StoryMenu
 from characters.npcs.chill_npcs import chill_npcs
 from characters.npcs.fighting_npcs import fighting_npcs
+from inventory.items import items
 
 menus = []
 
@@ -24,7 +25,7 @@ menus.append(menu_7)
 
 menu_6 = StoryMenu(chill_npcs[1], [menu_9])
 menu_6.add_text_display(["Unknown girl" + ": " + "Beautiful singing!", "Have a turnip!"])
-menu_6.add_button("Thanks! <Get a turnip>", menu_6.get_items, 0, [])######## turnip
+menu_6.add_button("Thanks! <Get a turnip>", menu_6.get_items, 0, ["Turnip"])
 menus.append(menu_6)
 
 menu_5 = StoryMenu(chill_npcs[1], [menu_6, menu_9])

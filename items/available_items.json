@@ -1,30 +1,152 @@
 [
   {
-    "name" : "Sword",
-    "file_name": "sword.png"
+    "name": "Beer",
+    "file_name": "beer",
+    "is_edible": true,
+    "stats": [1]
   },
   {
-    "name" : "Pickaxe",
-    "file_name" : "pickaxe.png"
+    "name": "Wine",
+    "file_name": "wine",
+    "is_edible": true,
+    "stats": [10]
   },
   {
-    "name" : "Watermelon",
-    "file_name" : "watermelon.png"
+    "name": "Cheese",
+    "file_name": "cheese",
+    "is_edible": true,
+    "stats": [8]
   },
   {
-    "name" : "Pretzel",
-    "file_name" : "pretzel.png"
+    "name": "Chicken",
+    "file_name": "chicken",
+    "is_edible": true,
+    "stats": [9]
   },
   {
-    "name" : "Chicken",
-    "file_name" : "chicken.png"
+    "name": "Potato",
+    "file_name": "potato",
+    "is_edible": true,
+    "stats": [3]
   },
   {
-    "name" : "Cheese",
-    "file_name" : "cheese.png"
+    "name": "Pretzel",
+    "file_name": "pretzel",
+    "is_edible": true,
+    "stats": [7]
   },
   {
-    "name" : "Beer",
-    "file_name" : "beer.png"
+    "name": "Turnip",
+    "file_name": "turnip",
+    "is_edible": true,
+    "stats": [2]
+  },
+  {
+    "name": "Watermelon",
+    "file_name": "watermelon",
+    "is_edible": true,
+    "stats": [6]
+  },
+  {
+    "name": "Attack potion",
+    "file_name": "potions/attack_potion",
+    "is_edible": true,
+    "stats": [10]
+  },
+  {
+    "name": "Defense potion",
+    "file_name": "potions/defense_potion",
+    "is_edible": true,
+    "stats": [2]
+  },
+  {
+    "name": "HP potion",
+    "file_name": "potions/hp_potion",
+    "is_edible": true,
+    "stats": [15]
+  },
+  {
+    "name": "Rusty sword",
+    "file_name": "sword1",
+    "is_edible": false,
+    "stats": [12]
+  },
+  {
+    "name": "Iron sword",
+    "file_name": "sword2",
+    "is_edible": false,
+    "stats": [18]
+  },
+  {
+    "name": "Templar sword",
+    "file_name": "sword3",
+    "is_edible": false,
+    "stats": [23]
+  },
+  {
+    "name": "Knight sword",
+    "file_name": "sword4",
+    "is_edible": false,
+    "stats": [27]
+  },
+  {
+    "name": "Dark Lord sword",
+    "file_name": "sword5",
+    "is_edible": false,
+    "stats": [30]
+  },
+  {
+    "name": "Wooden shield",
+    "file_name": "shield1",
+    "is_edible": false,
+    "stats": [3]
+  },
+  {
+    "name": "Iron shield",
+    "file_name": "shield2",
+    "is_edible": false,
+    "stats": [6]
+  },
+  {
+    "name": "Templar shield",
+    "file_name": "shield3",
+    "is_edible": false,
+    "stats": [9]
+  },
+  {
+    "name": "Knight shield",
+    "file_name": "shield4",
+    "is_edible": false,
+    "stats": [12]
+  },
+  {
+    "name": "Dark Lord shield",
+    "file_name": "shield5",
+    "is_edible": false,
+    "stats": [15]
+  },
+  {
+    "name": "Boomerang",
+    "file_name": "boomerang",
+    "is_edible": false,
+    "stats": []
+  },
+  {
+    "name": "Pickaxe",
+    "file_name": "pickaxe",
+    "is_edible": false,
+    "stats": []
+  },
+  {
+    "name": "Happy Pig",
+    "file_name": "pig_head",
+    "is_edible": false,
+    "stats": []
+  },
+  {
+    "name": "Boxer Glove",
+    "file_name": "glove",
+    "is_edible": false,
+    "stats": []
   }
 ]

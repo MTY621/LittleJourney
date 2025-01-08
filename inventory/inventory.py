@@ -71,13 +71,20 @@ class Inventory:
                 # Extract item properties from JSON
                 file_name = item_data.get("file_name")
                 name = item_data.get("name")
+                is_edible = item_data.get("is_edible")
+                # if item_data.get("is_edible") == "True":
+                #     is_edible = True
+                # else:
+                #     is_edible = False
+                stats = item_data.get("stats")
                 print(name)
+                print(is_edible)
 
                 if not file_name or not name:
                     continue  # Skip invalid entries
 
                 # Load the sprite from the file
-                sprite_path = f"items/{file_name}"
+                sprite_path = f"items/{file_name}.png"
                 print(sprite_path)
                 try:
                     rect = pygame.Rect(0, 0, SPRITE_WIDTH, SPRITE_HEIGHT)
@@ -86,9 +93,8 @@ class Inventory:
                     print(f"Error loading sprite '{sprite_path}': {e}")
                     continue
 
-                # Create the Item object with a default description
-                description = "No description"
-                item = Item(name, description, sprite)
+                # Create the Item object
+                item = Item(name, file_name, is_edible, stats)
 
                 # Add the item to the available items dictionary
                 self.available_items[name] = item

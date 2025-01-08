@@ -10,7 +10,7 @@ chill_npcs.append(ChillNpc("marry", 8, 8, 0, 0, 0,
                    1, "Marry", [], 0))
 #2
 #chill_npcs.append(ChillNpc("big_betty", 1000, 1000, 100, 100, 0,
-#                   0, "BIG BETTY", [], 0))#cap de porc 100 sansa
+#                   0, "BIG BETTY", [happy pig], 100))
 #3
 chill_npcs.append(ChillNpc("muslim_man", 25, 25, 3, 5, 10,
                   12, "Ahmet", [], 0))
