@@ -146,6 +146,7 @@ class StoryMenu:
 
         method1(*args1)
         method2(*args2)
+        self.next_menu = self
 
 
     def set_menu(self, index):
@@ -157,8 +158,11 @@ class StoryMenu:
             self.menu.add.label(label)
 
 
-    def add_button(self, text, method, *args):
-        self.menu.add.button(text, lambda: method(*args))
+    def add_button(self, text, method, args=None, args_func=None):
+        if args_func:
+            self.menu.add.button(text, lambda: method(*args_func()))
+        else:
+            self.menu.add.button(text, lambda: method(*args))
 
     # def add_button(self, text, index, method, *args):
     #     def button_action():
