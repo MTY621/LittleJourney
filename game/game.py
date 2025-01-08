@@ -88,10 +88,7 @@ class Game:
 
                         if glob.music_is_on:
                             pygame.mixer.music.load(self.song)
-                            if self.music_duration - music_pos > 5:  # Ensure at least 5 seconds remain
-                                pygame.mixer.music.play(-1, start=music_pos + 5)
-                            else:
-                                pygame.mixer.music.play(-1)
+                            pygame.mixer.music.play(-1)
 
             if self.show_menu == 1:
                 new_menu = self.current_menu.gameplay_menu(events)

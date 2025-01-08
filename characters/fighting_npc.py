@@ -130,3 +130,18 @@ class FightingNpc:
 
     def attack(self):
         self.status.append(['attack', glob.ACTION_FRAMES])
+
+    def reset(self):
+        self.deque = deque()
+        self.hp = random.randint(self.min_hp, self.max_hp)
+        self.health_bar_hp = self.hp
+        self.total_hp = self.hp
+        self.health_bar = HealthBar(self.hp, 170, 20)
+
+        self.min_def = self.min_def
+        self.max_def = self.max_def
+        self.defense = random.randint(self.min_def, self.max_def)
+
+        self.min_money = self.min_money
+        self.max_money = self.max_money
+        self.money = random.randint(self.min_money, self.max_money)
