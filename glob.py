@@ -44,7 +44,8 @@ music_is_on = True
 sound_effects_are_on = True
 same_npc = False
 can_continue = False
-
+swords = [("Rusty sword", 10), ("Iron sword", 70), ("Templar sword", 120) ,("Knight sword", 150), ("Dark Lord sword", 200)]
+shields = [("Wooden shield", 10), ("Iron shield", 70), ("Templar shield", 120), ("Knight shield", 150), ("Dark Lord shield", 200)]
 custom_theme = pygame_menu.themes.Theme(
     background_color = (0, 0, 0, 0),  # Fully transparent background
     title_font_shadow_color = (0, 0, 0),

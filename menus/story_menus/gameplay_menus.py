@@ -41,6 +41,15 @@ def init_menus(chill_npcs, fighting_npcs):
                 (menu_trader_temple.give_money, [index, items[idx].price])]
 
     menu_20 = StoryMenu(fighting_npcs[random.randint(0, 1)], [None])
+    menu_trader_forest = StoryMenu(fighting_npcs[9], [menu_20])
+    menu_trader_forest.add_text_display([menu_trader_forest.npc.name + ": " + "Pick what you want.", "And pay. The more the better."])
+    menu_trader_forest.add_button("[Buy a sword].", menu_trader_forest.give_sword)
+    menu_trader_forest.add_button("[Buy a shield].", menu_trader_forest.give_shield)
+    menu_trader_forest.add_button("[Buy a potion].", menu_trader_forest.set_menu, 0)
+    menu_trader_forest.add_button("[Buy food or drinks].", menu_trader_forest.set_menu, 0)
+    menu_trader_forest.add_button("Sleep. [Heal]", menu_trader_forest.heal, 0, 10)
+    menus.append(menu_trader_forest)
+    
     menu_trader_temple_healed = StoryMenu(fighting_npcs[9], [menu_20])
     menu_trader_temple_healed.add_text_display([menu_trader_temple_healed.npc.name + ": " + "Pick what you want.",
                                          "And pay. The more the better."])

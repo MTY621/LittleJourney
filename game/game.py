@@ -40,6 +40,8 @@ class Game:
         self.scroll_x = 0
         self.moving = 0
         self.show_menu = 1
+        self.next_sword = 0
+        self.next_shield = 0
 
     def draw_pause_button(self):
         """Draw the pause button on the screen."""
