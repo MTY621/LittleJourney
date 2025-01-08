@@ -31,6 +31,7 @@ def drop_new_game_menu(value, index, widget=None):
 
 
 def new_game():
+    glob.can_continue = True
     main_menu._open(starting_menu)
     # main_menu._open(new_game_menu)
 
