@@ -15,7 +15,7 @@ menu_20.add_button("Fight.", menu_20.fight, 0)
 menus.append(menu_20)
 
 menu_11 = StoryMenu(fighting_npcs[9], None)
-menu_19 = StoryMenu(fighting_npcs[9], [menu_11])
+menu_19 = StoryMenu(fighting_npcs[9], [None])
 menu_19.add_text_display([menu_19.npc.name + ": " + "I am THE TRADER."])
 menu_19.add_button("Ok... how can I earn some money?", menu_19.set_menu, 0)
 menus.append(menu_19)

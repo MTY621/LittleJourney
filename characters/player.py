@@ -33,7 +33,7 @@ class Player:
         self.count = 0
         self.music_pos = 0
 
-        path = "sound_effects/main_character/"
+        path = "sound_effects/main_character/steps/"
         self.sound = path + glob.VILLAGE_WALK
         self.attack_sound = path + "whoosh.wav"
         self.hurt_sound = path + "pain.wav"
@@ -41,7 +41,7 @@ class Player:
 
         self.coin_sprite = pygame.image.load("items/coin.png").convert_alpha()
         self.coin_sprite = pygame.transform.scale(self.coin_sprite, (70, 50))
-        self.atk = 3
+        self.atk = 5
         self.bonus_atk = 0
         self.defense = 0
         self.bonus_defense = 0
