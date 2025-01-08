@@ -112,6 +112,7 @@ class Game:
                 if self.scroll_x <= -SCREEN_WIDTH:
                     self.moving = 0
                     self.show_menu = 1
+                    self.scroll_x = 0
 
             self.draw_pause_button()
             self.player.draw()
