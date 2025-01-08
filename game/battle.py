@@ -1,5 +1,6 @@
 import pygame
 import pygame_menu
+from time import sleep
 
 import glob
 from characters.chill_npc import ChillNpc
@@ -29,6 +30,8 @@ def fight(player, npc):
         if player_attack(player, npc) == glob.DEATH:
             player.reset_bonuses()
             return count
+
+        sleep(0.1)
 
         count += 1
         if npc_attack(player, npc) == glob.DEATH:

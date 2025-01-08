@@ -34,7 +34,6 @@ class Item:
         return Item(self.name, self.sprite_path, self.item_type, self.price, self.is_edible ,self.stats.copy())
 
     def draw(self, screen, x, y, frame_size):
-        """Draw the item at a given position."""
         # Draw selection outline if selected
         if self.is_selected:
             pygame.draw.rect(screen, SELECTED_COLOR, (x, y, frame_size, frame_size), 2)
@@ -47,7 +46,6 @@ class Item:
         screen.blit(scaled_image, (x + 5, y + 5))
 
     def draw_item_buttons(self, screen, x, y):
-        """Draw 'Use' and 'Drop' buttons above the selected item."""
         # Use Button
         if self.is_edible:
             use_button_rect = pygame.Rect(x, y, FRAME_SIZE, 20)
@@ -62,14 +60,12 @@ class Item:
         self.draw_button_text(screen, "Drop", drop_button_rect)
 
     def draw_button_text(self, screen, text, rect):
-        """Draw text centered inside a button."""
         font = pygame.font.SysFont(None, 20)
         text_surface = font.render(text, True, BUTTON_TEXT_COLOR)
         text_rect = text_surface.get_rect(center=rect.center)
         screen.blit(text_surface, text_rect)
 
     def handle_click(self, mouse_pos, x, y, frame_size, player):
-        """Handle click to toggle selection."""
         if x <= mouse_pos[0] <= x + frame_size and y <= mouse_pos[1] <= y + frame_size:
             if player.inventory.selected_item:
                 player.inventory.selected_item.is_selected = False

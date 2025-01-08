@@ -11,7 +11,8 @@ pygame.init()
 class StoryMenu:
     def __init__(self, npc, next_menus):
         self.npc = npc
-        self.menu = pygame_menu.Menu("", glob.SCREEN_WIDTH, glob.SCREEN_HEIGHT, theme=glob.custom_play_theme)
+        self.menu = pygame_menu.Menu("", glob.SCREEN_WIDTH, glob.SCREEN_HEIGHT, theme=glob.custom_play_theme,
+                                     center_content=False)
         self.menus = next_menus
         self.next_menu = None
         self.game = None
@@ -67,9 +68,13 @@ class StoryMenu:
         self.next_menu = self.menus[index]
         self.in_action = fight(self.game.player, self.npc)
 
-        if self.game.player.hp <= 0:
-            return glob.DEATH
-        return 0
+        if self.game.player.hp == 0:
+            glob.can_continue = False
+            self.next_menu = self.menus[0]
+
+        # if self.game.player.hp <= 0:
+        #     return glob.DEATH
+        # return 0
 
 
     def get_items(self, index, items):
@@ -140,6 +145,12 @@ class StoryMenu:
     #
     #     self.menu.add.button(text, button_action)
 
+    # def deselect_all_widgets(self):
+    #     # Iterate over all widgets in the menu and deselect them
+    #     for widget in self.menu.get_widgets():
+    #         if widget.is_selectable:
+    #             widget._selected = False  # Deselect all widgets
+
     # story menu loop
     def gameplay_menu(self, events):
         menu = self.menu
@@ -164,7 +175,8 @@ class StoryMenu:
 
             if self.next_menu is None:
                 return None
-            return [self.next_menu, self.transition, self.next_background, self.next_bar_color, self.next_music, self.next_walking_effect]
+            return [self.next_menu, self.transition, self.next_background, self.next_bar_color, self.next_music,
+                       self.next_walking_effect]
         for event in events:
             # check if enter key was pressed
             if event.type == pygame.KEYDOWN:
