@@ -30,7 +30,7 @@ class Game:
 
         # Adjust the background to leave space for the yellow rectangle
         self.background = pygame.image.load('background/castle/1_garden.png').convert()
-        self.background_height = int(SCREEN_HEIGHT * 0.8)  # Adjusted to fit 80% of the screen
+        self.background_height = int(SCREEN_HEIGHT * 0.88)  # Adjusted to fit 80% of the screen
         self.background = pygame.transform.scale(self.background, (SCREEN_WIDTH, self.background_height))
 
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -51,7 +51,7 @@ class Game:
     def draw_bottom_rectangle(self):
         """Draw a yellow rectangle at the bottom 20% of the screen."""
         yellow = (255, 255, 0)
-        rect_height = int(SCREEN_HEIGHT * 0.2)  # 20% of screen height
+        rect_height = int(SCREEN_HEIGHT * 0.12)  # 20% of screen height
         rect_y = SCREEN_HEIGHT - rect_height  # Position it at the bottom
         pygame.draw.rect(self.screen, yellow, (0, rect_y, SCREEN_WIDTH, rect_height))
 
