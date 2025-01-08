@@ -16,7 +16,7 @@ from game.game import Game
 if __name__ == '__main__':
     glob.music_is_on = True
     main_menu_start()
-    game = Game(glob.player_race, glob.player_name, menus[4], glob.CURRENT_GAME_SONG)
+    game = Game(glob.player_race, glob.player_name, menus[1], glob.CURRENT_GAME_SONG)
 
     for chill_npc in chill_npcs:
         chill_npc.game = game
@@ -27,7 +27,9 @@ if __name__ == '__main__':
     # extra_info.background = pygame.image.load('background/castle/1_garden.png').convert()
     # extra_info.background = pygame.transform.scale(extra_info.background, (SCREEN_WIDTH, SCREEN_HEIGHT))
     while True:
-        game.start()
+        ret = game.start()
+        if ret == glob.GAME_ENDED:
+            game.current_menu = menus[len(menus) - 1]
         main_menu_start()
     # i = 4
     # clock = pygame.time.Clock()

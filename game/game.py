@@ -84,7 +84,7 @@ class Game:
                         pause_ret = pause(self.background)
 
                         if pause_ret == glob.MAIN_MENU:
-                            return
+                            return glob.MAIN_MENU
 
                         if glob.music_is_on:
                             pygame.mixer.music.load(self.song)
@@ -96,9 +96,8 @@ class Game:
             if self.show_menu == 1:
                 new_menu = self.current_menu.gameplay_menu(events)
                 if new_menu is None:
-                    break
+                    return glob.GAME_ENDED
                 elif new_menu != glob.CONTINUE:
-
                     self.current_menu = new_menu[0]
                     transition = new_menu[1]
                     if transition:
