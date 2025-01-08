@@ -80,7 +80,7 @@ class FightingNpc:
 
 
     def draw(self):
-        self.health_bar.draw(self.game.screen, self.health_bar_hp, SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT - 40)
+        self.health_bar.draw(self.game.screen, self.health_bar_hp, SCREEN_WIDTH - SCREEN_WIDTH * 0.25, SCREEN_HEIGHT * 0.88 - CHARACTER_HEIGHT - 40)
 
         if len(self.status) > 0:
             # draw health bar
@@ -125,7 +125,7 @@ class FightingNpc:
                 self.count = 0
         else:
             self.current_sprite = self.sprite
-        self.game.screen.blit(self.current_sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20 - 100, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
+        self.game.screen.blit(self.current_sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 0.25, SCREEN_HEIGHT * 0.88 - CHARACTER_HEIGHT))
         # self.game.display.update()
 
 

@@ -82,7 +82,7 @@ class Player:
         #self.game.display.update()
         self.draw_coins()
         self.inventory.draw(self.game.screen)
-        self.health_bar.draw(self.game.screen, self.health_bar_hp, SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT - 40)
+        self.health_bar.draw(self.game.screen, self.health_bar_hp, SCREEN_WIDTH * 0.13, SCREEN_HEIGHT * 0.88 - CHARACTER_HEIGHT - 40)
         #sleep(0.5)
         #play music if on
         if len(self.status) > 0:
@@ -157,7 +157,7 @@ class Player:
                 pygame.mixer.music.load(self.game.song)
                 pygame.mixer.music.play(-1, start = self.music_pos)
                 self.last_song = self.game.song
-        self.game.screen.blit(self.current_sprite, (SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
+        self.game.screen.blit(self.current_sprite, (SCREEN_WIDTH * 0.13, SCREEN_HEIGHT * 0.88 - CHARACTER_HEIGHT))
         # self.game.display.update()
         #if glob.music_is_on:
             #pygame.mixer.music.load(self.game.song)
