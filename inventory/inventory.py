@@ -69,8 +69,9 @@ class Inventory:
 
             for item_data in items_data:
                 # Extract item properties from JSON
-                file_name = item_data.get("file_name")
                 name = item_data.get("name")
+                file_name = item_data.get("file_name")
+                price = item_data.get("price")
                 is_edible = item_data.get("is_edible")
                 # if item_data.get("is_edible") == "True":
                 #     is_edible = True
@@ -94,7 +95,7 @@ class Inventory:
                     continue
 
                 # Create the Item object
-                item = Item(name, file_name, is_edible, stats)
+                item = Item(name, file_name, price, is_edible, stats)
 
                 # Add the item to the available items dictionary
                 self.available_items[name] = item

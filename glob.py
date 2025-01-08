@@ -1,6 +1,10 @@
 import pygame_menu
 from pygame import Color
-from pygame_menu.utils import widget_terminal_title
+
+# colour codes
+VILLAGE_FOUNTAIN_COLOUR = (172, 172, 172)
+TEMPLE_GROUND_COLOUR = (219, 194, 111)
+# TEMPLE_GROUND_COLOUR = (194, 200, 190)
 
 SCREEN_HEIGHT = 800
 SCREEN_WIDTH = 1200

@@ -32,7 +32,7 @@ class Game:
         self.background = pygame.image.load('background/castle/1_garden.png').convert()
         self.background_height = int(SCREEN_HEIGHT * 0.88)  # Adjusted to fit 80% of the screen
         self.background = pygame.transform.scale(self.background, (SCREEN_WIDTH, self.background_height))
-        self.bottom_rectangle_color = (255, 255, 0)  # Yellow
+        self.bottom_rectangle_color = glob.VILLAGE_FOUNTAIN_COLOUR
 
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.display = pygame.display
@@ -140,8 +140,6 @@ class Game:
             self.screen.blit(black_surface, (x, 0))  # Draw black surface moving in
             pygame.display.flip()
             clock.tick(60)  # Uncomment and replace fps if you want to limit frame rate
-
-        sleep(1)
 
         # Background and blue bar enter from the left
         for x in range(0, SCREEN_WIDTH + 1, step):

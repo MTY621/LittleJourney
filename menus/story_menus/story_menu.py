@@ -77,14 +77,35 @@ class StoryMenu:
             pass
 
 
-    def give_coins(self, index, amount):
+    def give_items(self, index, items):
+        self.next_menu = self.menus[index]
+        for item in items:
+            #add to inventory
+            pass
+
+
+    def get_money(self, index, amount):
+        self.next_menu = self.menus[index]
+        self.game.player.money += amount
+
+
+    def give_money(self, index, amount):
         if self.game.player.money >= amount:
             self.next_menu = self.menus[index]
-            self.game.player.money -= amount
-            print(self.game.player.money)
+            if amount == -1:
+                self.game.player.money = 0
+            else:
+                self.game.player.money -= amount
         else:
             self.show_error("Not enough coins!")
             self.next_menu = self
+
+
+    def set_transition(self, index, next_background, next_bar_color):
+        self.next_menu = self.menus[index]
+        self.transition = True
+        self.next_background = next_background
+        self.next_bar_color = next_bar_color
 
 
     def set_menu(self, index):

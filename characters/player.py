@@ -37,14 +37,14 @@ class Player:
         self.music_pos = 0
 
         path = "sound_effects/main_character/"
-        self.sound = path + "step_dirt_1.wav"
+        self.sound = path + "steps/step_dirt_7.wav"
         self.attack_sound = path + "whoosh.wav"
         self.hurt_sound = path + "pain.wav"
         self.death_sound = path + "death.wav"
 
         self.coin_sprite = pygame.image.load("items/coin.png").convert_alpha()
         self.coin_sprite = pygame.transform.scale(self.coin_sprite, (70, 50))
-        self.atk = 1
+        self.atk = 3
         self.defense = 0
         self.hp = hp
         self.health_bar_hp = hp

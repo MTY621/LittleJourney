@@ -18,8 +18,9 @@ BUTTON_COLOR = (0, 200, 0)
 BUTTON_TEXT_COLOR = WHITE
 
 class Item:
-    def __init__(self, name, sprite, is_edible, stats):
+    def __init__(self, name, sprite, price, is_edible, stats):
         self.name = name
+        self.price = price
         self.is_edible = is_edible
         path = "items/" + sprite + ".png"
         self.sprite = pygame.image.load(path).convert_alpha()
