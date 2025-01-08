@@ -44,7 +44,6 @@ class Player:
 
         self.coin_sprite = pygame.image.load("items/coin.png").convert_alpha()
         self.coin_sprite = pygame.transform.scale(self.coin_sprite, (70, 50))
-        self.coins = 0
         self.atk = 1
         self.defense = 0
         self.hp = hp
@@ -173,7 +172,7 @@ class Player:
         font = pygame.font.Font(None, 36)  # You can specify a custom font path if needed
 
         # Render the number of coins as text
-        coin_text = font.render(str(self.coins), True, (255, 255, 255))  # White color text
+        coin_text = font.render(str(self.money), True, (255, 255, 255))  # White color text
 
         # Position of the coin sprite and text
         coin_x = 10  # Left margin
