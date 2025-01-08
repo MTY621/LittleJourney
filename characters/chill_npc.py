@@ -6,10 +6,6 @@ import glob
 from characters.health import HealthBar
 from glob import CHARACTER_WIDTH, CHARACTER_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT, DEATH, ACTION_FRAMES
 
-
-# Initialize Pygame
-pygame.init()
-
 class ChillNpc:
     def __init__(self, sprite_name, min_hp, max_hp, min_def, max_def, min_money, max_money, name, items, drop_chance):
 
@@ -55,26 +51,11 @@ class ChillNpc:
         return ChillNpc(self.sprite_name, self.min_hp, self.max_hp, self.min_def, self.max_def, self.min_money,
                         self.max_money, self.name, self.items, self.drop_chance)
 
-
     def scale(self, image):
         image = pygame.transform.scale(image, (CHARACTER_WIDTH, CHARACTER_HEIGHT))
         return image
 
-
-    def action_effects(self, sprite):
-        if sprite:
-            if sprite == self.death_sprite:
-                self.game.screen.blit(self.game.background, (0, 0))
-                self.game.display.update()
-                # draw health bar
-                self.game.screen.blit(sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20 - 100, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT + 70))
-            else:
-                # draw health bar
-                self.game.screen.blit(sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20 - 100, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
-
     def draw(self):
-        # self.action_effects(sprite)
-        # sleep(0.5)
         self.health_bar.draw(self.game.screen, self.health_bar_hp, SCREEN_WIDTH - SCREEN_WIDTH * 0.25,
                              SCREEN_HEIGHT * 0.88 - CHARACTER_HEIGHT - 40)
 
@@ -82,11 +63,8 @@ class ChillNpc:
             # draw health bar
             curr_status = self.status[0][0]
             if curr_status == "walk":
-                #print("walking")
                 if self.current_sprite != self.walking_sprite:
-                    print(self.count)
                     if self.count >= glob.ACTION_FRAMES / 3:
-                        print("vreodata")
                         self.current_sprite = self.walking_sprite
                         self.count = 0
                 else:
@@ -118,25 +96,13 @@ class ChillNpc:
                 self.count += 1
 
             self.status[0][1] -= 1
-            #print(self.status[0][1])
             if self.status[0][1] == 0:
                 self.status.popleft()
                 self.no_sound_effect = True
                 self.count = 0
         else:
-            # draw health bar
-            #self.health_bar.draw(self.game.screen, self.hp, SCREEN_WIDTH * 3 // 20,
-                                 #SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT - 40)
-            #self.game.screen.blit(self.sprite, (SCREEN_WIDTH * 3 // 20, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
-            #self.game.display.update()
             self.current_sprite = self.sprite
         self.game.screen.blit(self.current_sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 0.25, SCREEN_HEIGHT * 0.88 - CHARACTER_HEIGHT))
-        # self.game.display.update()
-
-        # if sprite != self.death_sprite:
-        # self.game.screen.blit(self.sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20 - 200, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT - 200))
-        # self.game.display.update()
-        # sleep(0.5)
 
     def take_damage(self, damage):
         # Calculate the damage taken
@@ -151,11 +117,9 @@ class ChillNpc:
 
         if self.hp == 0:
             # death effects
-            # self.draw(self.death_sprite)
             self.status.append(['death', glob.ACTION_FRAMES, damage_taken])
             return DEATH
 
         # damage taken effects
-        # self.draw(self.hurt_sprite)
         self.status.append(['hurt', glob.ACTION_FRAMES, damage_taken])
         return 0

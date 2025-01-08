@@ -6,10 +6,6 @@ import glob
 from characters.health import HealthBar
 from glob import CHARACTER_WIDTH, CHARACTER_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT, DEATH, ACTION_FRAMES
 
-
-# Initialize Pygame
-pygame.init()
-
 class FightingNpc:
     def __init__(self, sprite_name, min_atk, max_atk, min_hp, max_hp, min_def, max_def, min_money, max_money, name,
                  items, drop_chance):
@@ -61,33 +57,18 @@ class FightingNpc:
         return FightingNpc(self.sprite_name, self.min_atk, self.max_atk, self.min_hp, self.max_hp, self.min_def,
                            self.max_def, self.min_money, self.max_money, self.name, self.items, self.drop_chance)
 
-
     def scale(self, image):
         image = pygame.transform.scale(image, (CHARACTER_WIDTH, CHARACTER_HEIGHT))
         return image
 
-
-    def action_effects(self, sprite):
-        if sprite:
-            if sprite == self.death_sprite:
-                self.game.screen.blit(self.game.background, (0, 0))
-                self.game.display.update()
-                # draw health bar
-                self.game.screen.blit(sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20 - 200, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT + 70))
-            else:
-                # draw health bar
-                self.game.screen.blit(sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20 - 200, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT - 200))
-
-
     def draw(self):
+        # Draw the health bar
         self.health_bar.draw(self.game.screen, self.health_bar_hp, SCREEN_WIDTH - SCREEN_WIDTH * 0.25, SCREEN_HEIGHT * 0.88 - CHARACTER_HEIGHT - 40)
 
         if len(self.status) > 0:
-            # draw health bar
             curr_status = self.status[0][0]
             if curr_status == "walk":
                 if self.current_sprite != self.walking_sprite:
-                    print(self.count)
                     if self.count >= glob.ACTION_FRAMES / 3:
                         self.current_sprite = self.walking_sprite
                         self.count = 0
@@ -119,14 +100,12 @@ class FightingNpc:
                     self.health_bar_hp -= self.status[0][2]
                 self.count += 1
             self.status[0][1] -= 1
-            #print(self.status[0][1])
             if self.status[0][1] == 0:
                 self.status.popleft()
                 self.count = 0
         else:
             self.current_sprite = self.sprite
         self.game.screen.blit(self.current_sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 0.25, SCREEN_HEIGHT * 0.88 - CHARACTER_HEIGHT))
-        # self.game.display.update()
 
 
     def take_damage(self, damage):
@@ -142,15 +121,12 @@ class FightingNpc:
 
         if self.hp == 0:
             # death effects
-            # self.draw(self.death_sprite)
             self.status.append(['death', glob.ACTION_FRAMES, damage_taken])
             return DEATH
 
         # damage taken effects
-        #self.draw(self.hurt_sprite)
         self.status.append(['hurt', glob.ACTION_FRAMES, damage_taken])
         return 0
 
     def attack(self):
-        #self.draw(self.attack_sprite)
         self.status.append(['attack', glob.ACTION_FRAMES])
