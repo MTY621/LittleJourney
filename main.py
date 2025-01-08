@@ -28,9 +28,16 @@ if __name__ == '__main__':
     # extra_info.background = pygame.transform.scale(extra_info.background, (SCREEN_WIDTH, SCREEN_HEIGHT))
     while True:
         ret = game.start()
-        if ret == glob.GAME_ENDED:
-            game.current_menu = menus[len(menus) - 1]
         main_menu_start()
+        if ret == glob.GAME_ENDED:
+            game = Game(glob.player_race, glob.player_name, menus[len(menus) - 1], glob.CURRENT_GAME_SONG)
+
+            for chill_npc in chill_npcs:
+                chill_npc.game = game
+            for fighting_npc in fighting_npcs:
+                fighting_npc.game = game
+            for menu in menus:
+                menu.game = game
     # i = 4
     # clock = pygame.time.Clock()
     # extra_info.player = Player("Human", 100, "Player", [])
