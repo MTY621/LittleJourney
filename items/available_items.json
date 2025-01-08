@@ -2,6 +2,7 @@
   {
     "name": "Beer",
     "file_name": "beer",
+    "item_type": "drink",
     "price": 5,
     "is_edible": true,
     "stats": [1]
@@ -9,6 +10,7 @@
   {
     "name": "Wine",
     "file_name": "wine",
+    "item_type": "drink",
     "price": 15,
     "is_edible": true,
     "stats": [10]
@@ -16,6 +18,7 @@
   {
     "name": "Cheese",
     "file_name": "cheese",
+    "item_type": "food",
     "price": 8,
     "is_edible": true,
     "stats": [8]
@@ -23,6 +26,7 @@
   {
     "name": "Chicken",
     "file_name": "chicken",
+    "item_type": "food",
     "price": 12,
     "is_edible": true,
     "stats": [9]
@@ -30,6 +34,7 @@
   {
     "name": "Potato",
     "file_name": "potato",
+    "item_type": "food",
     "price": 2,
     "is_edible": true,
     "stats": [3]
@@ -37,6 +42,7 @@
   {
     "name": "Pretzel",
     "file_name": "pretzel",
+    "item_type": "food",
     "price": 15,
     "is_edible": true,
     "stats": [7]
@@ -44,6 +50,7 @@
   {
     "name": "Turnip",
     "file_name": "turnip",
+    "item_type": "food",
     "price": 1,
     "is_edible": true,
     "stats": [2]
@@ -51,6 +58,7 @@
   {
     "name": "Watermelon",
     "file_name": "watermelon",
+    "item_type": "food",
     "price": 9,
     "is_edible": true,
     "stats": [6]
@@ -58,6 +66,7 @@
   {
     "name": "Attack potion",
     "file_name": "potions/attack_potion",
+    "item_type": "potion",
     "price": 20,
     "is_edible": true,
     "stats": [10]
@@ -65,6 +74,7 @@
   {
     "name": "Defense potion",
     "file_name": "potions/defense_potion",
+    "item_type": "potion",
     "price": 20,
     "is_edible": true,
     "stats": [2]
@@ -72,6 +82,7 @@
   {
     "name": "HP potion",
     "file_name": "potions/hp_potion",
+    "item_type": "potion",
     "price": 20,
     "is_edible": true,
     "stats": [15]
@@ -79,6 +90,7 @@
   {
     "name": "Rusty sword",
     "file_name": "sword1",
+    "item_type": "sword",
     "price": 10,
     "is_edible": false,
     "stats": [12]
@@ -86,6 +98,7 @@
   {
     "name": "Iron sword",
     "file_name": "sword2",
+    "item_type": "sword",
     "price": 70,
     "is_edible": false,
     "stats": [18]
@@ -93,6 +106,7 @@
   {
     "name": "Templar sword",
     "file_name": "sword3",
+    "item_type": "sword",
     "price": 120,
     "is_edible": false,
     "stats": [23]
@@ -100,6 +114,7 @@
   {
     "name": "Knight sword",
     "file_name": "sword4",
+    "item_type": "sword",
     "price": 150,
     "is_edible": false,
     "stats": [27]
@@ -107,6 +122,7 @@
   {
     "name": "Dark Lord sword",
     "file_name": "sword5",
+    "item_type": "sword",
     "price": 200,
     "is_edible": false,
     "stats": [30]
@@ -114,6 +130,7 @@
   {
     "name": "Wooden shield",
     "file_name": "shield1",
+    "item_type": "shield",
     "price": 10,
     "is_edible": false,
     "stats": [3]
@@ -121,6 +138,7 @@
   {
     "name": "Iron shield",
     "file_name": "shield2",
+    "item_type": "shield",
     "price": 70,
     "is_edible": false,
     "stats": [6]
@@ -128,6 +146,7 @@
   {
     "name": "Templar shield",
     "file_name": "shield3",
+    "item_type": "shield",
     "price": 120,
     "is_edible": false,
     "stats": [9]
@@ -135,6 +154,7 @@
   {
     "name": "Knight shield",
     "file_name": "shield4",
+    "item_type": "shield",
     "price": 150,
     "is_edible": false,
     "stats": [12]
@@ -142,6 +162,7 @@
   {
     "name": "Dark Lord shield",
     "file_name": "shield5",
+    "item_type": "shield",
     "price": 200,
     "is_edible": false,
     "stats": [15]
@@ -149,6 +170,7 @@
   {
     "name": "Boomerang",
     "file_name": "boomerang",
+    "item_type": "other",
     "price": 4,
     "is_edible": false,
     "stats": []
@@ -156,6 +178,7 @@
   {
     "name": "Pickaxe",
     "file_name": "pickaxe",
+    "item_type": "other",
     "price": 30,
     "is_edible": false,
     "stats": []
@@ -163,6 +186,7 @@
   {
     "name": "Happy Pig",
     "file_name": "pig_head",
+    "item_type": "other",
     "price": 100,
     "is_edible": false,
     "stats": []
@@ -170,6 +194,7 @@
   {
     "name": "Boxer Glove",
     "file_name": "glove",
+    "item_type": "other",
     "price": 7,
     "is_edible": false,
     "stats": []

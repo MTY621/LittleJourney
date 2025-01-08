@@ -42,13 +42,15 @@ class Player:
         self.coin_sprite = pygame.image.load("items/coin.png").convert_alpha()
         self.coin_sprite = pygame.transform.scale(self.coin_sprite, (70, 50))
         self.atk = 3
+        self.bonus_atk = 0
         self.defense = 0
+        self.bonus_defense = 0
         self.hp = hp
         self.health_bar_hp = hp
         self.total_hp = hp
         self.money = 10
         self.name = name
-        self.inventory = Inventory(SCREEN_WIDTH, SCREEN_HEIGHT)
+        self.inventory = Inventory(SCREEN_WIDTH, SCREEN_HEIGHT, self)
         self.game = game
         self.health_bar = HealthBar(100, 170, 20)
 
@@ -164,3 +166,9 @@ class Player:
 
     def walk(self):
         self.status.append(["walk", SCREEN_WIDTH // 5])
+
+    def reset_bonuses(self):
+        self.atk -= self.bonus_atk
+        self.defense -= self.bonus_defense
+        self.bonus_atk = 0
+        self.bonus_defense = 0
