@@ -117,7 +117,7 @@ class Player:
             self.current_sprite = self.sprite
             if glob.music_is_on and self.last_song != self.game.song:
                 pygame.mixer.music.load(self.game.song)
-                pygame.mixer.music.play(-1, start = self.music_pos)
+                pygame.mixer.music.play(-1)
                 self.last_song = self.game.song
         self.game.screen.blit(self.current_sprite, (SCREEN_WIDTH * 0.13, SCREEN_HEIGHT * 0.88 - CHARACTER_HEIGHT))
 
