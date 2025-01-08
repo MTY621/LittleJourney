@@ -244,6 +244,7 @@ def init_menus(chill_npcs, fighting_npcs):
     menu_1.add_button("Yes. [Give 1 coin]", menu_1.give_money, 0, 1)
     menu_1.add_button("No. [Leave]", menu_1.set_menu, 1)
     menus.append(menu_1)
+    return menus
 
     # traderul este scammer
     # taranul e sarac si atotstiutor
