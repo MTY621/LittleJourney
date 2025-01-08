@@ -67,9 +67,13 @@ class StoryMenu:
         self.next_menu = self.menus[index]
         self.in_action = fight(self.game.player, self.npc)
 
-        if self.game.player.hp <= 0:
-            return glob.DEATH
-        return 0
+        if self.game.player.hp == 0:
+            glob.can_continue = False
+            self.next_menu = self.menus[0]
+
+        # if self.game.player.hp <= 0:
+        #     return glob.DEATH
+        # return 0
 
 
     def get_items(self, index, items):

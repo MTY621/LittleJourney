@@ -133,7 +133,7 @@ class Game:
         bar_height = SCREEN_HEIGHT * 0.12
 
         # Transition step size
-        step = 20
+        step = 30
 
         # Black screen enters from the right
         for x in range(SCREEN_WIDTH, -1, -step):

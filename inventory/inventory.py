@@ -73,20 +73,13 @@ class Inventory:
                 file_name = item_data.get("file_name")
                 price = item_data.get("price")
                 is_edible = item_data.get("is_edible")
-                # if item_data.get("is_edible") == "True":
-                #     is_edible = True
-                # else:
-                #     is_edible = False
                 stats = item_data.get("stats")
-                print(name)
-                print(is_edible)
 
                 if not file_name or not name:
                     continue  # Skip invalid entries
 
                 # Load the sprite from the file
                 sprite_path = f"items/{file_name}.png"
-                print(sprite_path)
                 try:
                     rect = pygame.Rect(0, 0, SPRITE_WIDTH, SPRITE_HEIGHT)
                     sprite = pygame.image.load(sprite_path).subsurface(rect)

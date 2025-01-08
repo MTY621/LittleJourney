@@ -1,3 +1,4 @@
+import pygame
 import pygame_menu
 from pygame import Color
 
@@ -29,6 +30,7 @@ MAIN_MENU_SONG = 'music/little_town_reinstrumented.ogg'
 CURRENT_GAME_SONG = VILLAGE_MUSIC
 
 #return codes
+EXIT_MENU = pygame.USEREVENT + 100
 MAIN_MENU = 1
 CONTINUE = 2
 DEATH = 3
@@ -40,6 +42,7 @@ player_race = "Human"
 music_is_on = True
 sound_effects_are_on = True
 same_npc = False
+can_continue = False
 
 custom_theme = pygame_menu.themes.Theme(
     background_color = (0, 0, 0, 0),  # Fully transparent background

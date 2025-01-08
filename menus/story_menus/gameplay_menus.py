@@ -7,6 +7,8 @@ import glob
 
 menus = []
 
+menu_death = StoryMenu(fighting_npcs[9], [None])
+
 menu_20 = StoryMenu(fighting_npcs[random.randint(0, 2)], [None])
 menu_20.add_text_display(["Blarghhh."])
 menu_20.add_button("Fight.", menu_20.fight, 0)

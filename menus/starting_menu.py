@@ -33,9 +33,13 @@ def save_attr():
     # Set the save slot name in glob
     used_save_slots[save_slot_name] = 1
 
+    print("ok")
     print(glob.player_name)
     print(glob.player_race)
     print(used_save_slots)
+
+    pygame.event.post(pygame.event.Event(glob.EXIT_MENU))
+    starting_menu.reset(1)
 
 
 def set_save_attr(menu, given_index):
