@@ -102,7 +102,7 @@ class Game:
                     self.current_menu = new_menu[0]
                     transition = new_menu[1]
                     if transition:
-                        self.transition(new_menu[2], new_menu[3])
+                        self.transition(new_menu[2], new_menu[3], new_menu[4], new_menu[5])
                     if not glob.same_npc and transition != 1:
                         self.moving = 1
                         self.player.walk()
