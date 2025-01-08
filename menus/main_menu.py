@@ -27,15 +27,17 @@ def drop_new_game_menu(value, index, widget=None):
         sure(new_game_menu, "Are you sure you want to overwrite this save?", starting_menu)
     else:
         set_save_attr(new_game_menu, index)
-        pygame.event.post(pygame.event.Event(exit_menu))
+        pygame.event.post(pygame.event.Event(glob.EXIT_MENU))
 
 
 def new_game():
-    main_menu._open(new_game_menu)
+    main_menu._open(starting_menu)
+    # main_menu._open(new_game_menu)
 
 
 def continue_game():
-    pygame.event.post(pygame.event.Event(exit_menu))
+    if glob.can_continue:
+        pygame.event.post(pygame.event.Event(glob.EXIT_MENU))
 
 
 def loading_menu():
@@ -64,7 +66,7 @@ main_menu = pygame_menu.Menu(
     'Main menu', glob.SCREEN_WIDTH, glob.SCREEN_HEIGHT, theme=glob.custom_theme)
 main_menu.add.button('New game', new_game)
 main_menu.add.button('Continue', continue_game)
-main_menu.add.button('Load', load_save)
+# main_menu.add.button('Load', load_save)
 main_menu.add.button('Settings', settings_menu_call)
 main_menu.add.button('Credits', credits_menu_call)
 main_menu.add.button('Exit', pygame_menu.events.EXIT)
@@ -105,7 +107,7 @@ left_arrow = pygame_menu.widgets.LeftArrowSelection(arrow_size=(10, 15))
 right_arrow = pygame_menu.widgets.RightArrowSelection(arrow_size=(10, 15))
 
 update_loading = pygame.USEREVENT + 0
-exit_menu = pygame.USEREVENT + 1
+# exit_menu = pygame.USEREVENT + 1
 
 
 # Main menu loop
@@ -135,7 +137,7 @@ def main_menu_start():
                     loading.reset(1)  # Reset loading menu widgets for safety
                     main_menu.enable()  # Enable the main menu
 
-            if event.type == exit_menu:
+            if event.type == glob.EXIT_MENU:
                 main_menu.disable()
                 pygame.mixer.music.stop()
                 return
