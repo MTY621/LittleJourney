@@ -39,7 +39,7 @@ main_menu_ret = pygame.USEREVENT + 1
 # Pause menu loop
 def pause(background):
     pygame.mixer.music.load('music/safe_room_theme.flac')
-    pygame.mixer.music.set_volume(0.5)  # Set volume (0.0 to 1.0)
+    pygame.mixer.music.set_volume(0.3)  # Set volume (0.0 to 1.0)
 
     if glob.music_is_on:
         pygame.mixer.music.play(-1)

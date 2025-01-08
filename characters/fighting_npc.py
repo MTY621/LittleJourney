@@ -126,7 +126,7 @@ class FightingNpc:
         else:
             self.current_sprite = self.sprite
         self.game.screen.blit(self.current_sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20 - 100, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
-        self.game.display.update()
+        # self.game.display.update()
 
 
     def take_damage(self, damage):

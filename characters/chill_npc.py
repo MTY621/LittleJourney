@@ -131,7 +131,7 @@ class ChillNpc:
             #self.game.display.update()
             self.current_sprite = self.sprite
         self.game.screen.blit(self.current_sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20 - 100, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT))
-        self.game.display.update()
+        # self.game.display.update()
 
         # if sprite != self.death_sprite:
         # self.game.screen.blit(self.sprite, (SCREEN_WIDTH - SCREEN_WIDTH * 3 // 20 - 200, SCREEN_HEIGHT * 4 // 5 - CHARACTER_HEIGHT - 200))
