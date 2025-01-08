@@ -64,6 +64,14 @@ class StoryMenu:
         pygame.event.clear()
 
 
+    def heal(self, index, amount):
+        self.next_menu = self.menus[index]
+        if self.game.player.hp + amount > self.game.player.max_hp:
+            self.game.player.hp = self.game.player.max_hp
+        else:
+            self.game.player.hp += amount
+
+
     def fight(self, index):
         self.next_menu = self.menus[index]
         self.in_action = fight(self.game.player, self.npc)
@@ -127,9 +135,9 @@ class StoryMenu:
         pygame.time.wait(100)
 
 
-    def multiple_methods(self, method1, method2, *args):
-        method1(*args[0])
-        method2(*args[1])
+    def multiple_methods(self, methods_with_args):
+        for method, args in methods_with_args:
+            method(*args)
 
 
     def set_menu(self, index):

@@ -10,8 +10,8 @@ fighting_npcs.append(FightingNpc("big_bloated", 5, 10, 10, 10, 0,
 fighting_npcs.append(FightingNpc("centipede", 8, 13, 12, 18, 1,
                          2, 5, 15, "Centipede", [], 0))
 # 2
-fighting_npcs.append(FightingNpc("battle_turtle", 10, 15, 12, 20, 3,
-                         3, 10, 18, "Armored turtle", [], 0))
+fighting_npcs.append(FightingNpc("battle_turtle", 10, 15, 12, 20, 4,
+                         4, 10, 18, "Armored turtle", [], 0))
 
 # desert enemies
 # 3
