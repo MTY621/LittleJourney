@@ -79,7 +79,7 @@ class StoryMenu:
 
     def get_items(self, index, items):
         self.next_menu = self.menus[index]
-        for i in range(items):
+        for i in range(len(items)):
             rc = self.game.player.inventory.add_item(items[i])
             if rc != 1:
                 for j in range(i):

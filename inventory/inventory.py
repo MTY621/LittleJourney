@@ -101,7 +101,7 @@ class Inventory:
         except json.JSONDecodeError:
             print("Error: Failed to parse 'available_items.json'.")
 
-    def add_player_item(self, name):
+    def add_item(self, name):
 
         if name in self.available_items:
             # Check if the inventory is full
@@ -139,7 +139,7 @@ class Inventory:
             print(f"Item {name} does not exist in available items.")
             return 0
 
-    def remove_player_item(self, name):
+    def remove_item(self, name):
         for i in range(MAX_ITEMS):
             if self.player_items[i] and self.player_items[i].name == name:
                 if self.player_items[i].item_type == "sword":
@@ -149,7 +149,7 @@ class Inventory:
                 self.player_items[i] = None
                 print(f"Removed {name} from player's inventory.")
                 return
-    def player_has_item(self, name):
+    def has_item(self, name):
         for i in range(MAX_ITEMS):
             if self.player_items[i] and self.player_items[i].name == name:
                 return True
