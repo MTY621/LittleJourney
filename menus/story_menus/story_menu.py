@@ -1,6 +1,5 @@
 import pygame
 import pygame_menu
-
 import glob
 from game.battle import fight
 
@@ -66,10 +65,11 @@ class StoryMenu:
 
     def heal(self, index, amount):
         self.next_menu = self.menus[index]
-        if self.game.player.hp + amount > self.game.player.max_hp:
-            self.game.player.hp = self.game.player.max_hp
+        if self.game.player.hp + amount > self.game.player.total_hp:
+            self.game.player.hp = self.game.player.total_hp
         else:
             self.game.player.hp += amount
+        self.game.player.health_bar_hp = self.game.player.hp
 
 
     def fight(self, index):
@@ -111,6 +111,33 @@ class StoryMenu:
     def get_money(self, index, amount):
         self.next_menu = self.menus[index]
         self.game.player.money += amount
+
+    def give_sword(self):
+        self.next_menu = self
+        if self.game.player.money >= glob.swords[self.game.next_sword][1]:
+            if self.game.player.inventory.add_item(glob.swords[self.game.next_sword][0]):
+                self.game.player.money -= glob.swords[self.game.next_sword][1]
+                self.game.next_sword = min(self.game.next_sword + 1, len(glob.swords) - 1)
+            else:
+                self.show_error("Not enough space in inventory!")
+        else:
+            self.show_error("Not enough coins!")
+        pygame.time.wait(100)
+        pygame.event.clear()
+
+    def give_shield(self):
+        self.next_menu = self
+        if self.game.player.money >= glob.shields[self.game.next_shield][1]:
+            if self.game.player.inventory.add_item(glob.shields[self.game.next_shield][0]):
+                self.game.player.money -= glob.swords[self.game.next_shield][1]
+                self.game.next_sword = min(self.game.next_shield + 1, len(glob.shields) - 1)
+            else:
+                self.show_error("Not enough space in inventory!")
+        else:
+            self.show_error("Not enough coins!")
+        pygame.time.wait(100)
+        pygame.event.clear()
+
 
 
     def give_money(self, index, amount):
