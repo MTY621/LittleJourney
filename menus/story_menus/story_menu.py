@@ -66,8 +66,8 @@ class StoryMenu:
 
     def heal(self, index, amount):
         self.next_menu = self.menus[index]
-        if self.game.player.hp + amount > self.game.player.max_hp:
-            self.game.player.hp = self.game.player.max_hp
+        if self.game.player.hp + amount > self.game.player.total_hp:
+            self.game.player.hp = self.game.player.total_hp
         else:
             self.game.player.hp += amount
 
@@ -135,9 +135,17 @@ class StoryMenu:
         pygame.time.wait(100)
 
 
-    def multiple_methods(self, methods_with_args):
-        for method, args in methods_with_args:
-            method(*args)
+    def buy_item(self, methods_with_args):
+        method1, args1 = methods_with_args[0]
+        method2, args2 = methods_with_args[1]
+
+        if self.game.player.money < args2[1]:
+            self.show_error("Not enough coins!")
+            self.next_menu = self
+            return
+
+        method1(*args1)
+        method2(*args2)
 
 
     def set_menu(self, index):
