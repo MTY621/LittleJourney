@@ -19,7 +19,7 @@ if __name__ == '__main__':
     chill_npcs = init_chill_npcs()
     fighting_npcs = init_fighting_npcs()
     menus = init_menus(chill_npcs, fighting_npcs)
-    game = Game(glob.player_race, glob.player_name, menus[14], glob.CURRENT_GAME_SONG)
+    game = Game(glob.player_race, glob.player_name, menus[18], glob.CURRENT_GAME_SONG)
     for chill_npc in chill_npcs:
         chill_npc.game = game
     for fighting_npc in fighting_npcs:
