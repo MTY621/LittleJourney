@@ -87,12 +87,12 @@ class Inventory:
                 # Load the sprite from the file
                 sprite_path = f"items/{file_name}.png"
                 print(sprite_path)
-                try:
-                    rect = pygame.Rect(0, 0, SPRITE_WIDTH, SPRITE_HEIGHT)
-                    sprite = pygame.image.load(sprite_path).subsurface(rect)
-                except pygame.error as e:
-                    print(f"Error loading sprite '{sprite_path}': {e}")
-                    continue
+                #try:
+                    #rect = pygame.Rect(0, 0, SPRITE_WIDTH, SPRITE_HEIGHT)
+                    #sprite = pygame.image.load(sprite_path).subsurface(rect)
+                #except pygame.error as e:
+                    #print(f"Error loading sprite '{sprite_path}': {e}")
+                    #continue
 
                 # Create the Item object
                 item = Item(name, file_name, price, is_edible, stats)
