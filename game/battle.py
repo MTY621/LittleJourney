@@ -7,14 +7,13 @@ from characters.fighting_npc import FightingNpc
 
 
 def player_attack(player, npc):
-    print("Attack command")
     player.attack()
     ret_code = npc.take_damage(player.atk)
     return ret_code
 
 
 def npc_attack(player, npc):
-    if npc is FightingNpc:
+    if isinstance(npc, FightingNpc):
         npc.attack()
         ret_code = player.take_damage(npc.atk)
         return ret_code
@@ -22,7 +21,6 @@ def npc_attack(player, npc):
 
 
 def fight(player, npc):
-    print("CG11")
     count = 0
     while True:
         count += 1

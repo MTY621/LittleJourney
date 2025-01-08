@@ -123,7 +123,7 @@ class Game:
             pygame.display.update()
             clock.tick(60)
 
-    def transition(self, new_background_file, bar_color):
+    def transition(self, new_background_file, bar_color, new_song, new_walking_sound):
         new_background = pygame.image.load(new_background_file).convert()
         new_background = pygame.transform.scale(new_background, (SCREEN_WIDTH, SCREEN_HEIGHT * 0.88))
         black_surface = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -159,4 +159,9 @@ class Game:
             clock.tick(60)
         self.background = new_background
         self.bottom_rectangle_color = bar_color
+        self.song = new_song
+        self.player.sound = 'sound_effects/main_character/steps/'+ new_walking_sound
+        if glob.music_is_on:
+            pygame.mixer.music.load(self.song)
+            pygame.mixer.music.play(-1)
 
