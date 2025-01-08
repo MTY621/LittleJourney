@@ -3,9 +3,9 @@ import pygame
 
 import glob
 from menus.main_menu import main_menu_start
-from menus.story_menus.gameplay_menus import menus
-from characters.npcs.chill_npcs import chill_npcs
-from characters.npcs.fighting_npcs import fighting_npcs
+from menus.story_menus.gameplay_menus import init_menus
+from characters.npcs.chill_npcs import init_chill_npcs
+from characters.npcs.fighting_npcs import init_fighting_npcs
 from game.game import Game
 
 # pygame.init()
@@ -16,8 +16,10 @@ from game.game import Game
 if __name__ == '__main__':
     glob.music_is_on = True
     main_menu_start()
-    game = Game(glob.player_race, glob.player_name, menus[0], glob.CURRENT_GAME_SONG)
-
+    chill_npcs = init_chill_npcs()
+    fighting_npcs = init_fighting_npcs()
+    menus = init_menus(chill_npcs, fighting_npcs)
+    game = Game(glob.player_race, glob.player_name, menus[4], glob.CURRENT_GAME_SONG)
     for chill_npc in chill_npcs:
         chill_npc.game = game
     for fighting_npc in fighting_npcs:
@@ -30,8 +32,10 @@ if __name__ == '__main__':
         ret = game.start()
         main_menu_start()
         if ret == glob.GAME_ENDED:
+            chill_npcs = init_chill_npcs()
+            fighting_npcs = init_fighting_npcs()
+            menus = init_menus(chill_npcs, fighting_npcs)
             game = Game(glob.player_race, glob.player_name, menus[len(menus) - 1], glob.CURRENT_GAME_SONG)
-
             for chill_npc in chill_npcs:
                 chill_npc.game = game
             for fighting_npc in fighting_npcs:

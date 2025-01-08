@@ -70,7 +70,7 @@ class StoryMenu:
 
         if self.game.player.hp == 0:
             glob.can_continue = False
-            self.next_menu = self.menus[0]
+            self.next_menu = None
 
         # if self.game.player.hp <= 0:
         #     return glob.DEATH
@@ -177,7 +177,7 @@ class StoryMenu:
                 glob.same_npc = False
 
             self.in_action = 1 / glob.ACTION_FRAMES
-
+            self.npc.reset()
             if self.next_menu is None:
                 return None
             return [self.next_menu, self.transition, self.next_background, self.next_bar_color, self.next_music,
