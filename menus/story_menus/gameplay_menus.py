@@ -20,11 +20,10 @@ menu_19.add_text_display([menu_19.npc.name + ": " + "I am THE TRADER."])
 menu_19.add_button("Ok... how can I earn some money?", menu_19.set_menu, 0)
 menus.append(menu_19)
 
-menu_16 = StoryMenu(fighting_npcs[9], [None])
-menu_18 = StoryMenu(fighting_npcs[9], [menu_16, menu_20])
+
+menu_18 = StoryMenu(fighting_npcs[9], [menu_20])
 menu_18.add_text_display([menu_18.npc.name + ": " + "You insult me."])
-menu_18.add_button("Admit you scammed me.", menu_18.set_menu, 0)
-menu_18.add_button("Whatever. [Go to the forest]", menu_18.set_transition, 1,
+menu_18.add_button("Whatever. [Go to the forest]", menu_18.set_transition, 0,
                    "background/temple/1_temple.png", glob.TEMPLE_COLOUR, glob.TEMPLE_MUSIC, glob.TEMPLE_WALK)
 menus.append(menu_18)
 
@@ -35,7 +34,7 @@ menu_17.add_button("Whatever. [Go to the forest]", menu_17.set_transition, 1,
                    "background/temple/1_temple.png", glob.TEMPLE_COLOUR, glob.TEMPLE_MUSIC, glob.TEMPLE_WALK)
 menus.append(menu_17)
 
-menu_16.menus = [menu_17, menu_20]
+menu_16 = StoryMenu(fighting_npcs[9], [menu_17, menu_20])
 menu_16.add_text_display([menu_16.npc.name + ": " + "No."])
 menu_16.add_button("Yes, you did.", menu_16.set_menu, 0)
 menu_16.add_button("Whatever. [Go to the forest]", menu_16.set_transition, 1,
