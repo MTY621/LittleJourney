@@ -37,7 +37,7 @@ menu_16.menus = [menu_17, menu_20]
 menu_16.add_text_display([menu_16.npc.name + ": " + "No."])
 menu_16.add_button("Yes, you did.", menu_16.set_menu, 0)
 menu_16.add_button("Whatever. [Go to the forest]", menu_16.set_transition, 1,
-                   "background/ice/5_snowy_trees_hd.png", glob.ICE_COLOUR, glob.TEMPLE_MUSIC, glob.TEMPLE_WALK)
+                   "background/temple/1_temple.png", glob.TEMPLE_COLOUR, glob.TEMPLE_MUSIC, glob.TEMPLE_WALK)
 menus.append(menu_16)
 
 menu_15 = StoryMenu(fighting_npcs[9], [menu_16, menu_20])
