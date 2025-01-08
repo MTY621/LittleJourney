@@ -37,11 +37,14 @@ menus.append(menu_death)
 
 menu_20 = StoryMenu(fighting_npcs[random.randint(0, 1)], [None])
 menu_trader_forest = StoryMenu(fighting_npcs[9], [menu_20])
-menu_trader_forest.add_text_display([menu_trader_forest.npc.name + ": " + "Pick what you want.", "And pay. The more the better."])
+menu_trader_forest.add_text_display([menu_trader_forest.npc.name + ": " + "Pick what you want.",
+                                     "And pay. The more the better."])
 menu_trader_forest.add_button("[Buy a sword].", menu_trader_forest.set_menu, 0)
 menu_trader_forest.add_button("[Buy a shield].", menu_trader_forest.set_menu, 0)
 menu_trader_forest.add_button("[Buy a potion].", menu_trader_forest.set_menu, 0)
 menu_trader_forest.add_button("[Buy food or drinks].", menu_trader_forest.set_menu, 0)
+menu_trader_forest.add_button("[Buy food or drinks].", menu_trader_forest.buy_item,
+                   (menu_trader_forest.get_items, [0, ["Potato"]]), [(menu_trader_forest.give_money, [0, 2])])
 menu_trader_forest.add_button("Sleep. [Heal]", menu_trader_forest.heal, 0, 10)
 menus.append(menu_trader_forest)
 
@@ -84,8 +87,8 @@ menus.append(menu_26)
 menu_25 = StoryMenu(chill_npcs[0], [menu_26, menu_28])
 menu_25.add_text_display([menu_25.npc.name + ": " + "Wow, you killed them all!", "Do you want to buy a potato or some advice?"])
 menu_25.add_button("Advice. [Give 1 coin]", menu_25.give_money, 0, 1)
-menu_25.add_button("Potato. [Give 2 coin]", menu_25.multiple_methods,
-                   [(menu_25.give_money, [1, 2]) , (menu_25.get_items, [1, ["Potato"]])])
+menu_25.add_button("Potato. [Give 2 coin]", menu_25.buy_item,
+                   (menu_25.get_items, [1, ["Potato"]]), [(menu_25.give_money, [1, 2])])
 menu_25.add_button("No. [Continue]", menu_25.set_menu, 1)
 menus.append(menu_25)
 
