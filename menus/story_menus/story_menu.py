@@ -87,13 +87,13 @@ class StoryMenu:
             self.next_menu = self
 
 
+    def set_menu(self, index):
+        self.next_menu = self.menus[index]
+
+
     def add_text_display(self, labels):
         for label in labels:
             self.menu.add.label(label)
-
-
-    def set_menu(self, index):
-        self.next_menu = self.menus[index]
 
 
     def add_button(self, text, method, *args):

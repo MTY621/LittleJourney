@@ -60,6 +60,13 @@ menu_1.add_button("Yes. [Give 1 coin]", menu_1.give_coins, 0, 1)
 menu_1.add_button("No. [Leave]", menu_1.set_menu, 1)
 menus.append(menu_1)
 
+# traderul este scammer
+# taranul e sarac si atotstiutor
+# marry e bipolara
+# betty e fomista si il place pe ahmet
+# ahmet e religion freak si in rest usor manipulabil
+# aaliya e sperioasa dar cu gura mare
+
 # error_menu = StoryMenu(chill_npcs[0], [None])
 # error_menu.add_text_display(["label"])
 # error_menu.add_button("OK", error_menu.set_menu, 0)
