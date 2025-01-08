@@ -26,12 +26,11 @@ class Item:
         self.is_edible = is_edible
         self.sprite_path = sprite
         path = "items/" + sprite + ".png"
-        rect = pygame.Rect(0, 0, SPRITE_WIDTH, SPRITE_HEIGHT)
-        self.sprite = pygame.image.load(path).subsurface(rect)
+        self.sprite = pygame.image.load(path).convert_alpha()
         self.stats = stats
         self.is_selected = False
     def __copy__(self):
-        return Item(self.name, self.sprite_path, self.is_edible ,self.stats.copy())
+        return Item(self.name, self.sprite_path, self.price, self.is_edible ,self.stats.copy())
 
     def draw(self, screen, x, y, frame_size):
         """Draw the item at a given position."""
