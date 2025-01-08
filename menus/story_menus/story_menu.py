@@ -110,6 +110,7 @@ class StoryMenu:
         self.next_bar_color = next_bar_color
         self.next_music = next_music
         self.next_walking_effect = next_walking_effect
+        pygame.time.wait(100)
 
 
     def set_menu(self, index):
