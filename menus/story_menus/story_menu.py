@@ -103,11 +103,13 @@ class StoryMenu:
             self.next_menu = self
 
 
-    def set_transition(self, index, next_background, next_bar_color):
+    def set_transition(self, index, next_background, next_bar_color, next_music, next_walking_effect):
         self.next_menu = self.menus[index]
         self.transition = True
         self.next_background = next_background
         self.next_bar_color = next_bar_color
+        self.next_music = next_music
+        self.next_walking_effect = next_walking_effect
 
 
     def set_menu(self, index):
@@ -153,7 +155,6 @@ class StoryMenu:
             if self.next_menu is None:
                 return None
             return [self.next_menu, self.transition, self.next_background, self.next_bar_color, self.next_music, self.next_walking_effect]
-
         for event in events:
             # check if enter key was pressed
             if event.type == pygame.KEYDOWN:

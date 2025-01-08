@@ -1,10 +1,23 @@
 import pygame_menu
 from pygame import Color
 
-# colour codes
+# walking bar colour codes
 VILLAGE_FOUNTAIN_COLOUR = (172, 172, 172)
-TEMPLE_GROUND_COLOUR = (219, 194, 111)
-# TEMPLE_GROUND_COLOUR = (194, 200, 190)
+TEMPLE_COLOUR = (219, 194, 111)
+DESERT_COLOUR = (214, 165, 85)
+ICE_COLOUR = (177, 172, 194)
+
+# environment music
+VILLAGE_MUSIC = "music/safe_room_theme.flac"
+TEMPLE_MUSIC = "music/tribal.wav"
+DESERT_MUSIC = "music/hold_the_line.flac"
+ICE_MUSIC = "music/battle-march.wav"
+
+# walking sound effects
+VILLAGE_WALK = "step_stone_1.wav"
+TEMPLE_WALK = "step_wood_1.wav"
+DESERT_WALK = "step_dirt_7.wav"
+ICE_WALK = "step_snow_2.wav"
 
 SCREEN_HEIGHT = 800
 SCREEN_WIDTH = 1200
@@ -13,7 +26,7 @@ CHARACTER_HEIGHT = 200
 ACTION_FRAMES = 60
 
 MAIN_MENU_SONG = 'music/little_town_reinstrumented.ogg'
-CURRENT_GAME_SONG = 'music/battle-march.wav'
+CURRENT_GAME_SONG = VILLAGE_MUSIC
 
 #return codes
 MAIN_MENU = 1

@@ -34,7 +34,7 @@ class Player:
         self.music_pos = 0
 
         path = "sound_effects/main_character/"
-        self.sound = path + "steps/step_dirt_7.wav"
+        self.sound = path + glob.VILLAGE_WALK
         self.attack_sound = path + "whoosh.wav"
         self.hurt_sound = path + "pain.wav"
         self.death_sound = path + "death.wav"
