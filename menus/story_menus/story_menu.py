@@ -79,16 +79,25 @@ class StoryMenu:
 
     def get_items(self, index, items):
         self.next_menu = self.menus[index]
-        for item in items:
-            #add to inventory
-            pass
+        for i in range(items):
+            rc = self.game.player.inventory.add_item(items[i])
+            if rc != 1:
+                for j in range(i):
+                    self.game.player.inventory.remove_item(items[j])
+                self.show_error("Not enough space in inventory!")
+                self.next_menu = self
+                return
 
 
     def give_items(self, index, items):
         self.next_menu = self.menus[index]
         for item in items:
-            #add to inventory
-            pass
+            if not self.game.player.inventory.has_item(item):
+                self.show_error("Missing items!")
+                self.next_menu = self
+                return
+        for item in items:
+            self.game.player.inventory.remove_item(item)
 
 
     def get_money(self, index, amount):

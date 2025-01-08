@@ -47,12 +47,13 @@ def random_description():
     return random.choice(ITEM_DESCRIPTIONS)
 
 class Inventory:
-    def __init__(self, screen_width, screen_height):
+    def __init__(self, screen_width, screen_height, player):
         self.available_items = {}
         self.player_items = [None] * MAX_ITEMS
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.selected_item = None
+        self.player = player
 
         # Inventory button setup
         self.button_rect = pygame.Rect(10, screen_height - BUTTON_HEIGHT - 10, BUTTON_WIDTH, BUTTON_HEIGHT)
@@ -71,6 +72,7 @@ class Inventory:
                 # Extract item properties from JSON
                 name = item_data.get("name")
                 file_name = item_data.get("file_name")
+                item_type = item_data.get("item_type")
                 price = item_data.get("price")
                 is_edible = item_data.get("is_edible")
                 stats = item_data.get("stats")
@@ -89,7 +91,7 @@ class Inventory:
                     #continue
 
                 # Create the Item object
-                item = Item(name, file_name, price, is_edible, stats)
+                item = Item(name, file_name, item_type ,price, is_edible, stats)
 
                 # Add the item to the available items dictionary
                 self.available_items[name] = item
@@ -100,21 +102,58 @@ class Inventory:
             print("Error: Failed to parse 'available_items.json'.")
 
     def add_player_item(self, name):
+
         if name in self.available_items:
+            # Check if the inventory is full
+            if self.player_items[MAX_ITEMS - 1] is not None:
+                print("Inventory is full.")
+                return 0
+
+            # If the new item is a sword or shield, check if the player already has one
+            if self.available_items[name].item_type == "sword":
+                for i in range(len(self.player_items)):
+                    if self.player_items[i] is not None and self.player_items[i].item_type == "sword":
+                        self.player.atk += (self.available_items[name].stats[0] - self.player_items[i].stats[0])
+                        self.player_items[i] = self.available_items[name].__copy__()
+                        print(f"Added {name} to player's inventory.")
+                        return 1
+            if self.available_items[name].item_type == "shield":
+                for i in range(len(self.player_items)):
+                    if self.player_items[i] is not None and self.player_items[i].item_type == "shield":
+                        self.player.defense += (self.available_items[name].stats[0] - self.player_items[i].stats[0])
+                        self.player_items[i] = self.available_items[name].__copy__()
+                        print(f"Added {name} to player's inventory.")
+                        return 1
+
+            # Add the item to the first available slot
             for i in range(len(self.player_items)):
                 if self.player_items[i] is None:
                     self.player_items[i] = self.available_items[name].__copy__()
                     print(f"Added {name} to player's inventory.")
-                    return
+                    return 1
+            if self.available_items[name].item_type == "sword":
+                self.player.atk += self.available_items[name].stats[0]
+            elif self.available_items[name].item_type == "shield":
+                self.player.defense += self.available_items[name].stats[0]
         else:
             print(f"Item {name} does not exist in available items.")
+            return 0
 
-    def remove_player_item(self, index):
-        if 0 <= index < len(self.player_items):
-            self.player_items[index].is_selected = False
-            self.player_items[index] = None
-        else:
-            print(f"Invalid index {index} for item removal.")
+    def remove_player_item(self, name):
+        for i in range(MAX_ITEMS):
+            if self.player_items[i] and self.player_items[i].name == name:
+                if self.player_items[i].item_type == "sword":
+                    self.player.atk -= self.player_items[i].stats[0]
+                elif self.player_items[i].item_type == "shield":
+                    self.player.defense -= self.player_items[i].stats[0]
+                self.player_items[i] = None
+                print(f"Removed {name} from player's inventory.")
+                return
+    def player_has_item(self, name):
+        for i in range(MAX_ITEMS):
+            if self.player_items[i] and self.player_items[i].name == name:
+                return True
+        return False
 
     def handle_event(self, event):
         # Handle button click
@@ -145,7 +184,7 @@ class Inventory:
             if i < len(self.player_items):
                 item = self.player_items[i]
                 if item:
-                    item.handle_click(mouse_pos, x, y, FRAME_SIZE, self)
+                    item.handle_click(mouse_pos, x, y, FRAME_SIZE, self.player)
 
     def draw_button(self, screen):
         # Change button color based on inventory state

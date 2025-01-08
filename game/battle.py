@@ -22,14 +22,18 @@ def npc_attack(player, npc):
 
 
 def fight(player, npc):
+    player.atk += player.bonus_atk
+    player.defense += player.bonus_defense
     count = 0
     while True:
         count += 1
         if player_attack(player, npc) == glob.DEATH:
+            player.reset_bonuses()
             return count
 
         sleep(0.1)
 
         count += 1
         if npc_attack(player, npc) == glob.DEATH:
+            player.reset_bonuses()
             return count

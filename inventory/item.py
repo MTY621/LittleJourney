@@ -20,17 +20,18 @@ BUTTON_COLOR = (0, 200, 0)
 BUTTON_TEXT_COLOR = WHITE
 
 class Item:
-    def __init__(self, name, sprite, price, is_edible, stats):
+    def __init__(self, name, sprite, item_type, price, is_edible, stats):
         self.name = name
         self.price = price
         self.is_edible = is_edible
         self.sprite_path = sprite
+        self.item_type = item_type
         path = "items/" + sprite + ".png"
         self.sprite = pygame.image.load(path).convert_alpha()
         self.stats = stats
         self.is_selected = False
     def __copy__(self):
-        return Item(self.name, self.sprite_path, self.price, self.is_edible ,self.stats.copy())
+        return Item(self.name, self.sprite_path, self.item_type, self.price, self.is_edible ,self.stats.copy())
 
     def draw(self, screen, x, y, frame_size):
         # Draw selection outline if selected
@@ -46,10 +47,11 @@ class Item:
 
     def draw_item_buttons(self, screen, x, y):
         # Use Button
-        use_button_rect = pygame.Rect(x, y, FRAME_SIZE, 20)
-        pygame.draw.rect(screen, BUTTON_COLOR, use_button_rect)
-        pygame.draw.rect(screen, BLACK, use_button_rect, 2)
-        self.draw_button_text(screen, "Use", use_button_rect)
+        if self.is_edible:
+            use_button_rect = pygame.Rect(x, y, FRAME_SIZE, 20)
+            pygame.draw.rect(screen, BUTTON_COLOR, use_button_rect)
+            pygame.draw.rect(screen, BLACK, use_button_rect, 2)
+            self.draw_button_text(screen, "Use", use_button_rect)
 
         # Drop Button
         drop_button_rect = pygame.Rect(x, y + 25, FRAME_SIZE, 20)
@@ -63,15 +65,35 @@ class Item:
         text_rect = text_surface.get_rect(center=rect.center)
         screen.blit(text_surface, text_rect)
 
-    def handle_click(self, mouse_pos, x, y, frame_size, inventory):
+    def handle_click(self, mouse_pos, x, y, frame_size, player):
         if x <= mouse_pos[0] <= x + frame_size and y <= mouse_pos[1] <= y + frame_size:
-            if inventory.selected_item:
-                inventory.selected_item.is_selected = False
-            inventory.selected_item = self
+            if player.inventory.selected_item:
+                player.inventory.selected_item.is_selected = False
+            player.inventory.selected_item = self
             self.is_selected = True
+
+        # Handle drop button click
         if (self.is_selected and y - 25 <= mouse_pos[1] <= y - 5 and x <= mouse_pos[0] <= x + frame_size):
-            print(f"Using {self.name}")
-            for i in range(len(inventory.player_items)):
-                if inventory.player_items[i] == self:
-                    inventory.player_items[i] = None
+            print(f"Dropping {self.name}")
+            for i in range(len(player.inventory.player_items)):
+                if player.inventory.player_items[i] == self:
+                    player.inventory.player_items[i] = None
                     break
+            if self.item_type == 'sword':
+                player.atk -= self.stats[0]
+            elif self.item_type == 'shield':
+                player.defense -= self.stats[0]
+        # Handle use button click
+        if (self.is_edible and self.is_selected and y - 50 <= mouse_pos[1] <= y - 30 and x <= mouse_pos[0] <= x + frame_size):
+            print(f"Using {self.name}")
+            for i in range(len(player.inventory.player_items)):
+                if player.inventory.player_items[i] == self:
+                    player.inventory.player_items[i] = None
+                    break
+            if self.name == "Attack potion":
+                player.bonus_atk += self.stats[0]
+            elif self.name == "Defense potion":
+                player.bonus_defense += self.stats[0]
+            else:
+                player.hp = min(player.total_hp, player.hp + self.stats[0])
+                player.health_bar_hp = player.hp
