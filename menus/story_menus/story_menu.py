@@ -78,7 +78,7 @@ class StoryMenu:
 
         if self.game.player.hp == 0:
             glob.can_continue = False
-            self.next_menu = None
+            self.next_menu = self.menus[0]
 
         # if self.game.player.hp <= 0:
         #     return glob.DEATH
@@ -112,6 +112,7 @@ class StoryMenu:
         self.next_menu = self.menus[index]
         self.game.player.money += amount
 
+
     def give_sword(self):
         self.next_menu = self
         if self.game.player.money >= glob.swords[self.game.next_sword][1]:
@@ -124,6 +125,7 @@ class StoryMenu:
             self.show_error("Not enough coins!")
         pygame.time.wait(100)
         pygame.event.clear()
+
 
     def give_shield(self):
         self.next_menu = self

@@ -28,7 +28,7 @@ def init_menus(chill_npcs, fighting_npcs):
     menus.append(menu_death_1)
 
     menu_death = StoryMenu(fighting_npcs[9], [menu_death_1, menu_death_2, menu_death_3, menu_death_4])
-    menu_death.add_text_display([menu_death.npc.name + ": " + "The game ended. Can I have your belongings?"])
+    menu_death.add_text_display([menu_death.npc.name + ": " + "The game ended.", "Can I have your belongings?"])
     menu_death.add_button("Yes.", menu_death.set_menu, [0])
     menu_death.add_button("No.", menu_death.set_menu, [1])
     menu_death.add_button("Only the money.", menu_death.set_menu, [2])
