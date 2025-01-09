@@ -14,9 +14,7 @@ class Player:
 
         path = "characters/character_images/main_character/" + sprite_name + "/"
         self.sprite = pygame.image.load(path + "default.png").convert_alpha()
-        print(self.sprite.get_size())
         self.sprite = self.scale(self.sprite)
-        print(self.sprite.get_size())
         self.attack_sprite = pygame.image.load(path + "attack.png").convert_alpha()
         self.attack_sprite = self.scale(self.attack_sprite)
         self.hurt_sprite = pygame.image.load(path + "hurt.png").convert_alpha()
@@ -88,7 +86,12 @@ class Player:
                 self.count += 1
                 self.current_effect = self.attack_sound
             elif curr_status == "hurt":
-                self.current_sprite = self.hurt_sprite
+                if self.current_sprite != self.hurt_sprite:
+                    if self.count == 0:
+                        self.current_sprite = self.hurt_sprite
+                else:
+                    if self.count >= glob.ACTION_FRAMES / 2:
+                        self.current_sprite = self.sprite
                 self.current_effect = self.hurt_sound
                 if self.count == 0:
                     self.health_bar_hp -= self.status[0][2]
@@ -99,6 +102,8 @@ class Player:
                 if self.count == 0:
                     self.health_bar_hp -= self.status[0][2]
                 self.count += 1
+            elif curr_status == "money":
+                self.money += self.status[0][2]
 
             if self.no_sound_effect and glob.sound_effects_are_on:
                 pygame.mixer.music.pause()
@@ -166,6 +171,8 @@ class Player:
 
     def walk(self):
         self.status.append(["walk", SCREEN_WIDTH // 5])
+    def give_money(self, amount):
+        self.status.append(["money", 1, amount])
 
     def reset_bonuses(self):
         self.atk -= self.bonus_atk
