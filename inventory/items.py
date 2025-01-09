@@ -32,7 +32,7 @@ items.append(Item("Watermelon", "watermelon", "food", 9, True, [6]))
 
 # potions
 #8
-items.append(Item("Attack potion", "potions/attack_potion", "potion", 20, True, [10]))
+items.append(Item("Attack potion", "potions/attack_potion", "potion", 20, True, [5]))
 
 #9
 items.append(Item("Defense potion", "potions/defense_potion", "potion", 20, True, [2]))
@@ -43,19 +43,19 @@ items.append(Item("HP potion", "potions/hp_potion", "potion", 20, True, [15]))
 
 # swords
 #11
-items.append(Item("Rusty sword", "sword1", "sword", 10, False, [12]))
+items.append(Item("Rusty sword", "sword1", "sword", 10, False, [7]))
 
 #12
-items.append(Item("Iron sword", "sword2", "sword", 70, False, [18]))
+items.append(Item("Iron sword", "sword2", "sword", 70, False, [14]))
 
 #13
-items.append(Item("Templar sword", "sword3", "sword", 120, False, [23]))
+items.append(Item("Templar sword", "sword3", "sword", 120, False, [21]))
 
 #14
-items.append(Item("Knight sword", "sword4", "sword", 150, False, [27]))
+items.append(Item("Knight sword", "sword4", "sword", 160, False, [28]))
 
 #15
-items.append(Item("Dark Lord sword", "sword5", "sword", 200, False, [30]))
+items.append(Item("Dark Lord sword", "sword5", "sword", 200, False, [35]))
 
 
 # shields
@@ -69,7 +69,7 @@ items.append(Item("Iron shield", "shield2", "shield", 70, False, [6]))
 items.append(Item("Templar shield", "shield3", "shield", 120, False, [9]))
 
 #19
-items.append(Item("Knight shield", "shield4", "shield", 150, False, [12]))
+items.append(Item("Knight shield", "shield4", "shield", 160, False, [12]))
 
 #20
 items.append(Item("Dark Lord shield", "shield5", "shield", 200, False, [15]))

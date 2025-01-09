@@ -17,25 +17,25 @@ def init_fighting_npcs():
 
 # desert enemies
 # 3
-    fighting_npcs.append(FightingNpc("deceased", 15, 25, 20, 30, 3,
+    fighting_npcs.append(FightingNpc("deceased", 20, 25, 24, 30, 3,
                          5, 10, 20, "Old Bob", [], 0))
 # 4
-    fighting_npcs.append(FightingNpc("hyena", 25, 30, 18, 20, 2,
+    fighting_npcs.append(FightingNpc("hyena", 24, 28, 18, 20, 2,
                          2, 10, 20, "Hyena", [], 0))
 # 5
-    fighting_npcs.append(FightingNpc("mummy", 20, 30, 25, 35, 6,
+    fighting_npcs.append(FightingNpc("mummy", 30, 35, 25, 35, 6,
                          8, 25, 30, "Mummy", [], 0))
 
 # ice enemies
 # 6
-    fighting_npcs.append(FightingNpc("vulture", 25, 30, 30, 35, 4,
+    fighting_npcs.append(FightingNpc("vulture", 28, 30, 30, 35, 6,
                          9, 30, 30, "Hungry Vulture", [], 0))
 # 7
-    fighting_npcs.append(FightingNpc("samurai", 32, 40, 35, 45, 6,
+    fighting_npcs.append(FightingNpc("samurai", 32, 40, 35, 42, 7,
                         9, 35, 35, "Samurai Shan", [], 0))
 # 8
-    fighting_npcs.append(FightingNpc("snake", 35, 45, 30, 35, 9,
-                         12, 40, 45, "Snake", [], 0))
+    fighting_npcs.append(FightingNpc("snake", 39, 45, 38, 45, 12,
+                         14, 40, 45, "Snake", [], 0))
 
 # extras
 # 9

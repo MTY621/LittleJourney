@@ -81,14 +81,14 @@ def init_menus(chill_npcs, fighting_npcs):
     menu_trader_ice_healed = StoryMenu(fighting_npcs[9], [None])
     menu_trader_ice_healed.menus = [menu_trader_ice_healed, menu_51]
     menu_trader_ice_healed.add_text_display([menu_trader_ice_healed.npc.name + ": " + "If you sleep with too",
-                                             "much money, snakes will eat you. Buy a potion."])
+                                             "much money, snakes will eat you.", "Buy a potion."])
     menu_trader_ice_healed.add_button("[Buy a sword].", menu_trader_ice_healed.give_sword)
     menu_trader_ice_healed.add_button("[Buy a shield].", menu_trader_ice_healed.give_shield)
     menu_trader_ice_healed.add_button("[Buy a potion].", menu_trader_ice_healed.buy_item, [],
                                          lambda: [generate_buy_potion_args()])
     menu_trader_ice_healed.add_button("[Buy food or drinks].", menu_trader_ice_healed.buy_item, [],
                                          lambda: [generate_buy_food_args()])
-    menu_trader_ice_healed.add_button("[Continue]", menu_trader_ice_healed.set_transition, [2,
+    menu_trader_ice_healed.add_button("[Continue]", menu_trader_ice_healed.set_transition, [1,
                        "background/ice/5_snowy_trees_hd.png", glob.ICE_COLOUR, glob.ICE_MUSIC, glob.ICE_WALK])
     menus.append(menu_trader_ice_healed)
 
@@ -127,7 +127,7 @@ def init_menus(chill_npcs, fighting_npcs):
     menu_trader_desert = StoryMenu(fighting_npcs[9], [None])
     menu_trader_desert.menus = [menu_trader_desert, menu_trader_desert_healed, menu_31]
     menu_trader_desert.add_text_display([menu_trader_desert.npc.name + ": " + "You didn't die yet?",
-                                         "It's really dangerous out there. Buy an expensive sword."])
+                                         "It's really dangerous out there.", "Buy an expensive sword."])
     menu_trader_desert.add_button("[Buy a sword].", menu_trader_desert.give_sword)
     menu_trader_desert.add_button("[Buy a shield].", menu_trader_desert.give_shield)
     menu_trader_desert.add_button("[Buy a potion].", menu_trader_desert.buy_item, [],
@@ -173,13 +173,43 @@ def init_menus(chill_npcs, fighting_npcs):
 
 
 
+
+
     # story
-    menu_56 = StoryMenu(chill_npcs[0], [menu_death])
+    menu_61 = StoryMenu(fighting_npcs[9], [None])
+    menu_61.add_text_display([menu_61.npc.name + ": " + "Such a shame.",
+                              "Our business is over."])
+    menu_61.add_button("You earned a lot anyways.", "Goodbye, everyone!", menu_61.set_menu, [0])
+    menus.append(menu_61)
+
+    menu_60 = StoryMenu(chill_npcs[4], [menu_61])
+    menu_60.add_text_display([menu_60.npc.name + ": " + "Aaahh, is that blood?",
+                              "You are such a show off!"])
+    menu_60.add_button("Can't please everyone.", menu_60.set_menu, [0])
+    menus.append(menu_60)
+
+    menu_59 = StoryMenu(chill_npcs[3], [menu_60])
+    menu_59.add_text_display([menu_59.npc.name + ": " + "Allah blessed you.",
+                              "Teach me your ways."])
+    menu_59.add_button("Never give up!", menu_59.set_menu, [0])
+    menus.append(menu_59)
+
+    menu_58 = StoryMenu(chill_npcs[2], [menu_59])
+    menu_58.add_text_display([menu_58.npc.name + ": " + "Did you bring it?",
+                              "The snake meat!!!"])
+    menu_58.add_button("Here you go.", menu_58.set_menu, [0])
+    menus.append(menu_58)
+
+    menu_57 = StoryMenu(chill_npcs[1], [menu_58])
+    menu_57.add_text_display([menu_57.npc.name + ": " + "I like you.",
+                              "You are a hero, but not mine."])
+    menu_57.add_button("I ... understand.", menu_57.set_menu, [0])
+    menus.append(menu_57)
+
+    menu_56 = StoryMenu(chill_npcs[0], [menu_57])
     menu_56.add_text_display([menu_56.npc.name + ": " + "At last complete victory!",
                               "The wind will speak of your bravery."])
-    menu_56.add_button("hhhh.", menu_56.set_menu, [0])
-    menu_56.add_button("h", menu_56.set_menu, [0])
-    menu_56.add_button("h", menu_56.set_menu, [0])
+    menu_56.add_button("I hope so!", menu_56.set_menu, [0])
     menus.append(menu_56)
 
     menu_55 = StoryMenu(fighting_npcs[8], [menu_death, menu_56, menu_trader_ice])
@@ -316,11 +346,11 @@ def init_menus(chill_npcs, fighting_npcs):
     menus.append(menu_37)
 
     menu_36 = StoryMenu(chill_npcs[1], [menu_42, menu_37, menu_39])
-    menu_36.add_text_display(["Unknown girl" + ": " + "You actually stopped the mummy!",
+    menu_36.add_text_display(["Unknown girl" + ": " + "You really stopped the mummy!",
                               "Now I can go to the oasis safely.", "And I can bathe and have fun..."])
-    menu_36.add_button("Sounds great! I would like to join you... [name?]", menu_36.set_menu, [0])
-    menu_36.add_button("Great! I will come as well to make sure it is safe.", menu_36.set_menu, [1])
-    menu_36.add_button("Ok. I will continue my exploring in the south.", menu_36.set_menu, [2])
+    menu_36.add_button("Great! I'd like to join you... [name?]", menu_36.set_menu, [0])
+    menu_36.add_button("Great! I will come to make sure it is safe.", menu_36.set_menu, [1])
+    menu_36.add_button("Ok. I will continue to the south.", menu_36.set_menu, [2])
     menus.append(menu_36)
 
     menu_35 = StoryMenu(fighting_npcs[5], [menu_death, menu_36, menu_trader_desert])

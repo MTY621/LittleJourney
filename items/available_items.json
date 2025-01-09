@@ -69,7 +69,7 @@
     "item_type": "potion",
     "price": 20,
     "is_edible": true,
-    "stats": [10]
+    "stats": [5]
   },
   {
     "name": "Defense potion",
@@ -93,7 +93,7 @@
     "item_type": "sword",
     "price": 10,
     "is_edible": false,
-    "stats": [12]
+    "stats": [7]
   },
   {
     "name": "Iron sword",
@@ -101,7 +101,7 @@
     "item_type": "sword",
     "price": 70,
     "is_edible": false,
-    "stats": [18]
+    "stats": [14]
   },
   {
     "name": "Templar sword",
@@ -109,15 +109,15 @@
     "item_type": "sword",
     "price": 120,
     "is_edible": false,
-    "stats": [23]
+    "stats": [21]
   },
   {
     "name": "Knight sword",
     "file_name": "sword4",
     "item_type": "sword",
-    "price": 150,
+    "price": 160,
     "is_edible": false,
-    "stats": [27]
+    "stats": [28]
   },
   {
     "name": "Dark Lord sword",
@@ -125,7 +125,7 @@
     "item_type": "sword",
     "price": 200,
     "is_edible": false,
-    "stats": [30]
+    "stats": [35]
   },
   {
     "name": "Wooden shield",
@@ -155,7 +155,7 @@
     "name": "Knight shield",
     "file_name": "shield4",
     "item_type": "shield",
-    "price": 150,
+    "price": 160,
     "is_edible": false,
     "stats": [12]
   },
