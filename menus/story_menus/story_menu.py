@@ -88,13 +88,16 @@ class StoryMenu:
                                 glob.VILLAGE_FOUNTAIN_COLOUR, glob.VILLAGE_MUSIC, glob.VILLAGE_WALK)
 
 
-    def fight(self, index):
+    def fight(self, index, transition_back=False):
         self.next_menu = self.menus[index]
         self.in_action = fight(self.game.player, self.npc)
 
         if self.game.player.hp == 0:
             glob.can_continue = False
             self.set_transition(0, "background/castle/1_garden.png",
+                                glob.VILLAGE_FOUNTAIN_COLOUR, glob.VILLAGE_MUSIC, glob.VILLAGE_WALK)
+        elif transition_back:
+            self.set_transition(index, "background/castle/1_garden.png",
                                 glob.VILLAGE_FOUNTAIN_COLOUR, glob.VILLAGE_MUSIC, glob.VILLAGE_WALK)
 
         # if self.game.player.hp <= 0:
@@ -125,9 +128,13 @@ class StoryMenu:
             self.game.player.inventory.remove_item(item)
 
 
-    def get_money(self, index, amount):
+    def get_money(self, index, amount, transition_back=False, next_background=None, next_bar_color=None,
+                  next_music=None, next_walking_effect=None):
         self.next_menu = self.menus[index]
         self.game.player.money += amount
+
+        if (transition_back):
+            self.set_transition(index, next_background, next_bar_color, next_music, next_walking_effect)
 
 
     def give_money(self, index, amount):
