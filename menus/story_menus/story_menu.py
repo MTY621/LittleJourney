@@ -161,7 +161,7 @@ class StoryMenu:
         if self.game.player.money >= glob.shields[self.game.next_shield][1]:
             if self.game.player.inventory.add_item(glob.shields[self.game.next_shield][0]):
                 self.game.player.money -= glob.swords[self.game.next_shield][1]
-                self.game.next_sword = min(self.game.next_shield + 1, len(glob.shields) - 1)
+                self.game.next_shield = min(self.game.next_shield + 1, len(glob.shields) - 1)
             else:
                 self.show_error("Not enough space in inventory!")
         else:

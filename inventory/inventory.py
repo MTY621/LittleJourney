@@ -126,15 +126,18 @@ class Inventory:
                         return 1
 
             # Add the item to the first available slot
+            ok = 0
             for i in range(len(self.player_items)):
                 if self.player_items[i] is None:
                     self.player_items[i] = self.available_items[name].__copy__()
                     print(f"Added {name} to player's inventory.")
-                    return 1
+                    ok = 1
+                    break
             if self.available_items[name].item_type == "sword":
                 self.player.atk += self.available_items[name].stats[0]
             elif self.available_items[name].item_type == "shield":
                 self.player.defense += self.available_items[name].stats[0]
+            return ok
         else:
             print(f"Item {name} does not exist in available items.")
             return 0
