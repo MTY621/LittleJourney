@@ -14,6 +14,7 @@ def init_fighting_npcs():
 # 2
     fighting_npcs.append(FightingNpc("battle_turtle", 10, 15, 12, 20, 4,
                          4, 12, 18, "Armored turtle", [], 0))
+
 # desert enemies
 # 3
     fighting_npcs.append(FightingNpc("deceased", 15, 25, 20, 30, 3,

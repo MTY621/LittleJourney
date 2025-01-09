@@ -145,7 +145,7 @@ def init_menus(chill_npcs, fighting_npcs):
     menu_trader_temple_healed = StoryMenu(fighting_npcs[9], [None])
     menu_trader_temple_healed.menus = [menu_trader_temple_healed, menu_20]
     menu_trader_temple_healed.add_text_display([menu_trader_temple_healed.npc.name + ": " + "Sleepy adventurer.",
-                                         "You could have bought something to restore your health."])
+                                         "You could have bought something", "to restore your health."])
     menu_trader_temple_healed.add_button("[Buy a sword].", menu_trader_temple_healed.give_sword)
     menu_trader_temple_healed.add_button("[Buy a shield].", menu_trader_temple_healed.give_shield)
     menu_trader_temple_healed.add_button("[Buy a potion].", menu_trader_temple_healed.buy_item, [],
@@ -174,9 +174,47 @@ def init_menus(chill_npcs, fighting_npcs):
 
 
     # story
-    # menu_51 = StoryMenu(chill_npcs[1], [None])
-    menu_51.add_text_display([menu_51.npc.name + ": " + "You are here so let's go in the water!"])
-    menu_51.add_button("Let's get undressed bro.", menu_51.set_menu, [0])
+    menu_56 = StoryMenu(chill_npcs[0], [menu_death])
+    menu_56.add_text_display([menu_56.npc.name + ": " + "At last complete victory!",
+                              "The wind will speak of your bravery."])
+    menu_56.add_button("hhhh.", menu_56.set_menu, [0])
+    menu_56.add_button("h", menu_56.set_menu, [0])
+    menu_56.add_button("h", menu_56.set_menu, [0])
+    menus.append(menu_56)
+
+    menu_55 = StoryMenu(fighting_npcs[8], [menu_death, menu_56, menu_trader_ice])
+    menu_55.add_text_display([menu_55.npc.name + ": " + "Ssssssss!"])
+    menu_55.add_button("[Fight]", menu_55.fight, [1, True])
+    menu_55.add_button("[Return to the village]", menu_55.set_transition, [2,
+                       "background/castle/1_garden.png", glob.VILLAGE_FOUNTAIN_COLOUR, glob.VILLAGE_MUSIC, glob.VILLAGE_WALK])
+    menus.append(menu_55)
+
+    menu_54 = StoryMenu(fighting_npcs[random.randint(6, 7)], [menu_death, menu_55, menu_trader_ice])
+    menu_54.add_text_display([menu_54.npc.name + ": " + "Hakaaaaa!"])
+    menu_54.add_button("[Fight]", menu_54.fight, [1])
+    menu_54.add_button("[Return to the village]", menu_54.set_transition, [2,
+                       "background/castle/1_garden.png", glob.VILLAGE_FOUNTAIN_COLOUR, glob.VILLAGE_MUSIC, glob.VILLAGE_WALK])
+    menus.append(menu_54)
+
+    menu_53 = StoryMenu(fighting_npcs[random.randint(6, 7)], [menu_death, menu_54, menu_trader_ice])
+    menu_53.add_text_display([menu_53.npc.name + ": " + "Zzzzing!"])
+    menu_53.add_button("[Fight]", menu_53.fight, [1])
+    menu_53.add_button("[Return to the village]", menu_53.set_transition, [2,
+                       "background/castle/1_garden.png", glob.VILLAGE_FOUNTAIN_COLOUR, glob.VILLAGE_MUSIC, glob.VILLAGE_WALK])
+    menus.append(menu_53)
+
+    menu_52 = StoryMenu(fighting_npcs[random.randint(6, 7)], [menu_death, menu_53, menu_trader_ice])
+    menu_52.add_text_display([menu_52.npc.name + ": " + "Caw caw!"])
+    menu_52.add_button("[Fight]", menu_52.fight, [1])
+    menu_52.add_button("[Return to the village]", menu_52.set_transition, [2,
+                       "background/castle/1_garden.png", glob.VILLAGE_FOUNTAIN_COLOUR, glob.VILLAGE_MUSIC, glob.VILLAGE_WALK])
+    menus.append(menu_52)
+
+    menu_51.menus = [menu_death, menu_52, menu_trader_ice]
+    menu_51.add_text_display([menu_51.npc.name + ": " + "[Sobering silence]"])
+    menu_51.add_button("[Fight]", menu_51.fight, [1])
+    menu_51.add_button("[Return to the village]", menu_51.set_transition, [2,
+                       "background/castle/1_garden.png", glob.VILLAGE_FOUNTAIN_COLOUR, glob.VILLAGE_MUSIC, glob.VILLAGE_WALK])
     menus.append(menu_51)
 
     menu_50 = StoryMenu(chill_npcs[1], [happy_death, menu_51])
@@ -287,7 +325,7 @@ def init_menus(chill_npcs, fighting_npcs):
 
     menu_35 = StoryMenu(fighting_npcs[5], [menu_death, menu_36, menu_trader_desert])
     menu_35.add_text_display([menu_35.npc.name + ": " + "Gravvve robbberrrr!"])
-    menu_35.add_button("[Fight]", menu_35.fight, [1])
+    menu_35.add_button("[Fight]", menu_35.fight, [1, True])
     menu_35.add_button("[Return to the village]", menu_35.set_transition, [2,
                        "background/castle/1_garden.png", glob.VILLAGE_FOUNTAIN_COLOUR, glob.VILLAGE_MUSIC, glob.VILLAGE_WALK])
     menus.append(menu_35)
@@ -322,20 +360,24 @@ def init_menus(chill_npcs, fighting_npcs):
 
     menu_30 = StoryMenu(chill_npcs[3], [menu_31])
     menu_30.add_text_display([menu_30.npc.name + ": " + "Allah can kill you."])
-    menu_30.add_button("You wish. [Go to the desert]", menu_30.set_menu, [1])
+    menu_30.add_button("You wish. [Go to the desert]", menu_30.set_transition, [0,
+                       "background/desert/3_oasis.png", glob.DESERT_COLOUR, glob.DESERT_MUSIC, glob.DESERT_WALK])
     menus.append(menu_30)
 
     menu_29 = StoryMenu(chill_npcs[3], [menu_31])
     menu_29.add_text_display([menu_29.npc.name + ": " + "Really? Have my money."])
-    menu_29.add_button("Ok. [Go to the desert]", menu_29.get_money, [0, 10] )
-    menu_29.add_button("No thanks. [Go to the desert]", menu_29.set_menu, [0])
+    menu_29.add_button("Ok. [Go to the desert]", menu_29.get_money, [0, 10, True,
+                       "background/desert/3_oasis.png", glob.DESERT_COLOUR, glob.DESERT_MUSIC, glob.DESERT_WALK])
+    menu_29.add_button("No thanks. [Go to the desert]", menu_29.set_transition, [0,
+                       "background/desert/3_oasis.png", glob.DESERT_COLOUR, glob.DESERT_MUSIC, glob.DESERT_WALK])
     menus.append(menu_29)
 
-    menu_28 = StoryMenu(chill_npcs[3], [menu_29, menu_30 ,menu_31])
+    menu_28 = StoryMenu(chill_npcs[3], [menu_29, menu_30, menu_31])
     menu_28.add_text_display([menu_28.npc.name + ": " + "Hello. I am AHMET.", "Allah will save us."])
     menu_28.add_button("Allah sent me.", menu_28.set_menu, [0])
     menu_28.add_button("My god is better.", menu_28.set_menu, [1])
-    menu_28.add_button("Ok. [Go to the desert]", menu_28.set_menu, [2])
+    menu_28.add_button("Ok. [Go to the desert]", menu_28.set_transition, [2,
+                       "background/desert/3_oasis.png", glob.DESERT_COLOUR, glob.DESERT_MUSIC, glob.DESERT_WALK])
     menus.append(menu_28)
 
     menu_27 = StoryMenu(chill_npcs[0], [menu_28])
@@ -350,16 +392,17 @@ def init_menus(chill_npcs, fighting_npcs):
     menus.append(menu_26)
 
     menu_25 = StoryMenu(chill_npcs[0], [menu_26, menu_28])
-    menu_25.add_text_display([menu_25.npc.name + ": " + "Wow, you killed them all!", "Do you want to buy a potatoes or some advice?"])
+    menu_25.add_text_display([menu_25.npc.name + ": " + "Wow, you killed them all!",
+                              "Do you want to buy a potato or some advice?"])
     menu_25.add_button("Advice. [Give 1 coin]", menu_25.give_money, [0, 1])
     menu_25.add_button("Potato. [Give 2 coin]", menu_25.buy_item,
-                       [(menu_25.get_items, [1, ["Potato"]]), (menu_25.give_money, [1, 2])])
+                       args=[[(menu_25.get_items, [1, ["Potato"]]), (menu_25.give_money, [1, 2])]])
     menu_25.add_button("No. [Continue]", menu_25.set_menu, [1])
     menus.append(menu_25)
 
     menu_24 = StoryMenu(fighting_npcs[2], [menu_death, menu_25, menu_trader_temple])
     menu_24.add_text_display([menu_24.npc.name + ": " + "Flop."])
-    menu_24.add_button("[Fight]", menu_24.fight, [1])
+    menu_24.add_button("[Fight]", menu_24.fight, [1, True])
     menu_24.add_button("[Return to the village]", menu_24.set_transition, [2,
                        "background/castle/1_garden.png", glob.VILLAGE_FOUNTAIN_COLOUR, glob.VILLAGE_MUSIC, glob.VILLAGE_WALK])
     menus.append(menu_24)
