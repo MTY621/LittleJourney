@@ -31,9 +31,9 @@ def init_fighting_npcs():
                          9, 30, 30, "Hungry Vulture", [], 0))
 # 7
     fighting_npcs.append(FightingNpc("samurai", 32, 40, 35, 45, 6,
-                        10, 35, 35, "Samurai Shan", [], 0))
+                        9, 35, 35, "Samurai Shan", [], 0))
 # 8
-    fighting_npcs.append(FightingNpc("snake", 30, 40, 30, 35, 8,
+    fighting_npcs.append(FightingNpc("snake", 35, 45, 30, 35, 9,
                          12, 40, 45, "Snake", [], 0))
 
 # extras

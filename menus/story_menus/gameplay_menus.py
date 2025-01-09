@@ -77,6 +77,38 @@ def init_menus(chill_npcs, fighting_npcs):
                 (menu_trader_temple.give_money, [0, items[idx].price])]
 
     # trader
+    menu_51 = StoryMenu(fighting_npcs[random.randint(6, 7)], [None])
+    menu_trader_ice_healed = StoryMenu(fighting_npcs[9], [None])
+    menu_trader_ice_healed.menus = [menu_trader_ice_healed, menu_51]
+    menu_trader_ice_healed.add_text_display([menu_trader_ice_healed.npc.name + ": " + "Stop sleeping.",
+                                         "It will get you killed. Buy a drink instead."])
+    menu_trader_ice_healed.add_button("[Buy a sword].", menu_trader_ice_healed.give_sword)
+    menu_trader_ice_healed.add_button("[Buy a shield].", menu_trader_ice_healed.give_shield)
+    menu_trader_ice_healed.add_button("[Buy a potion].", menu_trader_ice_healed.buy_item, [],
+                                         lambda: [generate_buy_potion_args])
+    menu_trader_ice_healed.add_button("[Buy food or drinks].", menu_trader_ice_healed.buy_item, [],
+                                         lambda: [generate_buy_food_args])
+    menu_trader_ice_healed.add_button("[Continue]", menu_trader_ice_healed.set_transition, [2,
+                       "background/ice/5_snowy_trees_hd.png", glob.ICE_COLOUR, glob.ICE_MUSIC, glob.ICE_WALK])
+    menus.append(menu_trader_ice_healed)
+
+    menu_trader_ice = StoryMenu(fighting_npcs[9], [None])
+    menu_trader_ice.menus = [menu_trader_ice, menu_trader_ice_healed, menu_51]
+    menu_trader_ice.add_text_display([menu_trader_ice.npc.name + ": " + "You didn't die yet?",
+                                         "It's really dangerous out there. Buy an expensive sword."])
+    menu_trader_ice.add_button("[Buy a sword].", menu_trader_ice.give_sword)
+    menu_trader_ice.add_button("[Buy a shield].", menu_trader_ice.give_shield)
+    menu_trader_ice.add_button("[Buy a potion].", menu_trader_ice.buy_item, [],
+                                  lambda: [generate_buy_potion_args])
+    menu_trader_ice.add_button("[Buy food or drinks].", menu_trader_ice.buy_item, [],
+                                  lambda: [generate_buy_food_args])
+    menu_trader_ice.add_button("Sleep. [Heal]", menu_trader_ice.heal, [1, 100])
+    menu_trader_ice.add_button("[Continue]", menu_trader_ice.set_transition, [2,
+                       "background/ice/5_snowy_trees_hd.png", glob.ICE_COLOUR, glob.ICE_MUSIC, glob.ICE_WALK])
+    menus.append(menu_trader_ice)
+
+
+
     menu_31 = StoryMenu(fighting_npcs[random.randint(3, 4)], [None])
     menu_trader_desert_healed = StoryMenu(fighting_npcs[9], [None])
     menu_trader_desert_healed.menus = [menu_trader_desert_healed, menu_31]
@@ -85,9 +117,9 @@ def init_menus(chill_npcs, fighting_npcs):
     menu_trader_desert_healed.add_button("[Buy a sword].", menu_trader_desert_healed.give_sword)
     menu_trader_desert_healed.add_button("[Buy a shield].", menu_trader_desert_healed.give_shield)
     menu_trader_desert_healed.add_button("[Buy a potion].", menu_trader_desert_healed.buy_item, [],
-                                         generate_buy_potion_args)
+                                         lambda: [generate_buy_potion_args])
     menu_trader_desert_healed.add_button("[Buy food or drinks].", menu_trader_desert_healed.buy_item, [],
-                                         generate_buy_food_args)
+                                         lambda: [generate_buy_food_args])
     menu_trader_desert_healed.add_button("[Continue]", menu_trader_desert_healed.set_transition, [1,
                        "background/desert/3_oasis.png", glob.DESERT_COLOUR, glob.DESERT_MUSIC, glob.DESERT_WALK])
     menus.append(menu_trader_desert_healed)
@@ -99,9 +131,9 @@ def init_menus(chill_npcs, fighting_npcs):
     menu_trader_desert.add_button("[Buy a sword].", menu_trader_desert.give_sword)
     menu_trader_desert.add_button("[Buy a shield].", menu_trader_desert.give_shield)
     menu_trader_desert.add_button("[Buy a potion].", menu_trader_desert.buy_item, [],
-                                  generate_buy_potion_args)
+                                  lambda: [generate_buy_potion_args])
     menu_trader_desert.add_button("[Buy food or drinks].", menu_trader_desert.buy_item, [],
-                                  generate_buy_food_args)
+                                  lambda: [generate_buy_food_args])
     menu_trader_desert.add_button("Sleep. [Heal]", menu_trader_desert.heal, [1, 100])
     menu_trader_desert.add_button("[Continue]", menu_trader_desert.set_transition, [2,
                        "background/desert/3_oasis.png", glob.DESERT_COLOUR, glob.DESERT_MUSIC, glob.DESERT_WALK])
@@ -117,9 +149,9 @@ def init_menus(chill_npcs, fighting_npcs):
     menu_trader_temple_healed.add_button("[Buy a sword].", menu_trader_temple_healed.give_sword)
     menu_trader_temple_healed.add_button("[Buy a shield].", menu_trader_temple_healed.give_shield)
     menu_trader_temple_healed.add_button("[Buy a potion].", menu_trader_temple_healed.buy_item, [],
-                                         generate_buy_potion_args)
+                                         lambda: [generate_buy_potion_args])
     menu_trader_temple_healed.add_button("[Buy food or drinks].", menu_trader_temple_healed.buy_item, [],
-                                         generate_buy_food_args)
+                                         lambda: [generate_buy_food_args])
     menu_trader_temple_healed.add_button("[Continue]", menu_trader_temple_healed.set_transition, [1,
                        "background/temple/1_temple.png", glob.TEMPLE_COLOUR, glob.TEMPLE_MUSIC, glob.TEMPLE_WALK])
     menus.append(menu_trader_temple_healed)
@@ -131,9 +163,9 @@ def init_menus(chill_npcs, fighting_npcs):
     menu_trader_temple.add_button("[Buy a sword].", menu_trader_temple.give_sword)
     menu_trader_temple.add_button("[Buy a shield].", menu_trader_temple.give_shield)
     menu_trader_temple.add_button("[Buy a potion].", menu_trader_temple.buy_item, [],
-                                  generate_buy_potion_args)
+                                  lambda: [generate_buy_potion_args])
     menu_trader_temple.add_button("[Buy food or drinks].", menu_trader_temple.buy_item, [],
-                                  generate_buy_food_args)
+                                  lambda: [generate_buy_food_args])
     menu_trader_temple.add_button("Sleep. [Heal]", menu_trader_temple.heal, [1, 100])
     menu_trader_temple.add_button("[Continue]", menu_trader_temple.set_transition, [2,
                        "background/temple/1_temple.png", glob.TEMPLE_COLOUR, glob.TEMPLE_MUSIC, glob.TEMPLE_WALK])
@@ -142,7 +174,7 @@ def init_menus(chill_npcs, fighting_npcs):
 
 
     # story
-    menu_51 = StoryMenu(chill_npcs[1], [None])
+    # menu_51 = StoryMenu(chill_npcs[1], [None])
     menu_51.add_text_display([menu_51.npc.name + ": " + "You are here so let's go in the water!"])
     menu_51.add_button("Let's get undressed bro.", menu_51.set_menu, [0])
     menus.append(menu_51)
