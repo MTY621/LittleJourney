@@ -179,7 +179,7 @@ def init_menus(chill_npcs, fighting_npcs):
     menu_61 = StoryMenu(fighting_npcs[9], [None])
     menu_61.add_text_display([menu_61.npc.name + ": " + "Such a shame.",
                               "Our business is over."])
-    menu_61.add_button("You earned a lot anyways.", "Goodbye, everyone!", menu_61.set_menu, [0])
+    menu_61.add_button("You earned a lot anyways. Goodbye, now!", menu_61.set_menu, [0])
     menus.append(menu_61)
 
     menu_60 = StoryMenu(chill_npcs[4], [menu_61])

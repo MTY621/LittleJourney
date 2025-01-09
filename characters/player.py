@@ -39,7 +39,7 @@ class Player:
 
         self.coin_sprite = pygame.image.load("items/coin.png").convert_alpha()
         self.coin_sprite = pygame.transform.scale(self.coin_sprite, (70, 50))
-        self.atk = 100
+        self.atk = 3
         self.bonus_atk = 0
         self.defense = 0
         self.bonus_defense = 0
