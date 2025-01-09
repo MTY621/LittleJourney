@@ -186,6 +186,8 @@ class StoryMenu:
 
 
     def add_button(self, text, method, args=None, args_func=None):
+        if args is None:
+            args = []
         if args_func:
             self.menu.add.button(text, lambda: method(*args_func()))
         else:
