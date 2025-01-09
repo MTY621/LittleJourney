@@ -127,6 +127,8 @@ class Player:
                 pygame.mixer.music.load(self.game.song)
                 pygame.mixer.music.play(-1)
                 self.last_song = self.game.song
+            elif not glob.music_is_on:
+                pygame.mixer.music.pause()
         self.game.screen.blit(self.current_sprite, (SCREEN_WIDTH * 0.13, SCREEN_HEIGHT * 0.88 - CHARACTER_HEIGHT))
 
     def draw_coins(self):
