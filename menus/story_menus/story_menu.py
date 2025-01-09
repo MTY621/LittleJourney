@@ -210,15 +210,18 @@ class StoryMenu:
     # story menu loop
     def gameplay_menu(self, events):
         menu = self.menu
-        if not menu.is_enabled():
-            menu.enable()
 
         # Handle the active menu
-        menu.update(events)  # Update menu widgets
-        menu.draw(self.game.screen)  # Draw menu widgets on top
+        if self.action_duration == 0:
+            if not menu.is_enabled():
+                menu.enable()
+            menu.update(events)  # Update menu widgets
+            menu.draw(self.game.screen)  # Draw menu widgets on top
         self.npc.draw()
 
         if self.action_duration > 1:
+            if menu.enable():
+                menu.disable()
             self.action_duration -= 1
             return glob.CONTINUE
         elif self.action_duration == 1:

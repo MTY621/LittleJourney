@@ -109,7 +109,10 @@ class Player:
                 pygame.mixer.music.pause()
                 self.music_pos = pygame.mixer.music.get_pos() / 1000
                 pygame.mixer.music.load(self.current_effect)
-                pygame.mixer.music.play(-1, fade_ms=int(self.status[0][1] * 1000 / 60))
+                if self.current_effect != self.sound:
+                    pygame.mixer.music.play(loops=1)
+                else:
+                    pygame.mixer.music.play(-1, fade_ms= int(self.status[0][1] * 1000/60))
                 self.last_song = self.current_effect
                 self.no_sound_effect = False
 
