@@ -8,6 +8,25 @@ TEMPLE_COLOUR = (219, 194, 111)
 DESERT_COLOUR = (214, 165, 85)
 ICE_COLOUR = (177, 172, 194)
 
+# backgrounds
+VILLAGE_BACKGROUND = "background/castle/1_garden.png"
+
+TEMPLE_BACKGROUND_1 = "background/temple/3_temple_entrance.png"
+TEMPLE_BACKGROUND_2 = "background/temple/4_temple_ruin.png"
+TEMPLE_BACKGROUND_3 = "background/temple/2_temple_structure.png"
+TEMPLE_BACKGROUND_4 = "background/temple/1_temple.png"
+
+DESERT_BACKGROUND_1 = "background/desert/3_oasis.png"
+DESERT_BACKGROUND_2 = "background/desert/2_desert_lake.png"
+DESERT_BACKGROUND_3 = "background/desert/1_waterfall_desert.png"
+DESERT_BACKGROUND_4 = "background/desert/4_desert_river.png"
+
+ICE_BACKGROUND_1 = "background/ice/1_snowy_rocks_hd.png"
+ICE_BACKGROUND_2 = "background/ice/5_snowy_trees_hd.png"
+ICE_BACKGROUND_3 = "background/ice/6_snow_forest_path_hd.png"
+ICE_BACKGROUND_4 = "background/ice/3_frozen_lake_hd.png"
+ICE_BACKGROUND_5 = "background/ice/4_ice_breaker_rock_hd.png"
+
 # environment music
 VILLAGE_MUSIC = "music/safe_room_theme.flac"
 TEMPLE_MUSIC = "music/tribal.wav"
