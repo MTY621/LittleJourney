@@ -29,9 +29,10 @@ def fight(player, npc):
         count += 1
         if player_attack(player, npc) == glob.DEATH:
             player.reset_bonuses()
+            player.give_money(npc.money)
             return count
 
-        sleep(0.1)
+        #sleep(0.1)
 
         count += 1
         if npc_attack(player, npc) == glob.DEATH:
