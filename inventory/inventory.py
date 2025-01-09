@@ -1,12 +1,9 @@
 import pygame
-import random
 from inventory.item import Item
 import json
 
 
 # Constants
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
 BUTTON_WIDTH = 75
 BUTTON_HEIGHT = 75
 FRAME_SIZE = 64
@@ -21,8 +18,6 @@ INACTIVE_COLOR = GRAY
 BUTTON_COLOR = (0, 200, 0)
 BUTTON_TEXT_COLOR = WHITE
 
-# Initialize Pygame
-pygame.init()
 
 # Load the sprite sheet
 button_image = pygame.image.load("inventory/backpack.png")
@@ -31,20 +26,6 @@ button_image = pygame.image.load("inventory/backpack.png")
 SPRITE_WIDTH = 16
 SPRITE_HEIGHT = 16
 
-# Randomly generate names and descriptions
-ITEM_NAMES = [
-    "Ruby Gem", "Emerald Shard", "Sapphire Stone", "Diamond Nugget",
-    "Copper Ore", "Silver Ingot", "Gold Bar", "Platinum Chunk",
-    "Iron Pickaxe", "Gold Sword", "Bronze Axe", "Crystal Blade"
-]
-ITEM_DESCRIPTIONS = [
-    "A shiny and precious gem.", "A rare and valuable metal.",
-    "An ancient tool forged by dwarves.", "A legendary weapon of heroes.",
-    "A resource for crafting.", "A decorative artifact of great value."
-]
-
-def random_description():
-    return random.choice(ITEM_DESCRIPTIONS)
 
 class Inventory:
     def __init__(self, screen_width, screen_height, player):
@@ -82,13 +63,7 @@ class Inventory:
 
                 # Load the sprite from the file
                 sprite_path = f"items/{file_name}.png"
-                
-                #try:
-                    #rect = pygame.Rect(0, 0, SPRITE_WIDTH, SPRITE_HEIGHT)
-                    #sprite = pygame.image.load(sprite_path).subsurface(rect)
-                #except pygame.error as e:
-                    #print(f"Error loading sprite '{sprite_path}': {e}")
-                    #continue
+
 
                 # Create the Item object
                 item = Item(name, file_name, item_type ,price, is_edible, stats)
