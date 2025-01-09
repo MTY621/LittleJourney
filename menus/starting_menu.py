@@ -38,7 +38,7 @@ def save_attr():
     print(glob.player_race)
     print(used_save_slots)
 
-    pygame.event.post(pygame.event.Event(glob.EXIT_MENU))
+    pygame.event.post(pygame.event.Event(glob.GAME_ENDED))
     starting_menu.reset(1)
 
 

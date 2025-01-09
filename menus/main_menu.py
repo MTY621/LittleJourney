@@ -141,7 +141,12 @@ def main_menu_start():
             if event.type == glob.EXIT_MENU:
                 main_menu.disable()
                 pygame.mixer.music.stop()
-                return
+                return glob.EXIT_MENU
+
+            if event.type == glob.GAME_ENDED:
+                main_menu.disable()
+                pygame.mixer.music.stop()
+                return glob.GAME_ENDED
 
             if event.type == pygame.QUIT:
                 pygame.mixer.music.stop()
