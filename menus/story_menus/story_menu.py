@@ -1,3 +1,5 @@
+import copy
+
 import pygame
 import pygame_menu
 import glob
@@ -72,6 +74,20 @@ class StoryMenu:
         self.game.player.health_bar_hp = self.game.player.hp
 
 
+    def take_damage(self, index, amount):
+        self.next_menu = self.menus[index]
+
+        if self.game.player.hp - amount < 0:
+            self.game.player.hp = 0
+        else:
+            self.game.player.hp -= amount
+
+        if self.game.player.hp == 0:
+            glob.can_continue = False
+            self.set_transition(0, "background/castle/1_garden.png",
+                                glob.VILLAGE_FOUNTAIN_COLOUR, glob.VILLAGE_MUSIC, glob.VILLAGE_WALK)
+
+
     def fight(self, index):
         self.next_menu = self.menus[index]
         self.in_action = fight(self.game.player, self.npc)
@@ -114,6 +130,18 @@ class StoryMenu:
         self.game.player.money += amount
 
 
+    def give_money(self, index, amount):
+        if self.game.player.money >= amount:
+            self.next_menu = self.menus[index]
+            if amount == -1:
+                self.game.player.money = 0
+            else:
+                self.game.player.money -= amount
+        else:
+            self.show_error("Not enough coins!")
+            self.next_menu = self
+
+
     def give_sword(self):
         self.next_menu = self
         if self.game.player.money >= glob.swords[self.game.next_sword][1]:
@@ -140,18 +168,6 @@ class StoryMenu:
             self.show_error("Not enough coins!")
         pygame.time.wait(100)
         pygame.event.clear()
-
-
-    def give_money(self, index, amount):
-        if self.game.player.money >= amount:
-            self.next_menu = self.menus[index]
-            if amount == -1:
-                self.game.player.money = 0
-            else:
-                self.game.player.money -= amount
-        else:
-            self.show_error("Not enough coins!")
-            self.next_menu = self
 
 
     def set_transition(self, index, next_background, next_bar_color, next_music, next_walking_effect):
@@ -236,8 +252,27 @@ class StoryMenu:
 
             if self.next_menu is None:
                 return None
-            return [self.next_menu, self.transition, self.next_background, self.next_bar_color, self.next_music,
-                       self.next_walking_effect]
+
+            # Create deep copies of the values
+            next_menu_copy = self.next_menu
+            transition_copy = self.transition
+            next_background_copy = self.next_background
+            next_bar_color_copy = self.next_bar_color
+            next_music_copy = self.next_music
+            next_walking_effect_copy = self.next_walking_effect
+
+            # Reset the original values in self
+            self.next_menu = None
+            self.transition = False
+            self.next_background = None
+            self.next_bar_color = None
+            self.next_music = None
+            self.next_walking_effect = None
+
+            # Return the deep copies
+            return [next_menu_copy, transition_copy, next_background_copy, next_bar_color_copy, next_music_copy,
+                    next_walking_effect_copy]
+
         for event in events:
             # check if enter key was pressed
             if event.type == pygame.KEYDOWN:
