@@ -22,7 +22,7 @@ To run the game, simply clone the repository and install the required dependenci
 ![img.png](screenshots/trader.png)
 ![img.png](screenshots/fight.png)
 
-# Contributions
+## Contributions
 
 * **Belciug Matei**: Worked on the storyline, creating the narrative that drives the game’s progression. He also designed and implemented the in-game menus, ensuring a smooth and intuitive user experience. Additionally, Matei was responsible for integrating sound into the game, enhancing the overall atmosphere, and sourcing the images used for the background and characters.
 * **Bigan Radu-Cristin**: Focused on the animations, implementing smooth and dynamic character movements. He also worked on the inventory system and health bar, ensuring functional and visually appealing mechanics. Additionally, Radu edited the character and item sprites, standardizing their format for consistent presentation throughout the game.
