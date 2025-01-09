@@ -7,7 +7,6 @@ This project is a 2D arcade-style adventure game that combines story-driven expl
 ## Github Link
 
 https://github.com/MTY621/LittleJourney
-
 ## Programming languages and technologies used
 
 The project is implemented entirely in Python, using several libraries to enhance functionality. Pygame is used for creating the game’s 2D graphics, managing game logic, animations, and interactions. Pygame-menu is utilized for building interactive menus, while Mutagen is employed to handle and manipulate audio files for the game’s soundtrack and sound effects. These technologies work together to deliver a seamless and immersive gaming experience.
@@ -20,7 +19,9 @@ To run the game, simply clone the repository and install the required dependenci
 
 ![img.png](screenshots/menu.png)
 ![img.png](screenshots/trader.png)
-![img.png](screenshots/fight.png)
+![img.png](screenshots/temple_fight.png)
+![img.png](screenshots/desert_fight.png)
+![img.png](screenshots/ice_fight.png)
 
 ## Contributions
 
