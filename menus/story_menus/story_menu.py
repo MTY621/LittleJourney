@@ -1,5 +1,3 @@
-import copy
-
 import pygame
 import pygame_menu
 import glob
@@ -24,23 +22,6 @@ class StoryMenu:
         self.next_walking_effect = None
         self.action_duration = 0
         self.in_action = 1 / glob.ACTION_FRAMES
-
-
-    # def player_attack(self):
-    #     print(11)
-    #     self.game.player.attack()
-    #     self.npc.take_damage(self.game.player.atk)
-    #
-    #
-    # def npc_attack(self):
-    #     self.npc.attack()
-    #     self.game.player.take_damage(self.npc.atk)
-
-    # def show_error(self, label):
-    #     global error_menu
-    #     error_menu = StoryMenu(self.npc, [self])
-    #     error_menu.add_text_display([label])
-    #     error_menu.add_button("OK", error_menu.set_menu, 0)
 
     def show_error(self, label):
         error_menu = pygame_menu.Menu('Error!', glob.SCREEN_WIDTH, glob.SCREEN_HEIGHT, theme=glob.custom_play_theme)
@@ -99,10 +80,6 @@ class StoryMenu:
                                 glob.VILLAGE_FOUNTAIN_COLOUR, glob.VILLAGE_MUSIC, glob.VILLAGE_WALK)
         elif transition_back:
             self.set_transition(index, next_background, next_bar_color, next_music, next_walking_effect)
-
-        # if self.game.player.hp <= 0:
-        #     return glob.DEATH
-        # return 0
 
 
     def get_items(self, index, items):
@@ -218,17 +195,6 @@ class StoryMenu:
         else:
             self.menu.add.button(text, lambda: method(*args))
 
-    # def add_button(self, text, index, method, *args):
-    #     def button_action():
-    #         method(index, *args)  # Call the method with index and additional arguments
-    #
-    #     self.menu.add.button(text, button_action)
-
-    # def deselect_all_widgets(self):
-    #     # Iterate over all widgets in the menu and deselect them
-    #     for widget in self.menu.get_widgets():
-    #         if widget.is_selectable:
-    #             widget._selected = False  # Deselect all widgets
 
     # story menu loop
     def gameplay_menu(self, events):
@@ -286,7 +252,6 @@ class StoryMenu:
                 if event.key == pygame.K_RETURN or event.key == pygame.K_KP_ENTER:
                     menu.disable()
                     self.action_duration = glob.ACTION_FRAMES * self.in_action
-                    #return self.next_menu
 
             # check if mouse was clicked
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -295,5 +260,4 @@ class StoryMenu:
                     menu.get_selected_widget().apply()
                     menu.disable()
                     self.action_duration = glob.ACTION_FRAMES * self.in_action
-                    #return self.next_menu
         return glob.CONTINUE

@@ -604,10 +604,3 @@ def init_menus(chill_npcs, fighting_npcs):
     menus.append(menu_1)
 
     return menus
-
-    # traderul este scammer
-    # taranul e sarac si atotstiutor
-    # marry e bipolara
-    # betty e fomista si il place pe ahmet
-    # ahmet e religion freak si in rest usor manipulabil
-    # aaliya e sperioasa dar cu gura mare
